@@ -18,7 +18,7 @@ protocol HotelSearchViewDelegate: AnyObject {
 
 class HotelSearchView: UIView {
     
-    // MARK: - Outlets
+    // Outlets
     @IBOutlet private weak var backgroundView: UIView!
     @IBOutlet private weak var searchTextField: UITextField!
     @IBOutlet private weak var searchButton: UIButton!
@@ -27,16 +27,19 @@ class HotelSearchView: UIView {
     
     weak var delegate: HotelSearchViewDelegate?
     
+    /// 記錄目前是否允許關閉
+    private var isClosable: Bool = true
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadFromNib()
-        commonInit() // 初始化 UI 設定
+        commonInit()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         loadFromNib()
-        commonInit() // 初始化 UI 設定
+        commonInit()
     }
     
     private func loadFromNib() {
@@ -54,16 +57,31 @@ class HotelSearchView: UIView {
         setupUI()
         setupGesture()
     }
-    
-    // MARK: - UI Setup
+   
     private func setupUI() {
         searchTextField.delegate = self
         backgroundView.alpha = 0.6
+        self.kanaheiImageView.loadGif(name: GifImageNames.shared.searchViewImageName)
     }
     
     private func setupGesture() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
         backgroundView.addGestureRecognizer(tap)
+    }
+    
+    /// 顯示搜尋頁面
+    /// - Parameter canCancel: 是否允許取消（若為 false，則隱藏 X 按鈕且點擊背景無效）
+    func show(canCancel: Bool = true) {
+        self.isClosable = canCancel
+        self.cancelButton.isHidden = !canCancel // 如果不能取消，就把 X 隱藏
+        self.isHidden = false
+    }
+    
+    func hide() {
+        guard self.isClosable else { return }
+        
+        endEditing(true)
+        isHidden = true
     }
     
     // MARK: - Actions
@@ -75,30 +93,25 @@ class HotelSearchView: UIView {
             return
         }
         
-        delegate?.hotelSearchViewDidTapSearch(self, keyword: keyword)
+        self.delegate?.hotelSearchViewDidTapSearch(self, keyword: keyword)
     }
-    
-    @IBAction private func cancelTapped() {
-        clear()
-        delegate?.hotelSearchViewDidTapCancel(self)
-    }
-    
+
     @objc private func backgroundTapped() {
-        hide()
+        if self.isClosable {
+            self.hide()
+        }
     }
-    
-    func show() {
-        isHidden = false
-        searchTextField.becomeFirstResponder()
-    }
-    
-    func hide() {
-        endEditing(true)
-        isHidden = true
+
+    @IBAction private func cancelTapped() {
+        // 只有在允許取消時才執行
+        if isClosable {
+            self.clear()
+            self.delegate?.hotelSearchViewDidTapCancel(self)
+        }
     }
     
     func clear() {
-        searchTextField.text = ""
+        self.searchTextField.text = ""
     }
 }
 
@@ -107,7 +120,7 @@ class HotelSearchView: UIView {
 extension HotelSearchView: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchTapped()
+        self.searchTapped()
         return true
     }
     

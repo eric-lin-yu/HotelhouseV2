@@ -38,48 +38,35 @@ class FrontPageViewController: UIViewController {
         }
     }
     
-    // SearchView相關
-    ///查詢View
-    @IBOutlet weak var searchView: UIView!
-    @IBOutlet weak var searchBcakgroundView: UIView!
-    @IBOutlet weak var searchTextField: UITextField! {
-        didSet {
-            searchTextField.delegate = self
-            //圓角
-            searchTextField.layer.cornerRadius = 15
-            searchTextField.layer.masksToBounds = true
-            
-            //邊框線條
-            searchTextField.layer.borderWidth = 2
-            searchTextField.layer.borderColor = UIColor.sageGreen.cgColor
-            
-            searchTextField.backgroundColor = UIColor.white
-        }
-    }
-    @IBOutlet weak var searchBtn: UIButton!
-    @IBOutlet weak var kanaheiImageView: UIImageView!
+    private lazy var searchView: HotelSearchView = {
+        let view = HotelSearchView()
+        view.delegate = self
+        view.isHidden = true
+        return view
+    }()
     
     lazy var viewModel: HotelViewModel = {
         return HotelViewModel()
     }()
-    
-    private var downloadAllData: [Hotels] = []
-    private var hotelDataModel: [Hotels] = []
-    private var frontPageViewStatus: FrontPageViewStatus = .searchView
+
+    private var frontPageViewStatus: FrontPageViewStatus = .searchView {
+        didSet {
+            self.updateSearchViewState()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.searchView.isHidden = true
-        self.setupSearchViewBackground()
     
         // 註冊cell
         tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: FrontPageTableViewCell.cellIdenifier)
         
-        let searchTap = UITapGestureRecognizer(target: self, action: #selector((toggleSearchViewVisibility)))
-        self.showSearchBtnView.isUserInteractionEnabled = true
-        self.showSearchBtnView.addGestureRecognizer(searchTap)
+        viewModel.delegate = self
+        viewModel.fetchHotels()
         
+        self.setupSearchView()
+   
+        // 地圖手勢
         let mapTap = UITapGestureRecognizer(target: self, action: #selector((showMapView)))
         self.showMapBtnView.isUserInteractionEnabled = true
         self.showMapBtnView.addGestureRecognizer(mapTap)
@@ -87,7 +74,6 @@ class FrontPageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.downloadData()
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
@@ -96,117 +82,54 @@ class FrontPageViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-
-    @IBAction func cancelBtn(_ sender: Any) {
-        self.searchTextField.text = ""
-    }
-    
-    @objc func toggleSearchViewVisibility() {
-        self.searchView.isHidden.toggle()
-        frontPageViewStatus = searchView.isHidden ? .resultTableView : .searchView
-    }
-    
     @objc func showMapView() {
-        let vc = MapSearchViewController.make(dataModel: self.downloadAllData)
-        vc.hidesBottomBarWhenPushed = true
-        
-        self.navigationController?.pushViewController(vc, animated: true)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
-    }
-    
-    /// 下載 API 資料
-    private func downloadData() {
-        if self.hotelDataModel.count == 0 {
-            LoadingPageView.shard.show()
-            
-            // download DataModel
-            self.viewModel.getHotelBookData { response in
-                self.searchView.isHidden = false
-                self.kanaheiImageView.loadGif(name: ImageNames.shared.searchViewImageName)
-                self.downloadAllData = response?.hotels ?? []
-                APIDataStorage.hotelDataBase = response
-                LoadingPageView.shard.dismiss()
-            }
-        }
-    }
-    
-    private func isDataEmpty(_ dataStr: String) -> Bool {
-        return dataStr.isEmpty
+        // TODO: 替換資料結構
+//        let vc = MapSearchViewController.make(dataModel: viewModel.allHotels)
+//        vc.hidesBottomBarWhenPushed = true
+//        
+//        self.navigationController?.pushViewController(vc, animated: true)
+//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
     }
 }
 
-//MARK: - searchBar相關
+// MARK: - Private
+
 extension FrontPageViewController {
-    /// 建立 Search 背景模糊效果
-    private func setupSearchViewBackground() {
-        let blurEffect = UIBlurEffect(style: .regular)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+    
+    /// 設定 Search View
+    private func setupSearchView() {
+        let searchTap = UITapGestureRecognizer(target: self, action: #selector(toggleSearchViewVisibility))
+        self.showSearchBtnView.isUserInteractionEnabled = true
+        self.showSearchBtnView.addGestureRecognizer(searchTap)
         
-        blurEffectView.frame = view.bounds
-        blurEffectView.alpha = 0.6
+        view.addSubview(searchView)
+        self.searchView.translatesAutoresizingMaskIntoConstraints = false
         
-        self.searchView.addSubview(blurEffectView)
-        self.searchView.sendSubviewToBack(blurEffectView)
+        NSLayoutConstraint.activate([
+            searchView.topAnchor.constraint(equalTo: view.topAnchor),
+            searchView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        self.updateSearchViewState()
     }
     
-    @IBAction func searchAction(_ sender: Any) {
-        guard let searchText = searchTextField.text, !searchText.isEmpty else {
-            self.view.showToast(text: "查詢條件未輸入哦")
-            return
+    /// 更新 UI 狀態
+    private func updateSearchViewState() {
+        switch self.frontPageViewStatus {
+        case .searchView:
+            // viewModel.numberOfRows == 0 代表沒資料
+            let hasData = viewModel.numberOfRows > 0
+            self.searchView.show(canCancel: hasData)
+            
+        case .resultTableView:
+            self.searchView.hide()
         }
-        hotelDataModel = []
-        filterContent(for: searchText)
-        self.view.endEditing(true)
     }
     
-    // 過濾條件
-    private func filterContent(for searchText: String) {
-        let text = searchText.replacingOccurrences(of: "台", with: "臺")
-        hotelDataModel = downloadAllData.filter { (info) -> Bool in
-            let isMatch = info.streetAddress.localizedCaseInsensitiveContains(text) ||
-            info.city.localizedCaseInsensitiveContains(text)  ||
-            info.town.localizedCaseInsensitiveContains(text) ||
-            info.hotelName.localizedCaseInsensitiveContains(text)
-            return isMatch
-        }
-        
-        if hotelDataModel.isEmpty {
-            self.view.showToast(text: "輸入條件未查到相符的資料哦...")
-        } else {
-            self.frontPageViewStatus = .resultTableView
-            searchView.isHidden = true
-            topButtonView.isHidden = false
-            
-            // 初次搜尋後，才開啟此功能
-            let tap = UITapGestureRecognizer(target: self, action: #selector(toggleSearchViewVisibility))
-            searchBcakgroundView.isUserInteractionEnabled = true
-            searchBcakgroundView.addGestureRecognizer(tap)
-            
-            
-            tableView.isSkeletonable = true
-            tableView.showAnimatedGradientSkeleton()
-       
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                self.tableView.stopSkeletonAnimation()
-                self.view.hideSkeleton(reloadDataAfter: true,
-                                       transition: .crossDissolve(0.25))
-                
-                self.tableView.reloadData()
-                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-            }
-        }
-    }
-}
-
-//MARK: - TextFieldDelegate
-extension FrontPageViewController: UITextFieldDelegate {
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    @objc private func toggleSearchViewVisibility() {
+        self.searchView.show()
     }
 }
 
@@ -340,25 +263,18 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
             }
         }
     }
+// MARK: - HotelSearchViewDelegate
+
+extension FrontPageViewController: HotelSearchViewDelegate {
     
-    // open web
-    @objc func webBtnAction(_ sender: UIButton) {
-        let index = sender.tag
-        let searchData = hotelDataModel[index]
-        
-        let vc = OpenWKWebViewController.make(urlString: searchData.websiteURL,
-                                              title: searchData.hotelName)
-        vc.hidesBottomBarWhenPushed = true
-        
-        self.navigationController?.pushViewController(vc, animated: true)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
+    func hotelSearchViewDidTapSearch(_ view: HotelSearchView, keyword: String) {
+        viewModel.search(keyword: keyword)
+        // 搜尋後狀態切換為結果頁面
+        self.frontPageViewStatus = .resultTableView
     }
     
-    // e-mail
-    @objc func emailBtnAction(_ sender: UIButton) {
-        let index = sender.tag
-        let searchData = hotelDataModel[index]
-     
-        sendEmail(email: searchData.industryEmail)
+    func hotelSearchViewDidTapCancel(_ view: HotelSearchView) {
+        // 取消後回到結果頁面
+        self.frontPageViewStatus = .resultTableView
     }
 }
