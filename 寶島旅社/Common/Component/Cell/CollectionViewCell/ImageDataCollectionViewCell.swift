@@ -130,7 +130,7 @@ class ImageDataCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with imageURL: String? = nil, title: String? = nil) {
-        let errorImage = ImageNames.shared.errorImageName
+        let errorImage = GifImageNames.shared.errorImageName
         
         // Set hotel image
         if let imageURL = imageURL {

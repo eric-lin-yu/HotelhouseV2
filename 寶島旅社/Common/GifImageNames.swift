@@ -8,8 +8,8 @@
 
 import Foundation
 
-class ImageNames {
-    static let shared = ImageNames()
+class GifImageNames {
+    static let shared = GifImageNames()
     
     private init() { }
 

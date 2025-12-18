@@ -12,7 +12,7 @@
 		891E4F962AB1921300C48624 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F952AB1921300C48624 /* RealmManager.swift */; };
 		891E4F982AB1933100C48624 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F972AB1933100C48624 /* Data+Extension.swift */; };
 		891E4F9A2AB193F000C48624 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F992AB193F000C48624 /* String+Extension.swift */; };
-		891E4F9C2AB1A73800C48624 /* ImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F9B2AB1A73800C48624 /* ImageNames.swift */; };
+		891E4F9C2AB1A73800C48624 /* GifImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F9B2AB1A73800C48624 /* GifImageNames.swift */; };
 		892AAC8D28F8FD1000614DA1 /* FrontPageStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892AAC8C28F8FD1000614DA1 /* FrontPageStoryboard.storyboard */; };
 		892AAC9028F9056700614DA1 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892AAC8F28F9056700614DA1 /* AboutViewController.swift */; };
 		892AAC9228F9057700614DA1 /* AboutStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892AAC9128F9057700614DA1 /* AboutStoryboard.storyboard */; };
@@ -120,7 +120,7 @@
 		891E4F952AB1921300C48624 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		891E4F972AB1933100C48624 /* Data+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		891E4F992AB193F000C48624 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		891E4F9B2AB1A73800C48624 /* ImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNames.swift; sourceTree = "<group>"; };
+		891E4F9B2AB1A73800C48624 /* GifImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifImageNames.swift; sourceTree = "<group>"; };
 		892AAC8C28F8FD1000614DA1 /* FrontPageStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FrontPageStoryboard.storyboard; sourceTree = "<group>"; };
 		892AAC8F28F9056700614DA1 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		892AAC9128F9057700614DA1 /* AboutStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AboutStoryboard.storyboard; sourceTree = "<group>"; };
@@ -345,7 +345,7 @@
 				9F74CE972BB8681A00044EC0 /* CommonBase */,
 				891E4F9F2AB1B24500C48624 /* CommonManager */,
 				9F74CE982BB8687800044EC0 /* Utility */,
-				891E4F9B2AB1A73800C48624 /* ImageNames.swift */,
+				891E4F9B2AB1A73800C48624 /* GifImageNames.swift */,
 				9FC059812B7DB7FB00B481B8 /* ToastLabel.swift */,
 			);
 			path = Common;
@@ -749,7 +749,7 @@
 				9FA8F0F22A639939009ACADD /* SettingsTableViewHeaderFooterView.swift in Sources */,
 				9F87E3FC2A754B42007E77EA /* HotelViewModel.swift in Sources */,
 				9F87E3FA2A754B42007E77EA /* HotelDataModel.swift in Sources */,
-				891E4F9C2AB1A73800C48624 /* ImageNames.swift in Sources */,
+				891E4F9C2AB1A73800C48624 /* GifImageNames.swift in Sources */,
 				891E4F9A2AB193F000C48624 /* String+Extension.swift in Sources */,
 				89DCB172296EB408003A48B7 /* Array+Extension.swift in Sources */,
 				892DE04829023A32003F3974 /* UIViewController+SendEmail.swift in Sources */,

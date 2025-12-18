@@ -22,7 +22,7 @@ class LoadingPageView: CustomView {
         super.init(frame: frame)
         xibSetup()
         
-        loadingImageView.image = UIImage.gif(name: ImageNames.shared.loadingImageName)
+        loadingImageView.image = UIImage.gif(name: GifImageNames.shared.loadingImageName)
         
         progress.trackTintColor = UIColor.white
         progress.progressTintColor = UIColor(red: 0.29, green: 0.698, blue: 0.204, alpha: 1)

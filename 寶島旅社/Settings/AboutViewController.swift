@@ -77,7 +77,7 @@ class AboutViewController: BaseViewController {
         super.viewDidLoad()
 
         navigationItem.title = "關於"
-        kanaheiImageView.loadGif(name: ImageNames.shared.aboutImageName)
+        kanaheiImageView.loadGif(name: GifImageNames.shared.aboutImageName)
         
         tableView.dataSource = self
         tableView.delegate = self
