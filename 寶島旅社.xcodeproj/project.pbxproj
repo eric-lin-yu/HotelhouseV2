@@ -52,6 +52,7 @@
 		89BE852C2EF38EDD00E4A8E7 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE852B2EF38EDC00E4A8E7 /* APIManager.swift */; };
 		89BE85322EF3903B00E4A8E7 /* FrontPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE85312EF3903600E4A8E7 /* FrontPageViewModel.swift */; };
 		89BE85352EF3923F00E4A8E7 /* APIInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE85342EF3923E00E4A8E7 /* APIInfo.swift */; };
+		89BE85452EF3967200E4A8E7 /* HotelListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE85442EF3967100E4A8E7 /* HotelListResponse.swift */; };
 		89BF61FD28F65DDB00418305 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF61FC28F65DDB00418305 /* AppDelegate.swift */; };
 		89BF61FF28F65DDB00418305 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF61FE28F65DDB00418305 /* SceneDelegate.swift */; };
 		89BF620128F65DDB00418305 /* FrontPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF620028F65DDB00418305 /* FrontPageViewController.swift */; };
@@ -155,6 +156,7 @@
 		89BE852B2EF38EDC00E4A8E7 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		89BE85312EF3903600E4A8E7 /* FrontPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageViewModel.swift; sourceTree = "<group>"; };
 		89BE85342EF3923E00E4A8E7 /* APIInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInfo.swift; sourceTree = "<group>"; };
+		89BE85442EF3967100E4A8E7 /* HotelListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelListResponse.swift; sourceTree = "<group>"; };
 		89BF61F928F65DDB00418305 /* 寶島旅社.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "寶島旅社.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89BF61FC28F65DDB00418305 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89BF61FE28F65DDB00418305 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -404,6 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				9F87E3F62A754B42007E77EA /* HotelDataModel.swift */,
+				89BE85442EF3967100E4A8E7 /* HotelListResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -739,6 +742,7 @@
 				891E4F962AB1921300C48624 /* RealmManager.swift in Sources */,
 				892DE0442901374C003F3974 /* ImageDataCollectionViewCell.swift in Sources */,
 				892DE04B29024987003F3974 /* MapTableViewCell.swift in Sources */,
+				89BE85452EF3967200E4A8E7 /* HotelListResponse.swift in Sources */,
 				892AACA328F909DF00614DA1 /* Bundle+Extension.swift in Sources */,
 				9F87E3FB2A754B42007E77EA /* RLM_CollectionsHotels.swift in Sources */,
 				9FC059822B7DB7FB00B481B8 /* ToastLabel.swift in Sources */,
