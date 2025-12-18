@@ -8,8 +8,20 @@
 
 import UIKit
 
+protocol FrontPageTableViewCellDelegate: AnyObject {
+    /// 點擊電話按鈕
+    func cellDidTapPhone(_ hotel: Hotel)
+    /// 點擊 web 按鈕
+    func cellDidTapWebsite(_ hotel: Hotel)
+    /// 點擊最愛按鈕
+    func cellDidTapFavorite(_ hotel: Hotel)
+}
+
 class FrontPageTableViewCell: UITableViewCell {
     static let cellIdenifier = "FrontPageIdenifier"
+    
+    weak var delegate: FrontPageTableViewCellDelegate?
+    private var hotel: Hotel?
     
     @IBOutlet weak var hotelimageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -52,7 +64,8 @@ class FrontPageTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(with hotel: Hotels) {
+    func configure(with hotel: Hotel) {
+        self.hotel = hotel
         nameLabel.text = hotel.hotelName
         
         hotelimageView.loadUrlImage(urlString: hotel.images.first?.url ?? "") { result in
@@ -69,8 +82,12 @@ class FrontPageTableViewCell: UITableViewCell {
         }
         
         // 星级
-        gradeLabel.isHidden = isDataEmpty(hotel.hotelStars)
-        gradeLabel.text = "☆級：\(hotel.hotelStars)"
+        if hotel.hotelStars > 0 {
+            gradeLabel.isHidden = false
+            gradeLabel.text = "☆級：\(hotel.hotelStars)"
+        } else {
+            gradeLabel.isHidden = true
+        }
         
         govLabel.text = hotel.hotelID
         descriptionLabel.text = hotel.description
@@ -86,14 +103,25 @@ class FrontPageTableViewCell: UITableViewCell {
             hotleCalssLabel.text = "旅店未提供"
         }
         
-        let formattedAddress = String.formattedAddress(region: hotel.city,
-                                                       town: hotel.town,
-                                                       add: hotel.streetAddress)
+        let formattedAddress = String.formattedAddress(region: hotel.address.city,
+                                                       town: hotel.address.town,
+                                                       add: hotel.address.streetAddress)
         addLabel.text = formattedAddress
     }
     
-    private func isDataEmpty(_ dataStr: String) -> Bool {
-        return dataStr.isEmpty
+    @IBAction func phoneTapped() {
+        guard let hotel else { return }
+        delegate?.cellDidTapPhone(hotel)
+    }
+
+    @IBAction func webTapped() {
+        guard let hotel else { return }
+        delegate?.cellDidTapWebsite(hotel)
+    }
+
+    @IBAction func favoriteTapped() {
+        guard let hotel else { return }
+        delegate?.cellDidTapFavorite(hotel)
     }
 }
 
