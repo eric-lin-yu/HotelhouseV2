@@ -87,6 +87,13 @@ struct Hotel: Codable {
 
     /// 資料最後更新時間（ISO 8601）
     let updateTime: String
+    
+    func matches(keyword: String) -> Bool {
+        hotelName.contains(keyword)
+        || address.city.contains(keyword)
+        || address.town.contains(keyword)
+        || address.streetAddress.contains(keyword)
+    }
 }
 
 /// 旅宿地址資訊

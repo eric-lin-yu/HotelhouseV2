@@ -303,23 +303,3 @@ struct HotelImages {
     }
 }
 
-enum HotelClass: Int {
-    case international = 1
-    case generalTourist = 2
-    case generalHotel = 3
-    case homestay = 4
-    
-    var description: String {
-        switch self {
-        case .international:
-            return "國際觀光旅館"
-        case .generalTourist:
-            return "一般觀光旅館"
-        case .generalHotel:
-            return "一般旅館"
-        case .homestay:
-            return "民宿"
-        }
-    }
-}
-
