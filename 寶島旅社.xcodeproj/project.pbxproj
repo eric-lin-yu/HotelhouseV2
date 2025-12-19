@@ -62,8 +62,6 @@
 		89BF620628F65DDC00418305 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89BF620528F65DDC00418305 /* Assets.xcassets */; };
 		89BF620928F65DDC00418305 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BF620728F65DDC00418305 /* LaunchScreen.storyboard */; };
 		89BF621528F65F8500418305 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 89BF621428F65F8500418305 /* SwiftyJSON */; };
-		89BF621828F65FAE00418305 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 89BF621728F65FAE00418305 /* Alamofire */; };
-		89BF621C28F66C8D00418305 /* AlamofireHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF621B28F66C8D00418305 /* AlamofireHandler.swift */; };
 		89CCE52B28FFA112009681A7 /* 滾滾兔兔.gif in Resources */ = {isa = PBXBuildFile; fileRef = 89CCE52A28FFA112009681A7 /* 滾滾兔兔.gif */; };
 		89CCE52D28FFCEF3009681A7 /* 棒棒兔兔.gif in Resources */ = {isa = PBXBuildFile; fileRef = 89CCE52C28FFCEF3009681A7 /* 棒棒兔兔.gif */; };
 		89D07896299C89C1004EAF2B /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D07895299C89C1004EAF2B /* UIView+Extension.swift */; };
@@ -169,7 +167,6 @@
 		89BF620528F65DDC00418305 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89BF620828F65DDC00418305 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89BF620A28F65DDC00418305 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		89BF621B28F66C8D00418305 /* AlamofireHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireHandler.swift; sourceTree = "<group>"; };
 		89CCE52A28FFA112009681A7 /* 滾滾兔兔.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "滾滾兔兔.gif"; sourceTree = "<group>"; };
 		89CCE52C28FFCEF3009681A7 /* 棒棒兔兔.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "棒棒兔兔.gif"; sourceTree = "<group>"; };
 		89D07895299C89C1004EAF2B /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -215,7 +212,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8993C08B2A7393940046AD84 /* Realm in Frameworks */,
-				89BF621828F65FAE00418305 /* Alamofire in Frameworks */,
 				8993C08D2A7393940046AD84 /* RealmSwift in Frameworks */,
 				89BF621528F65F8500418305 /* SwiftyJSON in Frameworks */,
 				89EFD1D12AB2A4C900A1D0F7 /* SkeletonView in Frameworks */,
@@ -550,7 +546,6 @@
 				89BE852B2EF38EDC00E4A8E7 /* APIManager.swift */,
 				89BE85342EF3923E00E4A8E7 /* APIInfo.swift */,
 				893BB9422AAAAAA600A9A3B8 /* Model */,
-				89BF621B28F66C8D00418305 /* AlamofireHandler.swift */,
 				896DF71728F7E3080031A88A /* ResponseHandler.swift */,
 				891E4F952AB1921300C48624 /* RealmManager.swift */,
 				9F87E3F82A754B42007E77EA /* HotelViewModel.swift */,
@@ -621,7 +616,6 @@
 			name = "寶島旅社";
 			packageProductDependencies = (
 				89BF621428F65F8500418305 /* SwiftyJSON */,
-				89BF621728F65FAE00418305 /* Alamofire */,
 				8993C08A2A7393940046AD84 /* Realm */,
 				8993C08C2A7393940046AD84 /* RealmSwift */,
 				89EFD1D02AB2A4C900A1D0F7 /* SkeletonView */,
@@ -682,7 +676,6 @@
 			mainGroup = 89BF61F028F65DDB00418305;
 			packageReferences = (
 				89BF621328F65F8500418305 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
-				89BF621628F65FAE00418305 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				8993C0892A7393940046AD84 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				89EFD1CF2AB2A4C900A1D0F7 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
@@ -763,7 +756,6 @@
 				9FC059822B7DB7FB00B481B8 /* ToastLabel.swift in Sources */,
 				896DF71A28F7E58D0031A88A /* MainTabBarController.swift in Sources */,
 				9FD39A582C4CDDDF0069B67F /* CollectionsViewModel.swift in Sources */,
-				89BF621C28F66C8D00418305 /* AlamofireHandler.swift in Sources */,
 				89B546982925D59F0020C522 /* MapSearchViewController.swift in Sources */,
 				89F71EA72D2CBDA500A28E5C /* NSObjectExtension.swift in Sources */,
 				9F87E4002A754BC8007E77EA /* CollectionsViewController.swift in Sources */,
@@ -1120,14 +1112,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		89BF621628F65FAE00418305 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.9.1;
-			};
-		};
 		89EFD1CF2AB2A4C900A1D0F7 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -1153,11 +1137,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 89BF621328F65F8500418305 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
-		};
-		89BF621728F65FAE00418305 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 89BF621628F65FAE00418305 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
 		};
 		89EFD1D02AB2A4C900A1D0F7 /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;
