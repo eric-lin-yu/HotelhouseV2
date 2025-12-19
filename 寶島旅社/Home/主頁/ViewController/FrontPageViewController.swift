@@ -202,8 +202,8 @@ extension FrontPageViewController: FrontPageTableViewCellDelegate {
 
     func cellDidTapPhone(_ hotel: Hotel) {
         // 撥打電話
-        self.showAlertClosure(title: "通知", message: "將外撥電話至 \(hotel.hotelName)", okBtn: "確定") {
-            let phone = hotel.telephones
+        self.showAlertClosure(title: "通知", message: "將外撥電話至 \(hotel.name)", okBtn: "確定") {
+            let phone = hotel.tel
             if let url = URL(string: "tel:\(phone)") {
                 if UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -217,12 +217,10 @@ extension FrontPageViewController: FrontPageTableViewCellDelegate {
             }
         }
     }
-
+    
     func cellDidTapWebsite(_ hotel: Hotel) {
-        let vc = OpenWKWebViewController.make(
-            urlString: hotel.websiteURL,
-            title: hotel.hotelName
-        )
+        let vc = OpenWKWebViewController.make(urlString: hotel.website,
+                                              title: hotel.name)
         navigationController?.pushViewController(vc, animated: true)
     }
 

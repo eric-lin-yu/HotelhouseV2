@@ -66,62 +66,51 @@ class FrontPageTableViewCell: UITableViewCell {
     
     func configure(with hotel: Hotel) {
         self.hotel = hotel
-        nameLabel.text = hotel.hotelName
         
-        hotelimageView.loadUrlImage(urlString: hotel.images.first?.url ?? "") { result in
+        // 基本資訊
+        self.nameLabel.text = hotel.name
+        self.descriptionLabel.text = hotel.description
+        self.govLabel.text = hotel.id
+        
+        // 圖片處理 (使用 Hotel 裡的 images array)
+        let imageUrl = hotel.images.first?.url ?? ""
+        self.hotelimageView.loadUrlImage(urlString: imageUrl) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let image):
-                if let image = image {
-                    self.hotelimageView.image = image
-                } else {
-                    self.hotelimageView.image = UIImage(named: "iconError")
-                }
-            case .failure(_):
+                self.hotelimageView.image = image ?? UIImage(named: "iconError")
+            case .failure:
                 self.hotelimageView.image = UIImage(named: "iconError")
             }
         }
         
-        // 星级
-        if hotel.hotelStars > 0 {
-            gradeLabel.isHidden = false
-            gradeLabel.text = "☆級：\(hotel.hotelStars)"
-        } else {
-            gradeLabel.isHidden = true
-        }
-        
-        govLabel.text = hotel.hotelID
-        descriptionLabel.text = hotel.description
+        // 星級
+        self.gradeLabel.isHidden = hotel.hotelClass == .unknown
+        self.gradeLabel.text = hotel.hotelClass.starDescription
         
         // 價格
-        let priceText = hotel.lowestPrice != hotel.ceilingPrice ? "\(hotel.lowestPrice) ~ \(hotel.ceilingPrice)" : "\(hotel.ceilingPrice)"
-        priceLabel.text = "： \(priceText)"
+        self.priceLabel.text = "： \(hotel.priceDisplayText)"
         
-        // 旅店類别
-        if let hotelClass = hotel.hotelClasses.first.flatMap(HotelClass.init(rawValue:)) {
-            hotleCalssLabel.text = "：\(hotelClass.description)"
-        } else {
-            hotleCalssLabel.text = "旅店未提供"
-        }
+        // 旅店類別
+        self.hotleCalssLabel.text = "：\(hotel.hotelClass.description)"
         
-        let formattedAddress = String.formattedAddress(region: hotel.address.city,
-                                                       town: hotel.address.town,
-                                                       add: hotel.address.streetAddress)
-        addLabel.text = formattedAddress
+        // 地址
+        self.addLabel.text = hotel.fullAddress
     }
     
     @IBAction func phoneTapped() {
         guard let hotel else { return }
-        delegate?.cellDidTapPhone(hotel)
+        self.delegate?.cellDidTapPhone(hotel)
     }
 
     @IBAction func webTapped() {
         guard let hotel else { return }
-        delegate?.cellDidTapWebsite(hotel)
+        self.delegate?.cellDidTapWebsite(hotel)
     }
 
     @IBAction func favoriteTapped() {
         guard let hotel else { return }
-        delegate?.cellDidTapFavorite(hotel)
+        self.delegate?.cellDidTapFavorite(hotel)
     }
 }
 
