@@ -76,4 +76,21 @@ extension UIView {
             }
         }
     }
+    
+    /// 左右震動動畫（用於錯誤提醒）
+    func shake(count: Float = 3, for duration: TimeInterval = 0.3, withTranslation translation: CGFloat = 8) {
+        // 1. 視覺上的震動
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: .linear)
+        animation.repeatCount = count
+        animation.duration = duration / TimeInterval(animation.repeatCount)
+        animation.values = [-translation, translation]
+        animation.autoreverses = true
+        self.layer.add(animation, forKey: "shake")
+        
+        // 2. 觸覺上的震動 (Taptic Feedback)
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.prepare()
+        generator.impactOccurred()
+    }
 }
