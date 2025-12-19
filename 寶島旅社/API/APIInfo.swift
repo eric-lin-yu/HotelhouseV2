@@ -13,6 +13,6 @@ struct APIInfo {
     private static let baseDomain = "https://media.taiwan.net.tw"
 
     /// 旅館資料
-    static let hotelList = baseDomain + "/XMLReleaseALL_public/hotel_C_f.xml"
+    static let hotelList = baseDomain + "/XMLReleaseALL_public/hotel_C_f.json"
 
 }
