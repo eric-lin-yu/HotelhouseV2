@@ -37,7 +37,6 @@ class FrontPageViewModel {
             switch result {
             case .success(let response):
                 self.allHotels = response.xmlHead.infos.info
-                self.filteredHotels = response.xmlHead.infos.info
                 self.delegate?.reloadData()
                 
             case .failure(let error):
@@ -46,21 +45,25 @@ class FrontPageViewModel {
         }
     }
     
-    func search(keyword: String) {
-        //正規化：處理「台/臺」通用的問題
+    /// 執行搜尋並回傳是否有結果
+    func search(keyword: String) -> Bool {
         let normalizedKeyword = keyword.trimmingCharacters(in: .whitespacesAndNewlines)
             .replacingOccurrences(of: "台", with: "臺")
         
-        // 過濾
         if normalizedKeyword.isEmpty {
-            self.filteredHotels = allHotels
-        } else {
-            self.filteredHotels = allHotels.filter {
-                $0.matches(keyword: normalizedKeyword)
-            }
+            self.filteredHotels = [] // 或者根據需求決定是否清空
+            return false
         }
         
-        // UI 刷新
-        self.delegate?.reloadData()
+        // 執行過濾
+        let results = allHotels.filter { $0.matches(keyword: normalizedKeyword) }
+        
+        if results.isEmpty {
+            return false
+        } else {
+            self.filteredHotels = results
+            self.delegate?.reloadData()
+            return true
+        }
     }
 }

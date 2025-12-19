@@ -124,7 +124,7 @@ extension FrontPageViewController {
             self.searchView.show(canCancel: hasData)
             
         case .resultTableView:
-            self.searchView.hide()
+            self.searchView.hide(force: true)
         }
     }
     
@@ -235,13 +235,26 @@ extension FrontPageViewController: FrontPageTableViewCellDelegate {
 extension FrontPageViewController: HotelSearchViewDelegate {
     
     func hotelSearchViewDidTapSearch(_ view: HotelSearchView, keyword: String) {
-        viewModel.search(keyword: keyword)
-        // 搜尋後狀態切換為結果頁面
-        self.frontPageViewStatus = .resultTableView
+        // 執行搜尋並取得是否有結果
+        let hasResults = viewModel.search(keyword: keyword)
+        
+        if hasResults {
+            // 有資料
+            self.frontPageViewStatus = .resultTableView
+        } else {
+            // 無資料
+            self.view.showToast(text: "搜尋失敗，查無相關旅宿哦！")
+             view.shake()
+        }
     }
     
     func hotelSearchViewDidTapCancel(_ view: HotelSearchView) {
-        // 取消後回到結果頁面
-        self.frontPageViewStatus = .resultTableView
+        // 如果目前畫面上本來就有資料（之前搜尋過），才允許回到 TableView
+        if viewModel.numberOfRows > 0 {
+            self.frontPageViewStatus = .resultTableView
+        } else {
+            // 如果連一次搜尋都還沒成功過，通常不允許取消，或者顯示空狀態
+            self.view.showToast(text: "請先輸入關鍵字搜尋")
+        }
     }
 }

@@ -77,11 +77,16 @@ class HotelSearchView: UIView {
         self.isHidden = false
     }
     
-    func hide() {
-        guard self.isClosable else { return }
+    /// 隱藏搜尋頁面
+    /// - Parameter force: 是否強制隱藏（無視 isClosable 狀態，用於程式觸發）
+    func hide(force: Bool = false) {
+        if !force {
+            // 如果不是強制隱藏，才需要檢查是否允許關閉
+            guard self.isClosable else { return }
+        }
         
         endEditing(true)
-        isHidden = true
+        self.isHidden = true
     }
     
     // MARK: - Actions
