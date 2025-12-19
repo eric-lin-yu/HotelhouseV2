@@ -135,10 +135,30 @@ extension APIManager {
     }
     
     /// 列印 API Response 資訊
-    private func printResponse(endpoint: String, method: String, responseData: Data) {
-        print("\n\n✅ ==================== API Response ===================")
-        print("⬅️ [\(method)] Endpoint: \(endpoint)")
-        print("Response Body:\n\(responseData.prettyJsonString)")
-        print("======================================================\n")
+    private func printResponse(endpoint: String, method: String, responseData: Data, previewCount: Int = 1) {
+        guard
+            let json = try? JSONSerialization.jsonObject(with: responseData),
+            var dict = json as? [String: Any],
+            var infos = ((dict["XML_Head"] as? [String: Any])?["Infos"] as? [String: Any]),
+            let list = infos["Info"] as? [[String: Any]]
+        else { return }
+
+        infos["Info"] = Array(list.prefix(previewCount))
+        dict["XML_Head"] = (dict["XML_Head"] as? [String: Any]).map {
+            var head = $0
+            head["Infos"] = infos
+            return head
+        }
+
+        let data = try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+        let preview = data.flatMap { String(data: $0, encoding: .utf8) } ?? ""
+
+        print("""
+        \n\n✅ ==================== API Response (Preview) ===================
+        ⬅️ [\(method)] \(endpoint)
+        📄 Preview First \(previewCount)
+        \(preview)
+        ================================================================\n
+        """)
     }
 }
