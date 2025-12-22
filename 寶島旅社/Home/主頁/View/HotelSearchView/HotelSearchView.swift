@@ -20,7 +20,11 @@ class HotelSearchView: UIView {
     
     // Outlets
     @IBOutlet private weak var backgroundView: UIView!
-    @IBOutlet private weak var searchTextField: UITextField!
+    @IBOutlet private weak var searchTextField: UITextField! {
+        didSet {
+            self.searchTextField.addRoundBorder()
+        }
+    }
     @IBOutlet private weak var searchButton: UIButton!
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet weak var kanaheiImageView: UIImageView!
