@@ -63,10 +63,10 @@ struct Hotel: Decodable {
     /// 郵遞區號
     let zipcode: String
 
-    /// 經度
+    /// 經度 longitude
     let px: Double
 
-    /// 緯度
+    /// 緯度 latitude
     let py: Double
 
     /// 旅宿類型代碼

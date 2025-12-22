@@ -81,7 +81,8 @@ class FrontPageViewController: UIViewController {
     }
     
     @objc func showMapView() {
-        let vc = MapSearchViewController.make(dataModel: viewModel.allHotels)
+        let viewModel = MapSearchViewModel(hotels: viewModel.allHotels)
+        let vc = MapSearchViewController(viewModel: viewModel)
         vc.hidesBottomBarWhenPushed = true
         
         self.navigationController?.pushViewController(vc, animated: true)

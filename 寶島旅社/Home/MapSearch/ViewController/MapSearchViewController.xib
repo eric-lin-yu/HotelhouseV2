@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapSearchViewController" customModule="寶島旅社" customModuleProvider="target">
+            <connections>
+                <outlet property="mapSegmentedControl" destination="UrO-4d-E1c" id="gbE-QX-g2q"/>
+                <outlet property="mapView" destination="Abj-1Z-F8B" id="vr3-Qq-d6Y"/>
+                <outlet property="userLocationBaseView" destination="shO-wH-qyF" id="rWl-ha-mdY"/>
+                <outlet property="userLocationImageView" destination="wSA-1v-gwj" id="lGU-0T-v3I"/>
+                <outlet property="view" destination="YOr-rJ-Kbr" id="X51-q8-gah"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="YOr-rJ-Kbr">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Abj-1Z-F8B">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                </mapView>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="UrO-4d-E1c">
+                    <rect key="frame" x="76.666666666666686" y="118" width="240" height="41"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="0f2-gc-6c8"/>
+                        <constraint firstAttribute="width" constant="240" id="uof-ju-QKk"/>
+                    </constraints>
+                    <segments>
+                        <segment title="標準"/>
+                        <segment title="衛星"/>
+                        <segment title="混合"/>
+                    </segments>
+                    <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <action selector="mayTypeChanged:" destination="-1" eventType="valueChanged" id="VOv-3H-gM3"/>
+                    </connections>
+                </segmentedControl>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="shO-wH-qyF">
+                    <rect key="frame" x="323" y="674" width="50" height="50"/>
+                    <subviews>
+                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paperplane.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wSA-1v-gwj">
+                            <rect key="frame" x="7" y="7.6666666666666643" width="36" height="35.333333333333336"/>
+                            <color key="tintColor" red="0.96862745100000003" green="0.26274509800000001" blue="0.066666666669999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="1Re-bd-nLO"/>
+                                <constraint firstAttribute="width" constant="36" id="tId-4P-7ef"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="wSA-1v-gwj" firstAttribute="centerX" secondItem="shO-wH-qyF" secondAttribute="centerX" id="0o9-64-ehq"/>
+                        <constraint firstItem="wSA-1v-gwj" firstAttribute="centerY" secondItem="shO-wH-qyF" secondAttribute="centerY" id="Qy8-hJ-0xF"/>
+                        <constraint firstAttribute="height" constant="50" id="k2r-GG-a4f"/>
+                        <constraint firstAttribute="width" constant="50" id="v0X-bb-S4m"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Bva-WM-kll"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Abj-1Z-F8B" firstAttribute="top" secondItem="YOr-rJ-Kbr" secondAttribute="top" id="GTX-gc-Vic"/>
+                <constraint firstItem="UrO-4d-E1c" firstAttribute="top" secondItem="Bva-WM-kll" secondAttribute="top" id="Q4A-Gf-qSM"/>
+                <constraint firstItem="Bva-WM-kll" firstAttribute="trailing" secondItem="shO-wH-qyF" secondAttribute="trailing" constant="20" id="R3h-Az-LlG"/>
+                <constraint firstItem="Bva-WM-kll" firstAttribute="bottom" secondItem="shO-wH-qyF" secondAttribute="bottom" constant="60" id="Ykd-Kx-MeP"/>
+                <constraint firstAttribute="bottom" secondItem="Abj-1Z-F8B" secondAttribute="bottom" id="gQk-1I-jJW"/>
+                <constraint firstItem="UrO-4d-E1c" firstAttribute="centerX" secondItem="YOr-rJ-Kbr" secondAttribute="centerX" id="miN-GX-rl5"/>
+                <constraint firstItem="Abj-1Z-F8B" firstAttribute="trailing" secondItem="Bva-WM-kll" secondAttribute="trailing" id="rRb-ke-9Ih"/>
+                <constraint firstItem="Abj-1Z-F8B" firstAttribute="leading" secondItem="Bva-WM-kll" secondAttribute="leading" id="w6y-gd-gEi"/>
+            </constraints>
+            <point key="canvasLocation" x="-538" y="-573"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="paperplane.fill" catalog="system" width="128" height="119"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
