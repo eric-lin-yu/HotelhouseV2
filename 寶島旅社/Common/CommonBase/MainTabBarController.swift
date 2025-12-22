@@ -57,30 +57,25 @@ class MainTabBarController: UITabBarController {
         let firstViewController = FrontPageViewController.makeToHome()
         addChildViewController(childController: firstViewController,
                                image: "briefcase.fill",
-                               title: "首頁",
                                tag: .frontPage)
         
         let vm = CollectionsViewModel()
         let secondViewController = CollectionsViewController(viewModel: vm)
         addChildViewController(childController: secondViewController,
                                image: "list.clipboard",
-                               title: "收藏",
                                tag: .collections)
         
         let thirdViewController = AboutViewController.make()
         addChildViewController(childController: thirdViewController,
                                image: "gearshape.2.fill",
-                               title: "關於",
                                tag: .About)
     }
     
     // get.Navigation
     func addChildViewController(childController: UIViewController,
                                 image: String,
-                                title: String,
                                 tag: AppTag) {
         
-        childController.title = title
         childController.tabBarItem.image = UIImage.init(systemName: image)
         childController.tabBarItem.tag = tag.rawValue
     
