@@ -61,7 +61,6 @@
 		89BF620428F65DDB00418305 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BF620228F65DDB00418305 /* Main.storyboard */; };
 		89BF620628F65DDC00418305 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89BF620528F65DDC00418305 /* Assets.xcassets */; };
 		89BF620928F65DDC00418305 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BF620728F65DDC00418305 /* LaunchScreen.storyboard */; };
-		89BF621528F65F8500418305 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 89BF621428F65F8500418305 /* SwiftyJSON */; };
 		89CCE52B28FFA112009681A7 /* 滾滾兔兔.gif in Resources */ = {isa = PBXBuildFile; fileRef = 89CCE52A28FFA112009681A7 /* 滾滾兔兔.gif */; };
 		89CCE52D28FFCEF3009681A7 /* 棒棒兔兔.gif in Resources */ = {isa = PBXBuildFile; fileRef = 89CCE52C28FFCEF3009681A7 /* 棒棒兔兔.gif */; };
 		89D07896299C89C1004EAF2B /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D07895299C89C1004EAF2B /* UIView+Extension.swift */; };
@@ -73,7 +72,6 @@
 		89DF98BC29248F5F00B049BA /* HotelDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */; };
 		89EFD1D12AB2A4C900A1D0F7 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 89EFD1D02AB2A4C900A1D0F7 /* SkeletonView */; };
 		89F71EA72D2CBDA500A28E5C /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F71EA62D2CBD9100A28E5C /* NSObjectExtension.swift */; };
-		9F87E3FA2A754B42007E77EA /* HotelDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F62A754B42007E77EA /* HotelDataModel.swift */; };
 		9F87E3FB2A754B42007E77EA /* RLM_CollectionsHotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */; };
 		9F87E3FC2A754B42007E77EA /* HotelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F82A754B42007E77EA /* HotelViewModel.swift */; };
 		9F87E4002A754BC8007E77EA /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */; };
@@ -177,7 +175,6 @@
 		89DF98B929248F5F00B049BA /* HotelDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		89F71EA62D2CBD9100A28E5C /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
-		9F87E3F62A754B42007E77EA /* HotelDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelDataModel.swift; sourceTree = "<group>"; };
 		9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLM_CollectionsHotels.swift; sourceTree = "<group>"; };
 		9F87E3F82A754B42007E77EA /* HotelViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelViewModel.swift; sourceTree = "<group>"; };
 		9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
@@ -213,7 +210,6 @@
 			files = (
 				8993C08B2A7393940046AD84 /* Realm in Frameworks */,
 				8993C08D2A7393940046AD84 /* RealmSwift in Frameworks */,
-				89BF621528F65F8500418305 /* SwiftyJSON in Frameworks */,
 				89EFD1D12AB2A4C900A1D0F7 /* SkeletonView in Frameworks */,
 				892DE04F29024E2F003F3974 /* MapKit.framework in Frameworks */,
 			);
@@ -406,7 +402,6 @@
 		89BE85332EF3916400E4A8E7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9F87E3F62A754B42007E77EA /* HotelDataModel.swift */,
 				89BE85442EF3967100E4A8E7 /* HotelListResponse.swift */,
 			);
 			path = Model;
@@ -615,7 +610,6 @@
 			);
 			name = "寶島旅社";
 			packageProductDependencies = (
-				89BF621428F65F8500418305 /* SwiftyJSON */,
 				8993C08A2A7393940046AD84 /* Realm */,
 				8993C08C2A7393940046AD84 /* RealmSwift */,
 				89EFD1D02AB2A4C900A1D0F7 /* SkeletonView */,
@@ -675,7 +669,6 @@
 			);
 			mainGroup = 89BF61F028F65DDB00418305;
 			packageReferences = (
-				89BF621328F65F8500418305 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				8993C0892A7393940046AD84 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				89EFD1CF2AB2A4C900A1D0F7 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
@@ -741,7 +734,6 @@
 				9FA8F0ED2A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift in Sources */,
 				9FA8F0F22A639939009ACADD /* SettingsTableViewHeaderFooterView.swift in Sources */,
 				9F87E3FC2A754B42007E77EA /* HotelViewModel.swift in Sources */,
-				9F87E3FA2A754B42007E77EA /* HotelDataModel.swift in Sources */,
 				891E4F9C2AB1A73800C48624 /* GifImageNames.swift in Sources */,
 				891E4F9A2AB193F000C48624 /* String+Extension.swift in Sources */,
 				89DCB172296EB408003A48B7 /* Array+Extension.swift in Sources */,
@@ -1104,14 +1096,6 @@
 				kind = branch;
 			};
 		};
-		89BF621328F65F8500418305 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 		89EFD1CF2AB2A4C900A1D0F7 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -1132,11 +1116,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8993C0892A7393940046AD84 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
-		};
-		89BF621428F65F8500418305 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 89BF621328F65F8500418305 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
 		};
 		89EFD1D02AB2A4C900A1D0F7 /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;

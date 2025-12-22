@@ -1,5 +1,5 @@
 {
-  "originHash" : "85a5e4eba955b416a21391a67c048687155b8fa2a4e7d18564ecb3bd3bc4a92e",
+  "originHash" : "d26ae1385bc84952a5c433617295fa564381f710af0f1514326812245ffac66a",
   "pins" : [
     {
       "identity" : "realm-core",
@@ -26,15 +26,6 @@
       "state" : {
         "revision" : "739a4f5d78731bebc48811c75fa9e1f4c4cef23e",
         "version" : "1.30.4"
-      }
-    },
-    {
-      "identity" : "swiftyjson",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SwiftyJSON/SwiftyJSON.git",
-      "state" : {
-        "revision" : "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
-        "version" : "5.0.1"
       }
     }
   ],
