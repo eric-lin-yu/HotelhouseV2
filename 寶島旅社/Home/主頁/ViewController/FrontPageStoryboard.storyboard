@@ -55,32 +55,13 @@
                                             <constraint firstAttribute="width" constant="140" id="tws-8U-tvf"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gzb-7m-OCV" userLabel="showMapView">
-                                        <rect key="frame" x="165" y="8" width="100" height="64"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconMap" translatesAutoresizingMaskIntoConstraints="NO" id="pTP-7y-pg3">
-                                                <rect key="frame" x="8" y="8" width="84" height="48"/>
-                                            </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="0Cf-Sa-LSb"/>
-                                            <constraint firstAttribute="bottom" secondItem="pTP-7y-pg3" secondAttribute="bottom" constant="8" id="BSZ-MQ-T1G"/>
-                                            <constraint firstItem="pTP-7y-pg3" firstAttribute="top" secondItem="gzb-7m-OCV" secondAttribute="top" constant="8" id="dE4-T4-k6a"/>
-                                            <constraint firstAttribute="trailing" secondItem="pTP-7y-pg3" secondAttribute="trailing" constant="8" id="lkO-Vu-egg"/>
-                                            <constraint firstItem="pTP-7y-pg3" firstAttribute="leading" secondItem="gzb-7m-OCV" secondAttribute="leading" constant="8" id="qE2-fh-b6z"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="EMO-NV-tGK" firstAttribute="leading" secondItem="xHb-tq-ztL" secondAttribute="leading" constant="15" id="8R4-Gs-jde"/>
-                                    <constraint firstItem="gzb-7m-OCV" firstAttribute="leading" secondItem="EMO-NV-tGK" secondAttribute="trailing" constant="10" id="K6N-rw-yEb"/>
-                                    <constraint firstItem="gzb-7m-OCV" firstAttribute="top" secondItem="xHb-tq-ztL" secondAttribute="top" constant="8" id="Ngs-J2-H1s"/>
                                     <constraint firstItem="EMO-NV-tGK" firstAttribute="top" secondItem="xHb-tq-ztL" secondAttribute="top" constant="8" id="UVI-ik-O52"/>
                                     <constraint firstAttribute="height" constant="80" id="rQV-re-PdV"/>
                                     <constraint firstAttribute="bottom" secondItem="EMO-NV-tGK" secondAttribute="bottom" constant="8" id="snG-NZ-pIT"/>
-                                    <constraint firstAttribute="bottom" secondItem="gzb-7m-OCV" secondAttribute="bottom" constant="8" id="uBZ-aa-kTW"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -97,7 +78,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="showMapBtnView" destination="gzb-7m-OCV" id="ud1-rt-FDY"/>
                         <outlet property="showSearchBtnView" destination="EMO-NV-tGK" id="QH4-up-Cg7"/>
                         <outlet property="tableView" destination="M3a-sF-2sZ" id="zrE-p9-3z4"/>
                         <outlet property="topButtonView" destination="xHb-tq-ztL" id="Mvh-lU-IVl"/>
@@ -111,7 +91,6 @@
     <color key="tintColor" systemColor="systemOrangeColor"/>
     <resources>
         <image name="P助" width="314" height="262"/>
-        <image name="iconMap" width="512" height="512"/>
         <image name="粉紅兔兔" width="314" height="322"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

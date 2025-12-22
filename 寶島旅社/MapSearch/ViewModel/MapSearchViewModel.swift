@@ -11,14 +11,17 @@ import MapKit
 
 class MapSearchViewModel {
     
-    private let allHotels: [Hotel]
+    private var allHotels: [Hotel] {
+        return HotelDataManager.shared.allHotels
+    }
+    
     private let regionRadius: Double = 1000.0 // 1公里半徑
     
     // 給 VC 使用的過濾後資料
     private(set) var filteredHotels: [Hotel] = []
     
-    init(hotels: [Hotel]) {
-        self.allHotels = hotels
+    init() {
+        
     }
     
     // MARK: - Logic

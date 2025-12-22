@@ -10,10 +10,12 @@ import UIKit
 
 /// TabBar Tag
 ///  - frontPage: 首頁
+///  - mapSearch: 地圖搜尋
 ///  - collections: 收藏
 ///  - About: 設定
 enum AppTag: Int {
     case frontPage = 0
+    case mapSearch
     case collections
     case About
 }
@@ -54,17 +56,27 @@ class MainTabBarController: UITabBarController {
     
     // get.TabBar
     func setUpChildViewControllers() {
+        // 首頁
         let firstViewController = FrontPageViewController.makeToHome()
         addChildViewController(childController: firstViewController,
                                image: "briefcase.fill",
                                tag: .frontPage)
         
+        // 地圖搜尋
+        let mapViewModel = MapSearchViewModel()
+        let mapViewController = MapSearchViewController(viewModel: mapViewModel)
+        addChildViewController(childController: mapViewController,
+                               image: "map.fill",
+                               tag: .mapSearch)
+        
+        // 3. 收藏頁
         let vm = CollectionsViewModel()
         let secondViewController = CollectionsViewController(viewModel: vm)
         addChildViewController(childController: secondViewController,
                                image: "list.clipboard",
                                tag: .collections)
         
+        // 4. 關於頁
         let thirdViewController = AboutViewController.make()
         addChildViewController(childController: thirdViewController,
                                image: "gearshape.2.fill",

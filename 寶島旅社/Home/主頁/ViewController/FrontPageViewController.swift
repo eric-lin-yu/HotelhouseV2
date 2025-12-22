@@ -31,12 +31,6 @@ class FrontPageViewController: UIViewController {
             showSearchBtnView.addRoundBorder()
         }
     }
-    ///showMapSearchView
-    @IBOutlet weak var showMapBtnView: UIView! {
-        didSet {
-            showMapBtnView.addRoundBorder()
-        }
-    }
     
     private lazy var searchView: HotelSearchView = {
         let view = HotelSearchView()
@@ -63,11 +57,6 @@ class FrontPageViewController: UIViewController {
         
         self.setupSearchView()
         self.setupTableViewCell()
-   
-        // 地圖手勢
-        let mapTap = UITapGestureRecognizer(target: self, action: #selector((showMapView)))
-        self.showMapBtnView.isUserInteractionEnabled = true
-        self.showMapBtnView.addGestureRecognizer(mapTap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,15 +67,6 @@ class FrontPageViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-    
-    @objc func showMapView() {
-        let viewModel = MapSearchViewModel(hotels: viewModel.allHotels)
-        let vc = MapSearchViewController(viewModel: viewModel)
-        vc.hidesBottomBarWhenPushed = true
-        
-        self.navigationController?.pushViewController(vc, animated: true)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
     }
 }
 

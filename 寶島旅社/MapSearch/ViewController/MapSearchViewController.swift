@@ -22,7 +22,7 @@ class MapSearchViewController: UIViewController {
     @IBOutlet weak var userLocationBaseView: UIView! {
         didSet {
             self.userLocationBaseView.addRoundBorder(borderColor: .sageGreen,
-                                                     backgroundColor: .clear)
+                                                     backgroundColor: .sageGreen)
         }
     }
     
@@ -54,14 +54,12 @@ class MapSearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        navigationController?.setupTransparentAppearance()
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // 離開時恢復預設
-        navigationController?.setupDefaultAppearance()
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
 

@@ -37,6 +37,8 @@ class FrontPageViewModel {
             switch result {
             case .success(let response):
                 self.allHotels = response.xmlHead.infos.info
+                // 儲存旅店資料
+                HotelDataManager.shared.allHotels = response.xmlHead.infos.info
                 self.delegate?.reloadData()
                 
             case .failure(let error):

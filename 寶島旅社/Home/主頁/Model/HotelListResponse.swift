@@ -41,7 +41,7 @@ struct Infos: Decodable {
 }
 
 /// 單一旅宿基本資料
-struct Hotel: Decodable {
+struct Hotel: Codable {
     /// 旅宿唯一識別碼
     let id: String
 
