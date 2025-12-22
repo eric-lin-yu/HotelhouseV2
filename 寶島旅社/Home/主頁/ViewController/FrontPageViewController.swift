@@ -57,14 +57,12 @@ class FrontPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        // 註冊cell
-        tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: FrontPageTableViewCell.cellIdenifier)
         
         viewModel.delegate = self
         viewModel.fetchHotels()
         
         self.setupSearchView()
+        self.setupTableViewCell()
    
         // 地圖手勢
         let mapTap = UITapGestureRecognizer(target: self, action: #selector((showMapView)))
@@ -83,12 +81,11 @@ class FrontPageViewController: UIViewController {
     }
     
     @objc func showMapView() {
-        // TODO: 替換資料結構
-//        let vc = MapSearchViewController.make(dataModel: viewModel.allHotels)
-//        vc.hidesBottomBarWhenPushed = true
-//        
-//        self.navigationController?.pushViewController(vc, animated: true)
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
+        let vc = MapSearchViewController.make(dataModel: viewModel.allHotels)
+        vc.hidesBottomBarWhenPushed = true
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
     }
 }
 
@@ -113,6 +110,12 @@ extension FrontPageViewController {
         ])
         
         self.updateSearchViewState()
+    }
+    
+    /// 設定TableView Cell
+    private func setupTableViewCell() {
+        // 註冊cell
+        tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: FrontPageTableViewCell.cellIdenifier)
     }
     
     /// 更新 UI 狀態
@@ -158,11 +161,12 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-//        let vc = HotelDetailsViewController(hotelDataModel: hotelDataModel[indexPath.row])
-//        vc.hidesBottomBarWhenPushed = true
-//        
-//        self.navigationController?.pushViewController(vc, animated: true)
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
+        let hotelDataModel = viewModel.filteredHotels[indexPath.row]
+        let vc = HotelDetailsViewController(hotelDataModel: hotelDataModel)
+        vc.hidesBottomBarWhenPushed = true
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
     }
 
     // MARK: Cell
@@ -225,8 +229,7 @@ extension FrontPageViewController: FrontPageTableViewCellDelegate {
     }
 
     func cellDidTapFavorite(_ hotel: Hotel) {
-        // TODO: 待調整 RealmManager 資料結構
-//        RealmManager.shard?.addHotelDataModelToRealm(hotel)
+        RealmManager.shard?.addHotelToRealm(hotel)
     }
 }
 
