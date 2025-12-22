@@ -9,7 +9,7 @@
 import UIKit
 
 struct APIDataStorage {
-    static var hotelDataBase: HotelDataModel?
+    static var hotelDataBase: HotelListResponse?
 }
 
 enum AboutViewControllerType: Int, CaseIterable {
@@ -69,7 +69,10 @@ class AboutViewController: BaseViewController {
     
     @IBOutlet weak var kanaheiImageView: UIImageView!
     
-    var dataModel: Hotels? = nil
+    private var allHotels: [Hotel] {
+        return HotelDataManager.shared.allHotels
+    }
+    
     private let viewControllerTypes: [AboutViewControllerType] = [.about, .setup]
     private let useCells: [UITableViewCell.Type] = [PersonalSettingsLanguageTableViewCell.self]
     
@@ -161,13 +164,13 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
             
         case .dataUpdateDate:
             // 資料更新日期
-            let dateTimeString = APIDataStorage.hotelDataBase?.updatetime
+            let dateTimeString = APIDataStorage.hotelDataBase?.xmlHead.updatetime
             if let formattedDateString = dateTimeString?.formatDateToYearMonthDay() {
                 cell.configure(title: rowDataTitle.rowTitle, subtitle: formattedDateString)
             }
         case .totalHotelCount:
             // 旅店總筆數
-            if let subtitle = APIDataStorage.hotelDataBase?.updateInterval {
+            if let subtitle = APIDataStorage.hotelDataBase?.xmlHead.infos.info.count {
                 cell.configure(title: rowDataTitle.rowTitle, subtitle: "\(subtitle) 間")
             }
         default:

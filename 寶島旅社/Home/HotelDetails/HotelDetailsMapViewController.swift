@@ -20,7 +20,7 @@ enum MapButtonViewStatus {
 }
 
 class HotelDetailsMapViewController: UIViewController {
-    static func make(hotelData: Hotels) -> HotelDetailsMapViewController {
+    static func make(hotelData: Hotel) -> HotelDetailsMapViewController {
         let storyboard = UIStoryboard(name: "HotelDetailsStoryboard", bundle: nil)
         let vc: HotelDetailsMapViewController = storyboard.instantiateViewController(withIdentifier: "HotelDetailMapIdentifier") as! HotelDetailsMapViewController
         
@@ -55,7 +55,7 @@ class HotelDetailsMapViewController: UIViewController {
     @IBOutlet weak var isButtonImageView: UIImageView!
     @IBOutlet weak var backBtn: UIButton!
     
-    var dataModel: Hotels! = nil
+    var dataModel: Hotel! = nil
     
     var mapType: MapType!
     var mapButtonType: MapButtonViewStatus!
@@ -167,16 +167,13 @@ class HotelDetailsMapViewController: UIViewController {
     @objc func getHotelLocation() {
         let geoCoder = CLGeocoder()  //取得位置
         
-        let formattedAddress = String.formattedAddress(region: dataModel.city,
-                                                       town: dataModel.town,
-                                                       add: dataModel.streetAddress)
-        geoCoder.geocodeAddressString(formattedAddress) { (placemarks, error) in
+        geoCoder.geocodeAddressString(self.dataModel.fullAddress) { (placemarks, error) in
             if let error = error {
                 print("地址轉換失敗：\(error.localizedDescription)")
             }
             
             let annotation = MKPointAnnotation()  //加入標記
-            annotation.title = self.dataModel.hotelName
+            annotation.title = self.dataModel.name
             annotation.subtitle = self.dataModel.town
             
             if placemarks != nil {
@@ -186,11 +183,11 @@ class HotelDetailsMapViewController: UIViewController {
                 }
             } else {
                 //改抓經、緯度
-                let py = self.dataModel.positionLon as NSString
-                let px = self.dataModel.positionLat as NSString
+                let py = self.dataModel.py
+                let px = self.dataModel.px
                 
-                annotation.coordinate = CLLocationCoordinate2D(latitude: py.doubleValue,
-                                                               longitude: px.doubleValue)
+                annotation.coordinate = CLLocationCoordinate2D(latitude: py,
+                                                               longitude: px)
             }
             self.mapView.showAnnotations([annotation], animated: true)
             self.mapView.selectAnnotation(annotation, animated: true)
@@ -214,7 +211,9 @@ class HotelDetailsMapViewController: UIViewController {
         LoadingPageView.shard.show()
         
         let userPlacemark = MKPlacemark(coordinate: userLocation, addressDictionary: nil)
-        let hotelPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: (self.dataModel.positionLat as NSString).doubleValue, longitude: (self.dataModel.positionLon as NSString).doubleValue), addressDictionary: nil)
+        let coordinate = CLLocationCoordinate2D(latitude: self.dataModel.py,
+                                                longitude: self.dataModel.px)
+        let hotelPlacemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
         
         let userMapItem = MKMapItem(placemark: userPlacemark)
         let hotelMapItem = MKMapItem(placemark: hotelPlacemark)
@@ -268,7 +267,7 @@ class HotelDetailsMapViewController: UIViewController {
     // 開啟appleMap導航
     func goToAppleMap() {
         let geocoder = CLGeocoder()
-        let adderss = dataModel.streetAddress
+        let adderss = dataModel.add ?? ""
         geocoder.geocodeAddressString(adderss) { (placemarks, error) in
             if let error = error {
                 print("地址轉換失敗：\(error.localizedDescription)")
@@ -282,11 +281,11 @@ class HotelDetailsMapViewController: UIViewController {
                 }
             } else {
                 // 改抓經、緯度
-                let py = self.dataModel.positionLon as NSString
-                let px = self.dataModel.positionLat as NSString
+                let py = self.dataModel.py
+                let px = self.dataModel.px
                 
-                targetCoordinate = CLLocationCoordinate2D(latitude: py.doubleValue,
-                                                          longitude: px.doubleValue)
+                targetCoordinate = CLLocationCoordinate2D(latitude: py,
+                                                          longitude: px)
             }
             
             let theFirstPlaceMark = MKPlacemark(coordinate: targetCoordinate)
@@ -297,12 +296,13 @@ class HotelDetailsMapViewController: UIViewController {
             targetMapItem.openInMaps(launchOptions: options)
         }
     }
+    
     // 開啟GoogleMap導航
     func goToGoogleMap() {
         if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!) {
-            let py = self.dataModel.positionLon as NSString
-            let px = self.dataModel.positionLat as NSString
-            let urlString = "comgooglemaps://?&saddr=&daddr=\(py.doubleValue),\(px.doubleValue)&directionsmode=driving"
+            let py = self.dataModel.py
+            let px = self.dataModel.px
+            let urlString = "comgooglemaps://?&saddr=&daddr=\(py),\(px)&directionsmode=driving"
             
             guard let url = URL(string: urlString) else { return }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
