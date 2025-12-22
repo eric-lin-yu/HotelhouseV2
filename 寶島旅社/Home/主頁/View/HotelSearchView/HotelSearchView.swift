@@ -60,7 +60,7 @@ class HotelSearchView: UIView {
    
     private func setupUI() {
         searchTextField.delegate = self
-        backgroundView.alpha = 0.6
+        backgroundView.addBlurBackground(style: .dark, alpha: 0.9)
         self.kanaheiImageView.loadGif(name: GifImageNames.shared.searchViewImageName)
     }
     

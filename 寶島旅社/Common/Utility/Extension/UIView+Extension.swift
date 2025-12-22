@@ -5,6 +5,8 @@
 import UIKit
 
 extension UIView {
+    private static let blurViewTag = 999_999
+
     /// View add 邊框
     func addRoundBorder(cornerRadius: CGFloat = 15, 
                         borderWidth: CGFloat = 1,
@@ -92,5 +94,30 @@ extension UIView {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.prepare()
         generator.impactOccurred()
+    }
+    
+    /// 加入模糊背景
+    /// - Parameters:
+    ///   - style: 模糊樣式（預設為 .dark）
+    ///   - alpha: 模糊透明度（0~1）
+    func addBlurBackground(style: UIBlurEffect.Style = .dark, alpha: CGFloat = 1.0) {
+        // 避免重複加入
+        if let existingBlur = viewWithTag(Self.blurViewTag) {
+            existingBlur.removeFromSuperview()
+        }
+        
+        // 為了讓模糊效果明顯，必須把原本的背景色設為透明
+        self.backgroundColor = .clear
+        
+        let blurEffect = UIBlurEffect(style: style)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        
+        blurView.frame = bounds
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurView.alpha = alpha
+        blurView.tag = Self.blurViewTag
+        
+        // 確保插入在最底層
+        insertSubview(blurView, at: 0)
     }
 }
