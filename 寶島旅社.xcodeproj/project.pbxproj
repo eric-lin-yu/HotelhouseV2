@@ -73,7 +73,6 @@
 		89EFD1D12AB2A4C900A1D0F7 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 89EFD1D02AB2A4C900A1D0F7 /* SkeletonView */; };
 		89F71EA72D2CBDA500A28E5C /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F71EA62D2CBD9100A28E5C /* NSObjectExtension.swift */; };
 		9F87E3FB2A754B42007E77EA /* RLM_CollectionsHotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */; };
-		9F87E3FC2A754B42007E77EA /* HotelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F82A754B42007E77EA /* HotelViewModel.swift */; };
 		9F87E4002A754BC8007E77EA /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */; };
 		9FA8F0ED2A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */; };
 		9FA8F0F02A639939009ACADD /* PersonalSettingsIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F0E92A639939009ACADD /* PersonalSettingsIconTableViewCell.swift */; };
@@ -176,7 +175,6 @@
 		89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		89F71EA62D2CBD9100A28E5C /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLM_CollectionsHotels.swift; sourceTree = "<group>"; };
-		9F87E3F82A754B42007E77EA /* HotelViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelViewModel.swift; sourceTree = "<group>"; };
 		9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
 		9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalSettingsLanguageTableViewCell.swift; sourceTree = "<group>"; };
 		9FA8F0E92A639939009ACADD /* PersonalSettingsIconTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalSettingsIconTableViewCell.swift; sourceTree = "<group>"; };
@@ -231,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				89366AC62ACA645C00769A12 /* LocationManager.swift */,
+				89BE85532EF8DDDD00E4A8E7 /* RealmManager */,
 			);
 			path = CommonManager;
 			sourceTree = "<group>";
@@ -416,6 +415,15 @@
 			path = HotelSearchView;
 			sourceTree = "<group>";
 		};
+		89BE85532EF8DDDD00E4A8E7 /* RealmManager */ = {
+			isa = PBXGroup;
+			children = (
+				893BB9422AAAAAA600A9A3B8 /* Model */,
+				891E4F952AB1921300C48624 /* RealmManager.swift */,
+			);
+			path = RealmManager;
+			sourceTree = "<group>";
+		};
 		89BF61F028F65DDB00418305 = {
 			isa = PBXGroup;
 			children = (
@@ -540,10 +548,7 @@
 			children = (
 				89BE852B2EF38EDC00E4A8E7 /* APIManager.swift */,
 				89BE85342EF3923E00E4A8E7 /* APIInfo.swift */,
-				893BB9422AAAAAA600A9A3B8 /* Model */,
 				896DF71728F7E3080031A88A /* ResponseHandler.swift */,
-				891E4F952AB1921300C48624 /* RealmManager.swift */,
-				9F87E3F82A754B42007E77EA /* HotelViewModel.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -733,7 +738,6 @@
 				89BF620128F65DDB00418305 /* FrontPageViewController.swift in Sources */,
 				9FA8F0ED2A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift in Sources */,
 				9FA8F0F22A639939009ACADD /* SettingsTableViewHeaderFooterView.swift in Sources */,
-				9F87E3FC2A754B42007E77EA /* HotelViewModel.swift in Sources */,
 				891E4F9C2AB1A73800C48624 /* GifImageNames.swift in Sources */,
 				891E4F9A2AB193F000C48624 /* String+Extension.swift in Sources */,
 				89DCB172296EB408003A48B7 /* Array+Extension.swift in Sources */,
