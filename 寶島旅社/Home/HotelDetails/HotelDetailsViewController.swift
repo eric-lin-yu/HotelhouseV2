@@ -22,7 +22,7 @@ class HotelDetailsViewController: UIViewController {
         let title: String
     }
     
-    private var hotelDataModel: Hotels
+    private var hotelDataModel: Hotel
     private var collectionImageDataModel: [DetailImageData] = []
 
     private let useCells: [UITableViewCell.Type] = [HotelDetailCollectionTableViewCell.self,
@@ -35,7 +35,7 @@ class HotelDetailsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(hotelDataModel: Hotels) {
+    init(hotelDataModel: Hotel) {
         self.hotelDataModel = hotelDataModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -85,21 +85,21 @@ class HotelDetailsViewController: UIViewController {
         
         getCollectionViewDataModel()
      
-        navigationItem.title = hotelDataModel.hotelName
+        navigationItem.title = hotelDataModel.name
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "phone.circle"), style: .plain, target: self, action: #selector(callPhoneBtn))
     }
     
     private func getCollectionViewDataModel() {
         collectionImageDataModel = hotelDataModel.images.compactMap { imageModel in
-            guard !imageModel.url.isEmpty else { return nil }
+            
             return DetailImageData(imageURL: imageModel.url,
-                                   title: imageModel.imageDescription)
+                                   title: imageModel.description)
         }
     }
     
    @objc func callPhoneBtn() {
-        showAlertClosure(title: "通知", message: "將外撥電話至 \(hotelDataModel.hotelName)", okBtn: "確定") {
-            let phone = self.hotelDataModel.telephones
+        showAlertClosure(title: "通知", message: "將外撥電話至 \(hotelDataModel.name)", okBtn: "確定") {
+            let phone = self.hotelDataModel.tel
             if let url = URL(string: "tel:\(phone)") {
                 if UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -115,8 +115,8 @@ class HotelDetailsViewController: UIViewController {
     }
     
     @objc func getOpenWebView() {
-        let vc = OpenWKWebViewController.make(urlString: hotelDataModel.websiteURL,
-                                              title: hotelDataModel.hotelName)
+        let vc = OpenWKWebViewController.make(urlString: hotelDataModel.website,
+                                              title: hotelDataModel.name)
         vc.hidesBottomBarWhenPushed = true
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -124,7 +124,7 @@ class HotelDetailsViewController: UIViewController {
     }
     
     @objc func addHotelDataModelToRealm() {
-        RealmManager.shard?.addHotelDataModelToRealm(hotelDataModel)
+        RealmManager.shard?.addHotelToRealm(hotelDataModel)
     }
 }
 
@@ -199,7 +199,7 @@ extension HotelDetailsViewController: UITableViewDataSource, UITableViewDelegate
     func openHotelDetailCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HotelDetailsTableViewCell.self), for: indexPath) as! HotelDetailsTableViewCell
         
-        cell.configure(dataModel: hotelDataModel, delegate: self)
+        cell.configure(hotel: hotelDataModel, delegate: self)
     
         return cell
     }

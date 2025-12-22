@@ -34,24 +34,19 @@ class HotelDetailsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
  
-    func configure(dataModel: Hotels, delegate: HotelDetailsTableViewCellDelegate) {
+    func configure(hotel: Hotel, delegate: HotelDetailsTableViewCellDelegate) {
         self.delegate = delegate
         
-        if let classData = dataModel.hotelClasses.first,
-           let hotelClass = HotelClass(rawValue: classData) {
-            hotelCalssLabel.text = " 旅館類別： \(hotelClass.description)"
-        } else {
-            hotelCalssLabel.text = "旅店未提供"
-        }
+        // 旅館類別
+        self.hotelCalssLabel.text = "：\(hotel.hotelClass.description)"
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(addHotelDataModelToRealm))
         collectionsView.isUserInteractionEnabled = true
         collectionsView.addGestureRecognizer(tap)
+    
+        self.priceLabel.text = "： \(hotel.priceDisplayText)"
         
-        let priceText = dataModel.lowestPrice != dataModel.ceilingPrice ? "\(dataModel.lowestPrice) ~ \(dataModel.ceilingPrice)" : "\(dataModel.ceilingPrice)"
-        priceLabel.text = " 價位： \(priceText)"
-        
-        if !dataModel.websiteURL.isEmpty {
+        if !hotel.website.isEmpty {
             webLabel.text = "開啟網站"
             let tap = UITapGestureRecognizer(target: self, action: #selector(openWebView))
             webLabel.isUserInteractionEnabled = true

@@ -195,8 +195,8 @@ class CollectionsTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with hotel: Hotels) {
-        hotelTitleLabel.text = hotel.hotelName
+    func configure(with hotel: Hotel) {
+        hotelTitleLabel.text = hotel.name
         
         hotelImageView.loadUrlImage(urlString: hotel.images.first?.url ?? "") { result in
             switch result {
@@ -213,13 +213,13 @@ class CollectionsTableViewCell: UITableViewCell {
         
         // 星级
         organizationsTitle.text = "旅館民宿之管理權責單位代碼"
-        organizationsHotelId.text = hotel.hotelID
+        organizationsHotelId.text = hotel.id
         
-        organizationsHotelStars.isHidden = hotel.hotelStars.isEmpty
-        organizationsHotelStars.text = "☆級：\(hotel.hotelStars)"
-        
+        self.organizationsHotelStars.isHidden = hotel.hotelClass == .unknown
+        self.organizationsHotelStars.text = hotel.hotelClass.starDescription
+    
         deleteBtn.addTarget(self, action: #selector(deleteDataModelAction), for: .touchUpInside)
-        deleteBtn.tag = Int(hotel.hotelID) ?? 0
+        deleteBtn.tag = Int(hotel.id) ?? 0
     }
     
     @objc func deleteDataModelAction(sender: UIButton) {

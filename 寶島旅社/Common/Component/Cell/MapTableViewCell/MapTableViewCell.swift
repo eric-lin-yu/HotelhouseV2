@@ -31,22 +31,19 @@ class MapTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(dataModel: Hotels) {
-        regionLabel.text = dataModel.city
+    func configure(dataModel: Hotel) {
+        regionLabel.text = dataModel.region
         townLabel.text = dataModel.town
         
         let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(dataModel.streetAddress) { (placemarks, error) in
+        geoCoder.geocodeAddressString(dataModel.add ?? "") { (placemarks, error) in
             if let error = error {
                 print("地址轉換失敗：\(error.localizedDescription)")
-                // 使用備用的座標或其他方法進行處理
-                let px = dataModel.positionLat as NSString
-                let py = dataModel.positionLon as NSString
                 
                 let annotation = MKPointAnnotation()
-                annotation.title = dataModel.hotelName
-                annotation.coordinate = CLLocationCoordinate2D(latitude: px.doubleValue,
-                                                               longitude: py.doubleValue)
+                annotation.title = dataModel.name
+                annotation.coordinate = CLLocationCoordinate2D(latitude: dataModel.py,
+                                                               longitude: dataModel.px)
                 
                 self.mapView.addAnnotation(annotation)
                 self.mapView.showAnnotations([annotation], animated: true)
@@ -60,7 +57,7 @@ class MapTableViewCell: UITableViewCell {
             
             if let location = placemarks?.first?.location {
                 let annotation = MKPointAnnotation()
-                annotation.title = dataModel.hotelName
+                annotation.title = dataModel.name
                 annotation.coordinate = location.coordinate
                 
                 self.mapView.addAnnotation(annotation)

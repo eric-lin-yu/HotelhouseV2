@@ -25,6 +25,14 @@ class HotelExtraDetailsTableViewCell: UITableViewCell {
         }
     }
     
+    // 無障礙客房資訊
+    @IBOutlet weak var accessibilityRoomsLabel: UILabel!
+    @IBOutlet weak var accessibilityRoomsView: UIView! {
+        didSet {
+            accessibilityRoomsView.addRoundBorder()
+        }
+    }
+    
     // 人數
     @IBOutlet weak var peopleLabel: UILabel!
     @IBOutlet weak var peopleView: UIView! {
@@ -52,15 +60,11 @@ class HotelExtraDetailsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(dataModel: Hotels) {
+    func configure(dataModel: Hotel) {
         var labelText = ""
         
-        if !dataModel.spec.isEmpty {
-            labelText += "\(dataModel.spec)\n\n"
-        }
-        
-        if !dataModel.serviceInfo.isEmpty {
-            labelText += "提供服務：\n\(dataModel.serviceInfo)\n"
+        if !dataModel.serviceinfo.isEmpty {
+            labelText += "提供服務：\n\(dataModel.serviceinfo)\n"
         }
         
         if labelText.isEmpty {
@@ -69,16 +73,18 @@ class HotelExtraDetailsTableViewCell: UITableViewCell {
         
         spec_infoLabel.text = labelText
         
-        if dataModel.accessibleRooms == "0" {
-            roomsLabel.text = "：總共 \(dataModel.totalRooms) 間房"
+        roomsLabel.text = "：總共 \(dataModel.totalNumberofRooms) 間房"
+        
+        if dataModel.accessibilityRooms != 0 {
+            accessibilityRoomsLabel.text = "：提供無障礙客房 \(dataModel.accessibilityRooms) 間"
         } else {
-            roomsLabel.text = "：總共 \(dataModel.totalRooms) 間房\n 並提供無障礙客房 \(dataModel.accessibleRooms) 間"
+            accessibilityRoomsLabel.text = "：很抱歉暫無提供無障礙客房"
         }
         
-        peopleLabel.text = "：可容納 \(dataModel.totalCapacity) 人"
+        peopleLabel.text = "：可容納 \(dataModel.totalNumberofPeople) 人"
         
-        if dataModel.parkingSpaces != "0" {
-            let parkinginfo = dataModel.parkingInfo.dropFirst(3)
+        if dataModel.parkingSpace != 0 {
+            let parkinginfo = dataModel.parkinginfo.dropFirst(3)
             parkingLabel.text = "：\(parkinginfo)"
         } else {
             parkingLabel.text = "：很抱歉暫無提供停車位"
