@@ -20,7 +20,7 @@ class RealmManager {
     let sharedRealmObjecgt: Realm
     
     // Realm Data異動調整時，Version記得調整
-    private static let schemaVersion: UInt64 = 1
+    private static let schemaVersion: UInt64 = 2
     
     private let realmConfig: Realm.Configuration
     
@@ -33,13 +33,13 @@ class RealmManager {
             throw RealmError.createRealmObjectFail
         }
     }
-
+    
     func write(_ block: (Realm) throws -> Void) throws {
         try self.sharedRealmObjecgt.write {
             try block(sharedRealmObjecgt)
         }
     }
-
+    
     /// 檢索指定物件類型的 Realm 結果叢集
     /// - Parameter objectType: 指定的物件類型。
     /// - Returns: 指定物件類型的 Realm 結果叢集。
@@ -50,7 +50,7 @@ class RealmManager {
     public func reset() {
         self.sharedRealmObjecgt.invalidate()
     }
-
+    
     // MARK: - Private Function
     private static func makeSharedInstance() -> RealmManager? {
         do {
@@ -77,14 +77,14 @@ class RealmManager {
             encryptionKey: encryptionKey,
             schemaVersion: schemaVersion,
             migrationBlock: { migration, oldSchemaVersion in
-                #if DEBUG
+#if DEBUG
                 if oldSchemaVersion < schemaVersion {
                     print("\n -------- Realm ReloadData -------- \n")
                     defer { print("\n ---------- END ---------- \n") }
                     print("版本替換： \(oldSchemaVersion) -> \(String(describing: schemaVersion))")
                     // ... 異動調整
                 }
-                #endif
+#endif
             })
         return config
     }
@@ -121,136 +121,81 @@ class RealmManager {
         return expandedKeyData
     }
     
-    func addHotelDataModelToRealm(_ hotelDataModel: Hotels) {
-        guard let realm = RealmManager.shard else {
-            return
-        }
+    /// 新增旅店至 Realm 收藏
+    func addHotelToRealm(_ hotel: Hotel) {
+        let realm = self.sharedRealmObjecgt
         
-        // 檢查是否已建立於 Realm 中
-        if realm.objects(RLM_CollectionsHotels.self).filter("hotelID == %@", hotelDataModel.hotelID).first != nil {
-            ResponseHandler.presentAlertHandler(message: "此旅店您已收藏於資料庫")
+        if realm.object(ofType: RLM_CollectionsHotels.self, forPrimaryKey: hotel.id) != nil {
+            ResponseHandler.presentAlertHandler(message: "此旅店您已收藏")
             return
         }
         
         do {
-            // get gov Data
-            let govArray = hotelDataModel.organizations.map { RLM_Organization(name: $0.name,
-                                                                     classData: $0.classData,
-                                                                     taxCode: $0.taxCode ?? "",
-                                                                     agencyCode: $0.agencyCode ?? "",
-                                                                     url: $0.url ?? "",
-                                                                     telephones: $0.telephones ?? [],
-                                                                     mobilePhones: $0.mobilePhones ?? [],
-                                                                     faxes: $0.faxes ?? [],
-                                                                     email: $0.email ?? "") }
-            
-            // get image data
-            let hotelImageArray = hotelDataModel.images.map { RLM_HotelImages(name: $0.name,
-                                                                              imageDescription: $0.imageDescription,
-                                                                              url: $0.url) }
-            
-            let realmData = RLM_CollectionsHotels(hotelID: hotelDataModel.hotelID,
-                                                  hotelName: hotelDataModel.hotelName,
-                                                  descriptionText: hotelDataModel.description,
-                                                  px: hotelDataModel.positionLat,
-                                                  py: hotelDataModel.positionLon,
-                                                  grade: hotelDataModel.hotelStars,
-                                                  classData: hotelDataModel.hotelClasses,
-                                                  add: hotelDataModel.streetAddress,
-                                                  region: hotelDataModel.city,
-                                                  town: hotelDataModel.town,
-                                                  tel: hotelDataModel.telephones,
-                                                  gov: govArray,
-                                                  website: hotelDataModel.websiteURL,
-                                                  images: hotelImageArray,
-                                                  spec: hotelDataModel.spec,
-                                                  serviceinfo: hotelDataModel.serviceInfo,
-                                                  totalNumberofRooms: hotelDataModel.totalRooms,
-                                                  accessibilityRooms: hotelDataModel.accessibleRooms,
-                                                  lowestPrice: hotelDataModel.lowestPrice,
-                                                  ceilingPrice: hotelDataModel.ceilingPrice,
-                                                  industryEmail: hotelDataModel.industryEmail,
-                                                  totalNumberofPeople: hotelDataModel.totalCapacity,
-                                                  parkingSpace: hotelDataModel.parkingSpaces,
-                                                  parkinginfo: hotelDataModel.parkingInfo)
-            
-            try realm.write { realm in
-                realm.add(realmData)
-                ResponseHandler.presentAlertHandler(message: "旅店新增成功")
+            try realm.write {
+                realm.add(RLM_CollectionsHotels(hotel: hotel))
+                ResponseHandler.presentAlertHandler(message: "收藏成功")
             }
         } catch {
-            ResponseHandler.errorHandler(errorString: "發生了一些問題，資料新增失敗")
+            ResponseHandler.errorHandler(errorString: "寫入資料庫失敗")
         }
     }
     
-    func deleteHotelDataModelFromRealm(_ hotelDataModel: Hotels) {
-        guard let realm = RealmManager.shard else {
-            return
-        }
+    /// 從 Realm 刪除收藏的旅店
+    func deleteHotelFromRealm(_ hotel: Hotel) {
+        let realm = self.sharedRealmObjecgt
         
-        // 查找要删除的对象
-        if let hotelToDelete = realm.objects(RLM_CollectionsHotels.self).filter("hotelID == %@", hotelDataModel.hotelID).first {
+        if let hotelToDelete = realm.objects(RLM_CollectionsHotels.self).filter("hotelID == %@", hotel.id).first {
             do {
-                try realm.write { realm in
+                try realm.write {
                     realm.delete(hotelToDelete)
-                    ResponseHandler.presentAlertHandler(message: "旅店删除成功")
+                    ResponseHandler.presentAlertHandler(message: "旅店刪除成功")
                 }
             } catch {
-                ResponseHandler.errorHandler(errorString: "刪除旅店數據時發生錯誤")
+                ResponseHandler.errorHandler(errorString: "刪除失敗")
             }
         } else {
-            ResponseHandler.presentAlertHandler(message: "未找到要删除的旅店數據")
+            ResponseHandler.presentAlertHandler(message: "找不到該筆旅店資料")
         }
     }
-
     
-    func getHotelDataModelsFromRealm() -> [Hotels] {
-        guard let realm = RealmManager.shard else {
-            return []
-        }
+    /// 取得收藏列表並轉回 Hotel Struct
+    func getHotelsFromRealm() -> [Hotel] {
+        let results = objects(RLM_CollectionsHotels.self)
         
-        let realmDataArray = realm.objects(RLM_CollectionsHotels.self)
-        
-        let hotelDataModels = realmDataArray.compactMap { realmData in
-            let govArray = realmData.gov.map { Organization(name: $0.name,
-                                                            classData: $0.classData,
-                                                            taxCode: $0.taxCode,
-                                                            agencyCode: $0.agencyCode,
-                                                            url: $0.url,
-                                                            telephones: Array($0.telephones),
-                                                            mobilePhones: Array($0.mobilePhones),
-                                                            faxes: Array($0.faxes),
-                                                            email: $0.email) }
+        return results.map { rlm in
+            // 從 List<RLM_HotelImage> 還原回 picture1, 2, 3
+            let p1 = rlm.images.count > 0 ? rlm.images[0].url : ""
+            let p2 = rlm.images.count > 1 ? rlm.images[1].url : ""
+            let p3 = rlm.images.count > 2 ? rlm.images[2].url : ""
             
-            let imagesArray = realmData.images.map { HotelImages(name: $0.name,
-                                                                 imageDescription: $0.imageDescription,
-                                                                 url: $0.url) }
-            
-            return Hotels(hotelID: realmData.hotelID,
-                                  hotelName: realmData.hotelName,
-                                  description: realmData.descriptionText,
-                                  px: realmData.px,
-                                  py: realmData.py,
-                                  grade: realmData.grade,
-                                  classData: Array(realmData.classData),
-                                  add: realmData.add,
-                                  region: realmData.region,
-                                  town: realmData.town,
-                                  tel: Array(realmData.tel),
-                                  gov: Array(govArray),
-                                  website: realmData.website,
-                                  images: Array(imagesArray),
-                                  spec: realmData.spec,
-                                  serviceinfo: realmData.serviceinfo,
-                                  totalNumberofRooms: realmData.totalNumberofRooms,
-                                  accessibilityRooms: realmData.accessibilityRooms,
-                                  lowestPrice: realmData.lowestPrice,
-                                  ceilingPrice: realmData.ceilingPrice,
-                                  industryEmail: realmData.industryEmail,
-                                  totalNumberofPeople: realmData.totalNumberofPeople,
-                                  parkingSpace: realmData.parkingSpace,
-                                  parkinginfo: realmData.parkinginfo)
+            return Hotel(
+                id: rlm.id,
+                name: rlm.name,
+                description: rlm.descriptionText,
+                region: rlm.region,
+                town: rlm.town,
+                add: rlm.add,
+                zipcode: rlm.zipcode,
+                px: rlm.px,
+                py: rlm.py,
+                hotelClass: HotelClass(rawValue: rlm.hotelClassRawValue) ?? .unknown,
+                tel: rlm.tel,
+                website: rlm.website,
+                totalNumberofRooms: rlm.totalNumberofRooms,
+                totalNumberofPeople: rlm.totalNumberofPeople,
+                accessibilityRooms: rlm.accessibilityRooms,
+                parkingSpace: rlm.parkingSpace,
+                parkinginfo: rlm.parkinginfo,
+                lowestPrice: rlm.lowestPrice,
+                ceilingPrice: rlm.ceilingPrice,
+                picture1: p1,
+                picture2: p2,
+                picture3: p3,
+                picdescribe1: rlm.images.count > 0 ? rlm.images[0].imageDescription : "",
+                picdescribe2: rlm.images.count > 1 ? rlm.images[1].imageDescription : "",
+                picdescribe3: rlm.images.count > 2 ? rlm.images[2].imageDescription : "",
+                serviceinfo: rlm.serviceinfo
+            )
         }
-        return Array(hotelDataModels)
     }
 }
