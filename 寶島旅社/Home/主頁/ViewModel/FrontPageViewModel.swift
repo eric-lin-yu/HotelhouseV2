@@ -28,25 +28,18 @@ class FrontPageViewModel {
         filteredHotels[index]
     }
     
-    func fetchHotels() {
-        LoadingPageView.shard.show()
-        APIManager.shared.sendGet(endpoint: APIInfo.hotelList,
-                                  responseType: HotelListResponse.self) { [weak self] result in
-            guard let self else { return }
-            LoadingPageView.shard.dismiss()
-            switch result {
-            case .success(let response):
-                self.allHotels = response.xmlHead.infos.info
-                // 儲存旅店資料
-                HotelDataManager.shared.allHotels = response.xmlHead.infos.info
-                self.delegate?.reloadData()
-                
-            case .failure(let error):
-                self.delegate?.viewModelDidFail(error)
-            }
+    func fetchDataIfNeeded() {
+        // 如果已經有資料，就不打 API
+        if !HotelDataManager.shared.allHotels.isEmpty {
+            // 直接更新 UI
+            self.delegate?.reloadData()
+            return
         }
+        
+        // 無資料才去打 API
+        self.fetchHotels()
     }
-    
+
     /// 執行搜尋並回傳是否有結果
     func search(keyword: String) -> Bool {
         let normalizedKeyword = keyword.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -66,6 +59,26 @@ class FrontPageViewModel {
             self.filteredHotels = results
             self.delegate?.reloadData()
             return true
+        }
+    }
+    
+    /// 呼叫 API
+    private func fetchHotels() {
+        LoadingPageView.shard.show()
+        APIManager.shared.sendGet(endpoint: APIInfo.hotelList,
+                                  responseType: HotelListResponse.self) { [weak self] result in
+            guard let self else { return }
+            LoadingPageView.shard.dismiss()
+            switch result {
+            case .success(let response):
+                self.allHotels = response.xmlHead.infos.info
+                // 儲存旅店資料
+                HotelDataManager.shared.allHotels = response.xmlHead.infos.info
+                self.delegate?.reloadData()
+                
+            case .failure(let error):
+                self.delegate?.viewModelDidFail(error)
+            }
         }
     }
 }

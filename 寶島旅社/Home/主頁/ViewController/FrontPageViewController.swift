@@ -53,7 +53,6 @@ class FrontPageViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel.delegate = self
-        viewModel.fetchHotels()
         
         self.setupSearchView()
         self.setupTableViewCell()
@@ -62,6 +61,8 @@ class FrontPageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        viewModel.fetchDataIfNeeded()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
