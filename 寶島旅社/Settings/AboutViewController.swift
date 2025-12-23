@@ -8,10 +8,6 @@
 
 import UIKit
 
-struct APIDataStorage {
-    static var hotelDataBase: HotelListResponse?
-}
-
 enum AboutViewControllerType: Int, CaseIterable {
     // Section
     case about = 0
@@ -164,15 +160,16 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
             
         case .dataUpdateDate:
             // 資料更新日期
-            let dateTimeString = APIDataStorage.hotelDataBase?.xmlHead.updatetime
-            if let formattedDateString = dateTimeString?.formatDateToYearMonthDay() {
+            let dateTimeString = HotelDataManager.shared.lastUpdateDate
+            if let formattedDateString = dateTimeString.formatDateToYearMonthDay() {
                 cell.configure(title: rowDataTitle.rowTitle, subtitle: formattedDateString)
+            } else {
+                cell.configure(title: rowDataTitle.rowTitle, subtitle: dateTimeString)
             }
         case .totalHotelCount:
             // 旅店總筆數
-            if let subtitle = APIDataStorage.hotelDataBase?.xmlHead.infos.info.count {
-                cell.configure(title: rowDataTitle.rowTitle, subtitle: "\(subtitle) 間")
-            }
+            let count = HotelDataManager.shared.totalCount
+            cell.configure(title: rowDataTitle.rowTitle, subtitle: "\(count) 間")
         default:
             break
         }
