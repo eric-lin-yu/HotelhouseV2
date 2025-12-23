@@ -16,59 +16,57 @@ class HotelMapTableViewCell: UITableViewCell {
             roundFramView.addRoundBorder()
         }
     }
-    //  "Region": "南投縣", "Town": "埔里鎮"
     @IBOutlet weak var regionLabel: UILabel!
     @IBOutlet weak var townLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         selectionStyle = .none
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
         
-        // Configure the view for the selected state
+        self.mapView.isUserInteractionEnabled = false
     }
     
     func configure(dataModel: Hotel) {
-        regionLabel.text = dataModel.region
-        townLabel.text = dataModel.town
+        self.regionLabel.text = dataModel.region
+        self.townLabel.text = dataModel.town
         
-        let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(dataModel.add ?? "") { (placemarks, error) in
-            if let error = error {
-                print("地址轉換失敗：\(error.localizedDescription)")
-                
-                let annotation = MKPointAnnotation()
-                annotation.title = dataModel.name
-                annotation.coordinate = CLLocationCoordinate2D(latitude: dataModel.py,
-                                                               longitude: dataModel.px)
-                
-                self.mapView.addAnnotation(annotation)
-                self.mapView.showAnnotations([annotation], animated: true)
-                self.mapView.selectAnnotation(annotation, animated: true)
-                
-                let region = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 300, longitudinalMeters: 300)
-                self.mapView.setRegion(region, animated: false)
-                
-                return
-            }
-            
-            if let location = placemarks?.first?.location {
-                let annotation = MKPointAnnotation()
-                annotation.title = dataModel.name
-                annotation.coordinate = location.coordinate
-                
-                self.mapView.addAnnotation(annotation)
-                self.mapView.showAnnotations([annotation], animated: true)
-                self.mapView.selectAnnotation(annotation, animated: true)
-                
-                let region = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 300, longitudinalMeters: 300)
-                self.mapView.setRegion(region, animated: false)
-            }
+        // 清除舊的標記，避免 Cell 重用時殘留
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        
+        // 優先判斷座標是否有效
+        if dataModel.px != 0, dataModel.py != 0 {
+            let coordinate = CLLocationCoordinate2D(latitude: dataModel.py, longitude: dataModel.px)
+            self.setupMap(with: coordinate, title: dataModel.name)
+        } else {
+            // 座標無效時才進行地址編碼
+            geocodeAddress(dataModel.add ?? "", title: dataModel.name)
         }
     }
     
+    private func setupMap(with coordinate: CLLocationCoordinate2D, title: String) {
+        let annotation = MKPointAnnotation()
+        annotation.title = title
+        annotation.coordinate = coordinate
+        
+        self.mapView.addAnnotation(annotation)
+        
+        // 設定顯示區域 (300公尺範圍)
+        let region = MKCoordinateRegion(center: coordinate,
+                                        latitudinalMeters: 300,
+                                        longitudinalMeters: 300)
+        self.mapView.setRegion(region, animated: false)
+    }
+    
+    private func geocodeAddress(_ address: String, title: String) {
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(address) { [weak self] (placemarks, error) in
+            guard let self = self,
+                  let location = placemarks?.first?.location,
+                  error == nil else { return }
+            
+            DispatchQueue.main.async {
+                self.setupMap(with: location.coordinate, title: title)
+            }
+        }
+    }
 }
