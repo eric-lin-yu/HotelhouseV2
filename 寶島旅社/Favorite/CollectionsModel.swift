@@ -10,20 +10,20 @@ import Foundation
 import MapKit
 
 class HotelAnnotation: NSObject, MKAnnotation {
-    let hotel: Hotels
+    let hotel: Hotel
     let coordinate: CLLocationCoordinate2D
 
-    init(hotel: Hotels, coordinate: CLLocationCoordinate2D) {
+    init(hotel: Hotel, coordinate: CLLocationCoordinate2D) {
         self.hotel = hotel
         self.coordinate = coordinate
         super.init()
     }
 
     var title: String? {
-        return self.hotel.hotelName
+        return self.hotel.name
     }
 
     var subtitle: String? {
-        return self.hotel.streetAddress
+        return self.hotel.add
     }
 }

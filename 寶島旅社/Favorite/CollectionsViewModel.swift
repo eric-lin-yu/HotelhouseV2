@@ -18,9 +18,9 @@ enum SegmentedControlOption: Int {
 class CollectionsViewModel {
     
     /// 儲存所有的酒店數據模型
-    private var hotelDataModel: [Hotels] = []
+    private var hotelDataModel: [Hotel] = []
     /// 依據城市名稱將酒店分組
-    private var groupedHotels: [String: [Hotels]] = [:]
+    private var groupedHotels: [String: [Hotel]] = [:]
     /// 存儲城市名稱的陣列
     private var cityNames: [String] = []
     
@@ -34,7 +34,7 @@ class CollectionsViewModel {
     /// 加載酒店數據，並將其分組和排序
     func loadHotels() {
         LoadingPageView.shard.show()
-        if let realmDataModels = RealmManager.shard?.getHotelDataModelsFromRealm() {
+        if let realmDataModels = RealmManager.shard?.getHotelsFromRealm() {
             self.hotelDataModel = realmDataModels
             self.groupAndSortHotelsByCity()
     
@@ -66,7 +66,7 @@ class CollectionsViewModel {
     /// 獲取指定位置（indexPath）的酒店數據
     /// - Parameter indexPath: 位置對應的 indexPath
     /// - Returns: 酒店數據模型
-    func hotel(at indexPath: IndexPath) -> Hotels? {
+    func hotel(at indexPath: IndexPath) -> Hotel? {
         guard indexPath.section < self.cityNames.count else {
             return nil
         }
@@ -79,8 +79,8 @@ class CollectionsViewModel {
     /// - Returns: 酒店標註陣列
     func getHotelAnnotations() -> [HotelAnnotation] {
         return hotelDataModel.compactMap { hotel in
-            let latitude = Double(hotel.positionLat) ?? 0.0
-            let longitude = Double(hotel.positionLon) ?? 0.0
+            let latitude = Double(hotel.py)
+            let longitude = Double(hotel.px)
             let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             return HotelAnnotation(hotel: hotel, coordinate: coordinate)
         }
@@ -94,20 +94,20 @@ extension CollectionsViewModel {
     /// 將酒店數據按城市分組並排序
     private func groupAndSortHotelsByCity() {
         self.groupedHotels = [:]
-        
-        for hotel in self.hotelDataModel {
-            let city = hotel.city
-            if var cityHotels = self.groupedHotels[city] {
-                cityHotels.append(hotel)
-                self.groupedHotels[city] = cityHotels
-            } else {
-                self.groupedHotels[city] = [hotel]
-            }
-        }
-        
-        let sortedGroupedHotels = self.groupedHotels.sorted { $0.key < $1.key }
-        let sortedGroupedHotelsDictionary = Dictionary(uniqueKeysWithValues: sortedGroupedHotels)
-        
-        self.cityNames = sortedGroupedHotelsDictionary.keys.sorted()
+//        
+//        for hotel in self.hotelDataModel {
+//            let city = hotel.city
+//            if var cityHotels = self.groupedHotels[city] {
+//                cityHotels.append(hotel)
+//                self.groupedHotels[city] = cityHotels
+//            } else {
+//                self.groupedHotels[city] = [hotel]
+//            }
+//        }
+//        
+//        let sortedGroupedHotels = self.groupedHotels.sorted { $0.key < $1.key }
+//        let sortedGroupedHotelsDictionary = Dictionary(uniqueKeysWithValues: sortedGroupedHotels)
+//        
+//        self.cityNames = sortedGroupedHotelsDictionary.keys.sorted()
     }
 }
