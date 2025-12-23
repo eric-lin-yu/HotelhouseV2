@@ -320,7 +320,10 @@ extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate 
         tableView.deselectRow(at: indexPath, animated: true)
         
         if let hotel =  self.viewModel.hotel(at: indexPath) {
-            let vc = HotelDetailsViewController(hotelDataModel: hotel)
+            
+            let viewModel = HotelDetailsViewModel(hotel: hotel)
+            let vc = HotelDetailsViewController(viewModel: viewModel)
+            
             vc.hidesBottomBarWhenPushed = true
             
             self.navigationController?.pushViewController(vc, animated: true)
@@ -366,7 +369,9 @@ extension CollectionsViewController: MKMapViewDelegate, CLLocationManagerDelegat
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let annotation = view.annotation as? HotelAnnotation else { return }
         let hotel = annotation.hotel
-        let vc = HotelDetailsViewController(hotelDataModel: hotel)
+        let viewModel = HotelDetailsViewModel(hotel: hotel)
+        let vc = HotelDetailsViewController(viewModel: viewModel)
+        
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }

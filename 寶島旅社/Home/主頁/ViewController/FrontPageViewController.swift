@@ -144,7 +144,8 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
         tableView.deselectRow(at: indexPath, animated: true)
         
         let hotelDataModel = viewModel.filteredHotels[indexPath.row]
-        let vc = HotelDetailsViewController(hotelDataModel: hotelDataModel)
+        let viewModel = HotelDetailsViewModel(hotel: hotelDataModel)
+        let vc = HotelDetailsViewController(viewModel: viewModel)
         vc.hidesBottomBarWhenPushed = true
         
         self.navigationController?.pushViewController(vc, animated: true)

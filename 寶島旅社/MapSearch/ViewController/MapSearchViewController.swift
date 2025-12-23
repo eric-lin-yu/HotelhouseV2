@@ -200,7 +200,8 @@ extension MapSearchViewController: MKMapViewDelegate {
               let hotel = self.viewModel.getHotel(from: title) else { return }
         
         // 跳轉 Detail
-        let vc = HotelDetailsViewController(hotelDataModel: hotel)
+        let viewModel = HotelDetailsViewModel(hotel: hotel)
+        let vc = HotelDetailsViewController(viewModel: viewModel)
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -222,6 +222,11 @@ struct HotelImage: Codable  {
 
     /// 圖片 URL
     let url: String
+    
+    // URL 字串轉成 URL 物件
+    var imageURL: URL? {
+        return URL(string: url)
+    }
 }
 
 /// 旅宿類型定義
