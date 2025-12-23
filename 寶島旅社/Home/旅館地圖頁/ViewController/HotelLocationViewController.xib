@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <capability name="Map view configurations" minToolsVersion="14.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HotelLocationViewController" customModule="寶島旅社" customModuleProvider="target">
+            <connections>
+                <outlet property="mapActionSegmentedControl" destination="In8-Fv-6yw" id="VVC-jJ-Aw2"/>
+                <outlet property="mapView" destination="4Cp-yF-NMd" id="405-gg-9Nd"/>
+                <outlet property="view" destination="iN0-l3-epB" id="kEF-ul-8Fs"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Cp-yF-NMd">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <standardMapConfiguration key="preferredConfiguration"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="bhm-Sw-Vpf"/>
+                    </connections>
+                </mapView>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="In8-Fv-6yw">
+                    <rect key="frame" x="76.666666666666686" y="138" width="240" height="41"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="240" id="J7g-uM-FmJ"/>
+                        <constraint firstAttribute="height" constant="40" id="c9g-G0-2Rm"/>
+                    </constraints>
+                    <segments>
+                        <segment title="First"/>
+                        <segment title="Second"/>
+                    </segments>
+                    <connections>
+                        <action selector="actionSegmentChanged:" destination="-1" eventType="valueChanged" id="cYx-yX-xG2"/>
+                    </connections>
+                </segmentedControl>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="4Cp-yF-NMd" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="7gt-Xy-viT"/>
+                <constraint firstItem="4Cp-yF-NMd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="8si-dC-Xh3"/>
+                <constraint firstAttribute="bottom" secondItem="4Cp-yF-NMd" secondAttribute="bottom" id="ArP-zT-RB8"/>
+                <constraint firstItem="In8-Fv-6yw" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="NPn-O3-Fn9"/>
+                <constraint firstItem="4Cp-yF-NMd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="kVo-YK-BYJ"/>
+                <constraint firstItem="In8-Fv-6yw" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="tCb-S9-N3G"/>
+            </constraints>
+            <point key="canvasLocation" x="138.1679389312977" y="153.52112676056339"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
