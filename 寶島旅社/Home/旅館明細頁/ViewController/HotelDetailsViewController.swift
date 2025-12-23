@@ -22,6 +22,8 @@ class HotelDetailsViewController: UIViewController {
         let title: String
     }
     
+    @IBOutlet weak var tableView: UITableView!
+    
     private var hotelDataModel: Hotel
     private var collectionImageDataModel: [DetailImageData] = []
 
@@ -40,48 +42,14 @@ class HotelDetailsViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    //MARK: - UI
-    private let tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
-    
-    //MARK: - setup
-    private func setupViews() {
-        view.addSubview(tableView)
-
-        tableView.dataSource = self
-        tableView.delegate = self
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        // 註冊cell
-        useCells.forEach {
+        self.useCells.forEach {
             tableView.register(UINib(nibName: $0.storyboardIdentifier,
                                      bundle: Bundle.messageCoreBundle),
                                forCellReuseIdentifier: $0.storyboardIdentifier)
         }
-    }
-    
-    private func setupConstraint() {
-        let topSafeArea = view.safeAreaLayoutGuide.topAnchor
-        let leftSafeArea = view.safeAreaLayoutGuide.leftAnchor
-        let rightSafeArea = view.safeAreaLayoutGuide.rightAnchor
-        
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topSafeArea),
-            tableView.leftAnchor.constraint(equalTo: leftSafeArea),
-            tableView.rightAnchor.constraint(equalTo: rightSafeArea),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupViews()
-        setupConstraint()
         
         getCollectionViewDataModel()
      

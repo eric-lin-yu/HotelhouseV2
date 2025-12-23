@@ -42,6 +42,7 @@
 		896DF71A28F7E58D0031A88A /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71928F7E58D0031A88A /* MainTabBarController.swift */; };
 		896DF71C28F7E5CE0031A88A /* ColorSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71B28F7E5CE0031A88A /* ColorSets.swift */; };
 		896EEAFC291CC7C2005296CC /* 鼓掌兔兔.gif in Resources */ = {isa = PBXBuildFile; fileRef = 896EEAFB291CC7C2005296CC /* 鼓掌兔兔.gif */; };
+		8990938D2EFA678F006002D9 /* HotelDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8990938C2EFA678F006002D9 /* HotelDetailsViewController.xib */; };
 		8993C08B2A7393940046AD84 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 8993C08A2A7393940046AD84 /* Realm */; };
 		8993C08D2A7393940046AD84 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8993C08C2A7393940046AD84 /* RealmSwift */; };
 		89A0A4DA2ACBA8CC00F5F91E /* CollectionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A0A4D92ACBA8CC00F5F91E /* CollectionsTableViewCell.swift */; };
@@ -149,6 +150,7 @@
 		896DF71928F7E58D0031A88A /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		896DF71B28F7E5CE0031A88A /* ColorSets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSets.swift; sourceTree = "<group>"; };
 		896EEAFB291CC7C2005296CC /* 鼓掌兔兔.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "鼓掌兔兔.gif"; sourceTree = "<group>"; };
+		8990938C2EFA678F006002D9 /* HotelDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsViewController.xib; sourceTree = "<group>"; };
 		89A0A4D92ACBA8CC00F5F91E /* CollectionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsTableViewCell.swift; sourceTree = "<group>"; };
 		89B413062914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		89B413072914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailCollectionTableViewCell.xib; sourceTree = "<group>"; };
@@ -302,7 +304,6 @@
 		892DE039290117E5003F3974 /* HotelDetails */ = {
 			isa = PBXGroup;
 			children = (
-				892DE03C29011886003F3974 /* HotelDetailsViewController.swift */,
 				89DF5F0C290F736200434000 /* HotelDetailsMapViewController.swift */,
 				892DE03A29011873003F3974 /* HotelDetailsStoryboard.storyboard */,
 			);
@@ -348,6 +349,15 @@
 				892DE039290117E5003F3974 /* HotelDetails */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		8990938B2EFA6766006002D9 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				892DE03C29011886003F3974 /* HotelDetailsViewController.swift */,
+				8990938C2EFA678F006002D9 /* HotelDetailsViewController.xib */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		89B5469B2925D5BC0020C522 /* MapSearch */ = {
@@ -456,6 +466,7 @@
 			children = (
 				89BE85632EFA612E00E4A8E7 /* View */,
 				89BE85622EFA612600E4A8E7 /* ViewModel */,
+				8990938B2EFA6766006002D9 /* ViewController */,
 			);
 			path = "旅館明細頁";
 			sourceTree = "<group>";
@@ -756,6 +767,7 @@
 				892AAC8D28F8FD1000614DA1 /* FrontPageStoryboard.storyboard in Resources */,
 				89BF620928F65DDC00418305 /* LaunchScreen.storyboard in Resources */,
 				892AAC9228F9057700614DA1 /* AboutStoryboard.storyboard in Resources */,
+				8990938D2EFA678F006002D9 /* HotelDetailsViewController.xib in Resources */,
 				892AACAC28F92F2F00614DA1 /* LoadingPageView.xib in Resources */,
 				891E4F922AB14C2F00C48624 /* HotelList.json in Resources */,
 				89BF620628F65DDC00418305 /* Assets.xcassets in Resources */,
