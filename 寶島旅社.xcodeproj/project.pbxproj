@@ -58,6 +58,7 @@
 		89BE855B2EF8F09300E4A8E7 /* MapSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89BE855A2EF8F09300E4A8E7 /* MapSearchViewController.xib */; };
 		89BE855D2EF910DB00E4A8E7 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE855C2EF910D200E4A8E7 /* UINavigationController+Extension.swift */; };
 		89BE85602EF9141500E4A8E7 /* HotelDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE855F2EF9141300E4A8E7 /* HotelDataManager.swift */; };
+		89BE85652EFA618B00E4A8E7 /* HotelDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BE85642EFA618A00E4A8E7 /* HotelDetailsViewModel.swift */; };
 		89BF61FD28F65DDB00418305 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF61FC28F65DDB00418305 /* AppDelegate.swift */; };
 		89BF61FF28F65DDB00418305 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF61FE28F65DDB00418305 /* SceneDelegate.swift */; };
 		89BF620128F65DDB00418305 /* FrontPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF620028F65DDB00418305 /* FrontPageViewController.swift */; };
@@ -162,6 +163,7 @@
 		89BE855A2EF8F09300E4A8E7 /* MapSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapSearchViewController.xib; sourceTree = "<group>"; };
 		89BE855C2EF910D200E4A8E7 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		89BE855F2EF9141300E4A8E7 /* HotelDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDataManager.swift; sourceTree = "<group>"; };
+		89BE85642EFA618A00E4A8E7 /* HotelDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsViewModel.swift; sourceTree = "<group>"; };
 		89BF61F928F65DDB00418305 /* 寶島旅社.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "寶島旅社.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89BF61FC28F65DDB00418305 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89BF61FE28F65DDB00418305 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -317,14 +319,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		892DE05429027E09003F3974 /* CollectionViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				892DE0432901374C003F3974 /* ImageDataCollectionViewCell.swift */,
-			);
-			path = CollectionViewCell;
-			sourceTree = "<group>";
-		};
 		893BB9422AAAAAA600A9A3B8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				89BE852D2EF38F8900E4A8E7 /* 主頁 */,
+				89BE85612EFA611500E4A8E7 /* 旅館明細頁 */,
 				892DE039290117E5003F3974 /* HotelDetails */,
 			);
 			path = Home;
@@ -454,6 +449,36 @@
 				89BE855C2EF910D200E4A8E7 /* UINavigationController+Extension.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		89BE85612EFA611500E4A8E7 /* 旅館明細頁 */ = {
+			isa = PBXGroup;
+			children = (
+				89BE85632EFA612E00E4A8E7 /* View */,
+				89BE85622EFA612600E4A8E7 /* ViewModel */,
+			);
+			path = "旅館明細頁";
+			sourceTree = "<group>";
+		};
+		89BE85622EFA612600E4A8E7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				89BE85642EFA618A00E4A8E7 /* HotelDetailsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		89BE85632EFA612E00E4A8E7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				892DE0432901374C003F3974 /* ImageDataCollectionViewCell.swift */,
+				9F55A8D92BB912990076C4BF /* HotelDetailCollectionTableViewCell */,
+				9F55A8DA2BB912A30076C4BF /* HotelDetailsTableViewCell */,
+				9F55A8DB2BB912B10076C4BF /* DescriptionTableViewCell */,
+				9F55A8DC2BB912BB0076C4BF /* HotelExtraDetailsTableViewCell */,
+				9F55A8DD2BB912C40076C4BF /* MapTableViewCell */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		89BF61F028F65DDB00418305 = {
@@ -608,14 +633,8 @@
 		9FA8F0E42A639939009ACADD /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				9F55A8D92BB912990076C4BF /* HotelDetailCollectionTableViewCell */,
-				9F55A8DA2BB912A30076C4BF /* HotelDetailsTableViewCell */,
-				9F55A8DB2BB912B10076C4BF /* DescriptionTableViewCell */,
-				9F55A8DC2BB912BB0076C4BF /* HotelExtraDetailsTableViewCell */,
 				89A0A4D92ACBA8CC00F5F91E /* CollectionsTableViewCell.swift */,
-				9F55A8DD2BB912C40076C4BF /* MapTableViewCell */,
 				9FEE946B2C648AB100F4D4D6 /* PersonalSettingsIconTableViewCell */,
-				892DE05429027E09003F3974 /* CollectionViewCell */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -772,6 +791,7 @@
 				9FA8F0ED2A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift in Sources */,
 				9FA8F0F22A639939009ACADD /* SettingsTableViewHeaderFooterView.swift in Sources */,
 				891E4F9C2AB1A73800C48624 /* GifImageNames.swift in Sources */,
+				89BE85652EFA618B00E4A8E7 /* HotelDetailsViewModel.swift in Sources */,
 				891E4F9A2AB193F000C48624 /* String+Extension.swift in Sources */,
 				89DCB172296EB408003A48B7 /* Array+Extension.swift in Sources */,
 				892DE04829023A32003F3974 /* UIViewController+SendEmail.swift in Sources */,
