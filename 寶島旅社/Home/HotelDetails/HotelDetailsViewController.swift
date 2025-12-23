@@ -26,8 +26,8 @@ class HotelDetailsViewController: UIViewController {
     private var collectionImageDataModel: [DetailImageData] = []
 
     private let useCells: [UITableViewCell.Type] = [HotelDetailCollectionTableViewCell.self,
-                                                    MapTableViewCell.self,
-                                                    DescriptionTableViewCell.self,
+                                                    HotelMapTableViewCell.self,
+                                                    HotelDescriptionTableViewCell.self,
                                                     HotelExtraDetailsTableViewCell.self,
                                                     HotelDetailsTableViewCell.self]
     
@@ -181,14 +181,14 @@ extension HotelDetailsViewController: UITableViewDataSource, UITableViewDelegate
         cell.pageControl.numberOfPages = collectionImageDataModel.count
         // 分頁模式
         cell.collectionView.isPagingEnabled = true
-        cell.collectionView.register(ImageDataCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ImageDataCollectionViewCell.self))
+        cell.collectionView.register(HotelImageCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: HotelImageCollectionViewCell.self))
         
         return cell
     }
     
     // 說明介紹
     func openDescriptionTableViewCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DescriptionTableViewCell.self), for: indexPath) as! DescriptionTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HotelDescriptionTableViewCell.self), for: indexPath) as! HotelDescriptionTableViewCell
         
         cell.configure(dataModel: hotelDataModel)
         
@@ -215,7 +215,7 @@ extension HotelDetailsViewController: UITableViewDataSource, UITableViewDelegate
     
     // MAP
     func openMapTableViewCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MapTableViewCell.self), for: indexPath) as! MapTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HotelMapTableViewCell.self), for: indexPath) as! HotelMapTableViewCell
         
         cell.configure(dataModel: hotelDataModel)
         
@@ -236,7 +236,7 @@ extension HotelDetailsViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: ImageDataCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ImageDataCollectionViewCell.self), for: indexPath) as! ImageDataCollectionViewCell
+        let cell: HotelImageCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HotelImageCollectionViewCell.self), for: indexPath) as! HotelImageCollectionViewCell
         
         if indexPath.row < collectionImageDataModel.count {
             let imageData = collectionImageDataModel[indexPath.row]

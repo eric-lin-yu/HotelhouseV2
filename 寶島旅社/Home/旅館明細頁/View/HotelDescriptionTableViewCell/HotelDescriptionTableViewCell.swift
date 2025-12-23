@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DescriptionTableViewCell: UITableViewCell {
+class HotelDescriptionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var roundFramView: UIView! {
         didSet {

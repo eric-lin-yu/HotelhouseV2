@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageDataCollectionViewCell: UICollectionViewCell {
+class HotelImageCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

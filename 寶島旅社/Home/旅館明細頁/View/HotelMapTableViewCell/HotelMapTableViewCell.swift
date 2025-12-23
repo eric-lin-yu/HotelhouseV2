@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapTableViewCell: UITableViewCell {
+class HotelMapTableViewCell: UITableViewCell {
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var roundFramView: UIView! {
         didSet {
