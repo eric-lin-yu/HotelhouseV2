@@ -57,6 +57,8 @@ class HotelLocationViewController: UIViewController {
         case 1: // 路徑規劃
             LocationManager.shared.getUserLocation { [weak self] location in
                 self?.mapView.showsUserLocation = true
+                // 追蹤使用者位置
+                self?.mapView.userTrackingMode = .follow
                 self?.viewModel.updateUserLocation(location)
                 self?.drawRouteLine()
             }
