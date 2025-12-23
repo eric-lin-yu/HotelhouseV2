@@ -72,6 +72,17 @@ extension HotelDetailsViewController {
             tableView.register(UINib(nibName: $0.storyboardIdentifier, bundle: Bundle.messageCoreBundle), forCellReuseIdentifier: $0.storyboardIdentifier)
         }
     }
+    
+    /// 執行跳轉至旅關地圖詳細頁
+    private func navigateToMapDetail() {
+        let viewModel = HotelLocationViewModel(hotel: self.viewModel.hotelModel)
+        let mapVC = HotelLocationViewController(viewModel: viewModel)
+        mapVC.hidesBottomBarWhenPushed = true
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        self.navigationController?.pushViewController(mapVC, animated: true)
+    }
 }
 
 //MARK: - TableView
@@ -119,6 +130,15 @@ extension HotelDetailsViewController: UITableViewDataSource, UITableViewDelegate
             let cell = tableView.dequeueReusableCell(withIdentifier: HotelMapTableViewCell.storyboardIdentifier, for: indexPath) as! HotelMapTableViewCell
             cell.configure(dataModel: viewModel.hotelModel)
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let rowModel = viewModel.rowModel(at: indexPath.section) else { return }
+        
+        // 當使用者點擊地圖 Cell 時
+        if rowModel.sectionType == .hotelMap {
+            navigateToMapDetail()
         }
     }
 }
