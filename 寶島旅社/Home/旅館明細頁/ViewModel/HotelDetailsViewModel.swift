@@ -37,12 +37,18 @@ class HotelDetailsViewModel {
     
     private(set) var contents: [HotelDetailsViewRowModel] = []
     
+    var hotelName: String {
+        hotel.name
+    }
+    
+    var hotelModel: Hotel {
+        hotel
+    }
+    
     init(hotel: Hotel) {
         self.hotel = hotel
         self.buildViewModel()
     }
-    
-   
 }
 
 // MARK: - TableView ViewModel Getter
@@ -56,9 +62,9 @@ extension HotelDetailsViewModel {
         return contents[section].cellModel.count
     }
     
-    func rowModel(at indexPath: IndexPath) -> HotelDetailsViewRowModel? {
-        guard indexPath.section < contents.count else { return nil }
-        return contents[indexPath.section]
+    func rowModel(at section: Int) -> HotelDetailsViewRowModel? {
+        guard section < contents.count else { return nil }
+        return contents[section]
     }
 }
 

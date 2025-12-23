@@ -43,6 +43,7 @@ class HotelImageCollectionViewCell: UICollectionViewCell {
         label.layer.borderColor = UIColor.sageGreen.cgColor
         
         label.backgroundColor = .white
+        label.isUserInteractionEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -129,33 +130,39 @@ class HotelImageCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configure(with imageURL: String? = nil, title: String? = nil) {
+    func configure(with model: HotelImage?) {
         let errorImage = GifImageNames.shared.errorImageName
+        popupView.isHidden = true
         
-        // Set hotel image
-        if let imageURL = imageURL {
-            hotelImageView.loadUrlImage(urlString: imageURL) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let image):
-                        if let image {
-                            self.hotelImageView.image = image
-                        }
-                    case .failure:
-                        self.hotelImageView.loadGif(name: errorImage)
-                    }
-                }
-            }
-        } else {
-            self.hotelImageView.loadGif(name: errorImage)
+        guard let model = model else {
+            hotelImageView.loadGif(name: errorImage)
+            titleLabel.text = "很抱歉，此旅店尚未提供圖檔哦~"
+            return
         }
         
-        // Set title label
-        titleLabel.text = title?.isEmpty == true ? "實景示意圖" : (title ?? "很抱歉，此旅店尚未提供圖檔哦~")
+        // 載入圖片
+        self.hotelImageView.loadUrlImage(urlString: model.url) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let image):
+                    self?.hotelImageView.image = image ?? UIImage(named: errorImage)
+                case .failure:
+                    self?.hotelImageView.loadGif(name: errorImage)
+                }
+            }
+        }
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTitleLabelTap(_:)))
-        titleLabel.isUserInteractionEnabled = true
-        titleLabel.addGestureRecognizer(tapGesture)
+        // 設定文字
+        let description = model.description.isEmpty ? "實景示意圖" : model.description
+        titleLabel.text = description
+        popupTextView.text = description
+    }
+    
+    @objc private func togglePopup() {
+        // 只有當文字長度超過一定限制才顯示彈窗 (例如 18 字)
+        if let text = titleLabel.text, text.count > 18 {
+            popupView.isHidden.toggle()
+        }
     }
     
     @objc func handleTitleLabelTap(_ gesture: UITapGestureRecognizer) {

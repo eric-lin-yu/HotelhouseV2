@@ -9,8 +9,10 @@
 import UIKit
 
 protocol HotelDetailsTableViewCellDelegate: AnyObject {
-    func webLabelTapped(for cell: HotelDetailsTableViewCell)
-    func addHotelDataModelToRealm(for cell: HotelDetailsTableViewCell)
+    /// 點擊收藏按鈕
+    func addHotelDataModelToRealm()
+    /// 點擊 web
+    func webLabelTapped()
 }
 class HotelDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var hotelClassView: UIView!
@@ -26,6 +28,7 @@ class HotelDetailsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -58,10 +61,10 @@ class HotelDetailsTableViewCell: UITableViewCell {
     }
     
     @objc private func openWebView() {
-        delegate?.webLabelTapped(for: self)
+        delegate?.webLabelTapped()
     }
     
     @objc private func addHotelDataModelToRealm() {
-        delegate?.addHotelDataModelToRealm(for: self)
+        delegate?.addHotelDataModelToRealm()
     }
 }
