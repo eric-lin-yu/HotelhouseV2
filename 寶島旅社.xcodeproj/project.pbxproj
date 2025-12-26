@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		891E4F922AB14C2F00C48624 /* HotelList.json in Resources */ = {isa = PBXBuildFile; fileRef = 891E4F912AB14C2F00C48624 /* HotelList.json */; };
-		891E4F942AB1615D00C48624 /* ImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F932AB1615D00C48624 /* ImageView+Extension.swift */; };
+		891E4F942AB1615D00C48624 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F932AB1615D00C48624 /* UIImageView+Extension.swift */; };
 		891E4F962AB1921300C48624 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F952AB1921300C48624 /* RealmManager.swift */; };
 		891E4F982AB1933100C48624 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F972AB1933100C48624 /* Data+Extension.swift */; };
 		891E4F9A2AB193F000C48624 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F992AB193F000C48624 /* String+Extension.swift */; };
@@ -117,7 +117,7 @@
 
 /* Begin PBXFileReference section */
 		891E4F912AB14C2F00C48624 /* HotelList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HotelList.json; sourceTree = "<group>"; };
-		891E4F932AB1615D00C48624 /* ImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImageView+Extension.swift"; sourceTree = "<group>"; };
+		891E4F932AB1615D00C48624 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		891E4F952AB1921300C48624 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		891E4F972AB1933100C48624 /* Data+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		891E4F992AB193F000C48624 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -275,7 +275,6 @@
 				89F71EA62D2CBD9100A28E5C /* NSObjectExtension.swift */,
 				892BCC242907C3290095D3D5 /* StoryboardSupports.swift */,
 				892AACA228F909DF00614DA1 /* Bundle+Extension.swift */,
-				891E4F932AB1615D00C48624 /* ImageView+Extension.swift */,
 				89DCB171296EB408003A48B7 /* Array+Extension.swift */,
 				891E4F992AB193F000C48624 /* String+Extension.swift */,
 				891E4F972AB1933100C48624 /* Data+Extension.swift */,
@@ -472,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				892AAC9E28F9092000614DA1 /* UIImage+GIF.swift */,
+				891E4F932AB1615D00C48624 /* UIImageView+Extension.swift */,
 				892DE04729023A32003F3974 /* UIViewController+SendEmail.swift */,
 				89D07895299C89C1004EAF2B /* UIView+Extension.swift */,
 				892AACA728F90FF900614DA1 /* UIApplication+Extension.swift */,
@@ -843,7 +843,7 @@
 				9FA8F0F02A639939009ACADD /* PersonalSettingsIconTableViewCell.swift in Sources */,
 				89DF925929232C9D00B049BA /* FrontPageTableViewCell.swift in Sources */,
 				89BE85572EF8EBCD00E4A8E7 /* MapSearchViewModel.swift in Sources */,
-				891E4F942AB1615D00C48624 /* ImageView+Extension.swift in Sources */,
+				891E4F942AB1615D00C48624 /* UIImageView+Extension.swift in Sources */,
 				89BF61FD28F65DDB00418305 /* AppDelegate.swift in Sources */,
 				892DE04129011CEB003F3974 /* BaseViewController.swift in Sources */,
 				89BE85352EF3923F00E4A8E7 /* APIInfo.swift in Sources */,
