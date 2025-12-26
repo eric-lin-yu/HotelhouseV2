@@ -23,6 +23,11 @@ struct BasicModel<R: Decodable>: Decodable {
     let returnMessage: String?
 }
 
+enum APIResponsePrintMode {
+    case full
+    case preview(count: Int)
+}
+
 // MARK: - API Manager
 class APIManager {
     static let shared = APIManager()
@@ -120,7 +125,6 @@ class APIManager {
     }
 }
 
-// MARK: - Logging Helpers
 extension APIManager {
     /// 列印 API Request 資訊
     private func printRequest(endpoint: String, method: String, body: Data?) {
@@ -135,30 +139,48 @@ extension APIManager {
     }
     
     /// 列印 API Response 資訊
-    private func printResponse(endpoint: String, method: String, responseData: Data, previewCount: Int = 1) {
+    /// - Parameters:
+    ///   - endpoint: API 路徑
+    ///   - method: HTTP Method
+    ///   - responseData: 原始回傳資料
+    ///   - mode: 列印模式（完整 / 預覽）
+    private func printResponse(endpoint: String,
+                               method: String,
+                               responseData: Data,
+                               mode: APIResponsePrintMode = .preview(count: 1)) {
         guard
             let json = try? JSONSerialization.jsonObject(with: responseData),
-            var dict = json as? [String: Any],
-            var infos = ((dict["XML_Head"] as? [String: Any])?["Infos"] as? [String: Any]),
-            let list = infos["Info"] as? [[String: Any]]
+            var dict = json as? [String: Any]
         else { return }
 
-        infos["Info"] = Array(list.prefix(previewCount))
-        dict["XML_Head"] = (dict["XML_Head"] as? [String: Any]).map {
-            var head = $0
-            head["Infos"] = infos
-            return head
+        var previewLabel = ""
+
+        if case .preview(let count) = mode,
+           var infos = ((dict["XML_Head"] as? [String: Any])?["Infos"] as? [String: Any]),
+           let list = infos["Info"] as? [[String: Any]] {
+
+            infos["Info"] = Array(list.prefix(count))
+            dict["XML_Head"] = (dict["XML_Head"] as? [String: Any]).map {
+                var head = $0
+                head["Infos"] = infos
+                return head
+            }
+            previewLabel = "📄 Preview First \(count)"
+        } else {
+            previewLabel = "📄 Full Response"
         }
 
         let data = try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
-        let preview = data.flatMap { String(data: $0, encoding: .utf8) } ?? ""
+        let output = data.flatMap { String(data: $0, encoding: .utf8) } ?? ""
 
         print("""
-        \n\n✅ ==================== API Response (Preview) ===================
+        
+        ✅ ==================== API Response ====================
         ⬅️ [\(method)] \(endpoint)
-        📄 Preview First \(previewCount)
-        \(preview)
-        ================================================================\n
+        \(previewLabel)
+        \(output)
+        =========================================================
+        
         """)
     }
 }
