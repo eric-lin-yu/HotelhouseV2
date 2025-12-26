@@ -9,41 +9,23 @@
 import UIKit
 
 class HotelImageCollectionViewCell: UICollectionViewCell {
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupSubView()
-        setupConstraint()
-    }
-    
     //MARK: - UI
     private let hotelImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
+    // 浮動標籤樣式
     private let titleLabel: UILabel = {
         let label = UILabel()
-        
-        label.textColor = .orangeRed
-        label.font = .boldSystemFont(ofSize: 17)
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 13, weight: .medium)
+        label.backgroundColor = UIColor.black.withAlphaComponent(0.5) // 半透明背景
         label.textAlignment = .center
-        label.numberOfLines = 0
-        
-        //圓角
-        label.layer.cornerRadius = 15
-        label.layer.masksToBounds = true
-        
-        //邊框線條
-        label.layer.borderWidth = 2
-        label.layer.borderColor = UIColor.sageGreen.cgColor
-        
-        label.backgroundColor = .white
-        label.isUserInteractionEnabled = true
+        label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -73,61 +55,78 @@ class HotelImageCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.setupSubView()
+        self.setupConstraint()
+        self.setupGestures()
+    }
+    
     //MARK: - setup
     private func setupSubView() {
-        let viewsToAdd: [UIView] = [
-            hotelImageView,
-            titleLabel,
-            popupView,
-        ]
-        viewsToAdd.forEach { contentView.addSubview($0) }
+        // 先放底層圖片
+        contentView.addSubview(hotelImageView)
+        // 標籤放在圖片上
+        contentView.addSubview(titleLabel)
+        // 彈窗放在最頂層
+        contentView.addSubview(popupView)
         
-        let viewsToAddPopupView: [UIView] = [
-            popupTextView,
-            closeButton,
-        ]
-        viewsToAddPopupView.forEach { popupView.addSubview($0) }
-        popupView.isHidden = true
+        self.popupView.addSubview(popupTextView)
+        self.popupView.addSubview(closeButton)
+        
+        contentView.layer.cornerRadius = 8
+        contentView.clipsToBounds = true
+        
+        self.popupView.isHidden = true
     }
     
     private func setupConstraint() {
-        let topContentViewAnchor = contentView.topAnchor
-        let leftContentViewAnchor = contentView.leftAnchor
-        let rightContentViewAnchor = contentView.rightAnchor
-        let bottomContentViewAnchor = contentView.bottomAnchor
-        
         NSLayoutConstraint.activate([
-            hotelImageView.topAnchor.constraint(equalTo: topContentViewAnchor),
-            hotelImageView.leftAnchor.constraint(equalTo: leftContentViewAnchor),
-            hotelImageView.rightAnchor.constraint(equalTo: rightContentViewAnchor),
-            hotelImageView.heightAnchor.constraint(equalToConstant: 200),
+            // 圖片填滿整個 Cell
+            self.hotelImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            self.hotelImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            self.hotelImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            self.hotelImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: hotelImageView.bottomAnchor, constant: 10),
-            titleLabel.leftAnchor.constraint(equalTo: hotelImageView.leftAnchor),
-            titleLabel.rightAnchor.constraint(equalTo: hotelImageView.rightAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomContentViewAnchor),
-            titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 40),
+            // 標籤貼在圖片底部
+            self.titleLabel.leftAnchor.constraint(equalTo: hotelImageView.leftAnchor),
+            self.titleLabel.rightAnchor.constraint(equalTo: hotelImageView.rightAnchor),
+            self.titleLabel.bottomAnchor.constraint(equalTo: hotelImageView.bottomAnchor),
+            self.titleLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            popupView.topAnchor.constraint(equalTo: topContentViewAnchor, constant: 10),
-            popupView.leftAnchor.constraint(equalTo: leftContentViewAnchor, constant: 10),
-            popupView.rightAnchor.constraint(equalTo: rightContentViewAnchor, constant: -10),
-            popupView.bottomAnchor.constraint(equalTo: bottomContentViewAnchor, constant: -10),
+            // popupView：設定為填滿整個 contentView，作為一個浮層
+            self.popupView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            self.popupView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            self.popupView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            self.popupView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            popupView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            popupView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
-            popupView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
+            // popupTextView：在 popupView 內部置中
+            self.popupTextView.centerXAnchor.constraint(equalTo: popupView.centerXAnchor),
+            self.popupTextView.centerYAnchor.constraint(equalTo: popupView.centerYAnchor, constant: -15),
+            self.popupTextView.widthAnchor.constraint(equalTo: popupView.widthAnchor, multiplier: 0.8),
+            self.popupTextView.heightAnchor.constraint(equalToConstant: 120),
             
-            popupTextView.topAnchor.constraint(equalTo: popupView.topAnchor, constant: 10),
-            popupTextView.leftAnchor.constraint(equalTo: popupView.leftAnchor, constant: 10),
-            popupTextView.rightAnchor.constraint(equalTo: popupView.rightAnchor, constant: -10),
-            popupTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 150),
-            
-            closeButton.topAnchor.constraint(equalTo: popupTextView.bottomAnchor, constant: 10),
-            closeButton.centerXAnchor.constraint(equalTo: popupView.centerXAnchor),
-            closeButton.bottomAnchor.constraint(equalTo: popupView.bottomAnchor),
-            closeButton.widthAnchor.constraint(equalToConstant: 25),
-            closeButton.heightAnchor.constraint(equalToConstant: 25),
+            // closeButton：放在文字框右上方或正下方
+            self.closeButton.topAnchor.constraint(equalTo: popupTextView.bottomAnchor, constant: 8),
+            self.closeButton.centerXAnchor.constraint(equalTo: popupView.centerXAnchor),
+            self.closeButton.widthAnchor.constraint(equalToConstant: 30),
+            self.closeButton.heightAnchor.constraint(equalToConstant: 30)
         ])
+    }
+    
+    private func setupGestures() {
+        // 確保 titleLabel 可以互動
+        self.titleLabel.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTitleLabelTap(_:)))
+        self.titleLabel.addGestureRecognizer(tap)
+        
+        // 關閉按鈕事件
+        self.closeButton.addTarget(self, action: #selector(closePopup(_:)), for: .touchUpInside)
     }
     
     func configure(with model: HotelImage?) {
@@ -145,36 +144,39 @@ class HotelImageCollectionViewCell: UICollectionViewCell {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let image):
-                    self?.hotelImageView.image = image ?? UIImage(named: errorImage)
+                    let targetImage = image ?? UIImage(named: errorImage)
+                    self?.hotelImageView.setImageWithFade(targetImage)
                 case .failure:
                     self?.hotelImageView.loadGif(name: errorImage)
                 }
             }
         }
         
-        // 設定文字
         let description = model.description.isEmpty ? "實景示意圖" : model.description
-        titleLabel.text = description
-        popupTextView.text = description
+        self.titleLabel.text = description.count > 18 ? " \(description.prefix(17))..." : " \(description)"
+        self.popupTextView.text = description
+        self.popupView.backgroundColor = UIColor.black.withAlphaComponent(0.85)
     }
     
-    @objc private func togglePopup() {
-        // 只有當文字長度超過一定限制才顯示彈窗 (例如 18 字)
-        if let text = titleLabel.text, text.count > 18 {
-            popupView.isHidden.toggle()
-        }
-    }
-    
+    /// 點擊事件
     @objc func handleTitleLabelTap(_ gesture: UITapGestureRecognizer) {
-        guard let titleLabelText = titleLabel.text, titleLabelText.count > 18 else {
-            return
+        guard let fullText = popupTextView.text, fullText.count > 18 else { return }
+        
+        // 將 popupView 提到最前方並顯示
+        contentView.bringSubviewToFront(popupView)
+        self.popupView.alpha = 0
+        self.popupView.isHidden = false
+        
+        UIView.animate(withDuration: 0.3) {
+            self.popupView.alpha = 1
         }
-        popupView.isHidden = false
-        popupTextView.text = titleLabelText
-        closeButton.addTarget(self, action: #selector(closePopup(_:)), for: .touchUpInside)
     }
     
     @objc func closePopup(_ sender: UIButton) {
-        popupView.isHidden = true
+        UIView.animate(withDuration: 0.2, animations: {
+            self.popupView.alpha = 0
+        }) { _ in
+            self.popupView.isHidden = true
+        }
     }
 }
