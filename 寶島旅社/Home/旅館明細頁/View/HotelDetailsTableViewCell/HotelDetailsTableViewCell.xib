@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,10 +19,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0fx-dM-eiw">
-                        <rect key="frame" x="15" y="0.0" width="428" height="35"/>
+                        <rect key="frame" x="15" y="0.0" width="428" height="30.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="building.2" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ylj-4E-B73">
-                                <rect key="frame" x="8" y="5" width="20" height="25"/>
+                                <rect key="frame" x="8" y="4" width="20" height="26.5"/>
                                 <color key="tintColor" red="0.96862745100000003" green="0.26274509800000001" blue="0.066666666669999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="MEB-Bo-Lxv"/>
@@ -30,7 +30,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 旅館類別：國際觀光旅館" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LS8-8o-ETg">
-                                <rect key="frame" x="28" y="5" width="392" height="25"/>
+                                <rect key="frame" x="28" y="5" width="392" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -48,10 +48,10 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DSv-5A-lJz">
-                        <rect key="frame" x="15" y="80" width="523" height="35"/>
+                        <rect key="frame" x="15" y="75.5" width="523" height="35"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 金額：1400 ~ 2800" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xA4-zW-Mox">
-                                <rect key="frame" x="28" y="5" width="155" height="25"/>
+                                <rect key="frame" x="28" y="5" width="153.5" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -65,7 +65,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="(僅供參考)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w69-lD-Bcn">
-                                <rect key="frame" x="193" y="5" width="58.5" height="25"/>
+                                <rect key="frame" x="191.5" y="5" width="57" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -88,14 +88,14 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3YI-ry-vW1" userLabel="bottomLinwView">
-                        <rect key="frame" x="15" y="120" width="523" height="2"/>
+                        <rect key="frame" x="15" y="115.5" width="523" height="2"/>
                         <color key="backgroundColor" red="0.71372549019999998" green="0.78823529410000004" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="2" id="gV5-83-de9"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z2F-o9-sdU" userLabel="WebView">
-                        <rect key="frame" x="15" y="40" width="523" height="35"/>
+                        <rect key="frame" x="15" y="35.5" width="523" height="35"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="network" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="e7y-xR-6z0">
                                 <rect key="frame" x="8" y="5.5" width="20" height="24"/>
@@ -106,34 +106,26 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3AQ-qX-gHi">
-                                <rect key="frame" x="85" y="7.5" width="44.5" height="20"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" systemColor="systemBlueColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 官網：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SyV-xj-4RJ">
-                                <rect key="frame" x="28" y="7.5" width="57" height="20"/>
+                                <rect key="frame" x="28" y="7.5" width="41.5" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" systemColor="systemBlueColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="3AQ-qX-gHi" firstAttribute="leading" secondItem="SyV-xj-4RJ" secondAttribute="trailing" id="4a6-XU-BOp"/>
                             <constraint firstItem="e7y-xR-6z0" firstAttribute="leading" secondItem="z2F-o9-sdU" secondAttribute="leading" constant="8" id="55Q-tv-Ay9"/>
-                            <constraint firstItem="SyV-xj-4RJ" firstAttribute="centerY" secondItem="e7y-xR-6z0" secondAttribute="centerY" id="Ctj-ZV-RZv"/>
-                            <constraint firstItem="SyV-xj-4RJ" firstAttribute="leading" secondItem="e7y-xR-6z0" secondAttribute="trailing" id="WEl-44-qA8"/>
+                            <constraint firstItem="3AQ-qX-gHi" firstAttribute="leading" secondItem="e7y-xR-6z0" secondAttribute="trailing" id="8fl-Un-dbR"/>
                             <constraint firstAttribute="bottom" secondItem="e7y-xR-6z0" secondAttribute="bottom" constant="5" id="bnQ-YI-ndF"/>
                             <constraint firstItem="3AQ-qX-gHi" firstAttribute="centerY" secondItem="e7y-xR-6z0" secondAttribute="centerY" id="mxO-eB-vDv"/>
                             <constraint firstItem="e7y-xR-6z0" firstAttribute="top" secondItem="z2F-o9-sdU" secondAttribute="top" constant="5" id="toG-vK-2DC"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K0h-HI-LPD">
-                        <rect key="frame" x="458" y="0.0" width="80" height="35"/>
+                        <rect key="frame" x="458" y="0.0" width="80" height="30.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder.fill.badge.plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fen-XF-a23">
-                                <rect key="frame" x="11" y="6" width="21.5" height="22.5"/>
+                                <rect key="frame" x="11.5" y="2.5" width="22.5" height="24"/>
                                 <color key="tintColor" red="0.96862745100000003" green="0.26274509800000001" blue="0.066666666669999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="Bh3-RI-wdB"/>
@@ -141,7 +133,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 收藏" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUh-WR-oCo">
-                                <rect key="frame" x="36" y="5" width="39" height="25"/>
+                                <rect key="frame" x="36.5" y="5" width="38.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -191,15 +183,15 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="building.2" catalog="system" width="128" height="108"/>
+        <image name="building.2" catalog="system" width="120" height="128"/>
         <image name="dollarsign.circle" catalog="system" width="128" height="123"/>
-        <image name="folder.fill.badge.plus" catalog="system" width="128" height="92"/>
+        <image name="folder.fill.badge.plus" catalog="system" width="128" height="93"/>
         <image name="network" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.53333333333333333" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -47,15 +47,15 @@ class HotelDetailsTableViewCell: UITableViewCell {
         collectionsView.isUserInteractionEnabled = true
         collectionsView.addGestureRecognizer(tap)
     
-        self.priceLabel.text = "： \(hotel.priceDisplayText)"
+        self.priceLabel.text = "：\(hotel.priceDisplayText)"
         
         if !hotel.website.isEmpty {
-            webLabel.text = "開啟網站"
+            webLabel.text = "：開啟網站"
             let tap = UITapGestureRecognizer(target: self, action: #selector(openWebView))
             webLabel.isUserInteractionEnabled = true
             webLabel.addGestureRecognizer(tap)
         } else {
-            webLabel.text = "旅店未提供"
+            webLabel.text = "：旅店未提供"
             webLabel.textColor = .black
         }
     }
