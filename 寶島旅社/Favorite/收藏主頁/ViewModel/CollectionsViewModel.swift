@@ -20,7 +20,7 @@ class CollectionsViewModel {
     weak var delegate: CollectionsViewModelDelegate?
     
     /// 原始的旅店數據
-    private var allHotels: [Hotel] = []
+    private(set) var allHotels: [Hotel] = []
     /// 搜尋過濾後的旅店數據
     private var filteredHotels: [Hotel] = []
     /// 當前的搜尋狀態
@@ -128,13 +128,13 @@ extension CollectionsViewModel {
     
     /// 處理分組邏輯與地理位置排序（北到南）
     private func groupAndSortHotelsByCity() {
-        // 1. 分組
+        // 分組
         self.groupedHotels = Dictionary(grouping: self.dataSource, by: { $0.region ?? "其他" })
         
-        // 2. 定義地理順序權重
+        // 定義地理順序權重
         let cityOrder = self.getCityOrder()
         
-        // 3. 排序城市名
+        // 排序城市名
         self.cityNames = self.groupedHotels.keys.sorted { (a, b) in
             let wA = cityOrder[a] ?? 99
             let wB = cityOrder[b] ?? 99

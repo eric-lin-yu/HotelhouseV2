@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Map view configurations" minToolsVersion="14.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CollectionsMapViewController" customModule="寶島旅社" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="R1m-NL-Biz" id="TMx-Jw-XIm"/>
+                <outlet property="mapView" destination="ybs-bw-q10" id="9Ci-1n-OAh"/>
+                <outlet property="view" destination="iN0-l3-epB" id="UaL-x4-g0d"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ybs-bw-q10">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <color key="tintColor" systemColor="systemOrangeColor"/>
+                    <standardMapConfiguration key="preferredConfiguration"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="KSN-yZ-chR"/>
+                    </connections>
+                </mapView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3M-ep-8WH">
+                    <rect key="frame" x="20" y="118" width="36" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="36" id="MeZ-QE-HKg"/>
+                        <constraint firstAttribute="height" constant="36" id="eqJ-Y6-Zfq"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="iconClosed(R)"/>
+                    <connections>
+                        <action selector="closeTapped" destination="-1" eventType="touchUpInside" id="vph-aK-cgf"/>
+                    </connections>
+                </button>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="R1m-NL-Biz">
+                    <rect key="frame" x="0.0" y="634" width="393" height="150"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="Ygu-wD-uLj"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="chS-zx-MVh">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="3Cb-5i-NNg"/>
+                        <outlet property="delegate" destination="-1" id="i6S-ma-0HF"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="A3M-ep-8WH" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="CwN-2c-8iD"/>
+                <constraint firstItem="R1m-NL-Biz" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="FGN-4b-0DK"/>
+                <constraint firstItem="R1m-NL-Biz" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="Hqy-WH-AWX"/>
+                <constraint firstAttribute="bottom" secondItem="ybs-bw-q10" secondAttribute="bottom" id="QMW-t2-3HS"/>
+                <constraint firstItem="A3M-ep-8WH" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="YWX-oe-LxK"/>
+                <constraint firstItem="R1m-NL-Biz" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="aGC-x3-7u6"/>
+                <constraint firstItem="ybs-bw-q10" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="eAw-i7-rgO"/>
+                <constraint firstItem="ybs-bw-q10" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fLj-mq-fjD"/>
+                <constraint firstItem="ybs-bw-q10" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="y77-2r-hsM"/>
+            </constraints>
+            <point key="canvasLocation" x="96.946564885496173" y="126.7605633802817"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="iconClosed(R)" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.55294117647058827" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

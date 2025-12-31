@@ -112,7 +112,7 @@ class CollectionsViewController: UIViewController {
     }
 }
 
-//MARK: - setup
+//MARK: - setup UI
 extension CollectionsViewController {
     
     /// 設定 Views
@@ -172,25 +172,6 @@ extension CollectionsViewController {
             self.tableView.bottomAnchor.constraint(equalTo: bottomSafeArea),
         ])
     }
-    
-    /// 設定 TableView
-    private func setupTableView() {
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
-        let useCells = [CollectionsTableViewCell.self]
-        useCells.forEach {
-            self.tableView.register($0.self, forCellReuseIdentifier: $0.storyboardIdentifier)
-        }
-    }
-    
-    private func setupSearchView() {
-        self.searchTextFiled.delegate = self
-        self.searchTextFiled.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        
-        // 監聽搜尋按鈕點擊
-        self.searchiconBtn.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
-    }
 }
 
 //MARK: - Action
@@ -202,8 +183,13 @@ extension CollectionsViewController {
             tableView.isHidden = false
             tabBarController?.tabBar.isHidden = false
         case 1:
-            // TODO: 開啟一頁新的
-            break
+            let viewModel = CollectionsMapViewModel(hotels: self.viewModel.allHotels)
+            let mapVC = CollectionsMapViewController(viewModel: viewModel)
+            mapVC.modalPresentationStyle = .fullScreen
+            
+            sender.selectedSegmentIndex = 0
+            
+            self.present(mapVC, animated: true, completion: nil)
         default:
             break
         }
@@ -238,7 +224,26 @@ extension CollectionsViewController {
 
 //MARK: - Private
 extension CollectionsViewController {
- 
+    
+    /// 設定 TableView
+    private func setupTableView() {
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        let useCells = [CollectionsTableViewCell.self]
+        useCells.forEach {
+            self.tableView.register($0.self, forCellReuseIdentifier: $0.storyboardIdentifier)
+        }
+    }
+    
+    /// 設定 searchView
+    private func setupSearchView() {
+        self.searchTextFiled.delegate = self
+        self.searchTextFiled.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
+        // 監聽搜尋按鈕點擊
+        self.searchiconBtn.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+    }
 }
 
 //MARK: - TableView
