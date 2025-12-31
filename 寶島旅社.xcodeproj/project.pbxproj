@@ -650,9 +650,7 @@
 		9F87E3FD2A754BC8007E77EA /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
-				9FB829C02F04B260000094D2 /* View */,
-				9FB829BF2F04B253000094D2 /* ViewModel */,
-				9FB829BE2F04B242000094D2 /* ViewController */,
+				9FB829C12F04E81B000094D2 /* 收藏主頁 */,
 			);
 			name = Favorite;
 			path = "寶島旅社/Favorite";
@@ -688,6 +686,16 @@
 				89A0A4D92ACBA8CC00F5F91E /* CollectionsTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9FB829C12F04E81B000094D2 /* 收藏主頁 */ = {
+			isa = PBXGroup;
+			children = (
+				9FB829C02F04B260000094D2 /* View */,
+				9FB829BF2F04B253000094D2 /* ViewModel */,
+				9FB829BE2F04B242000094D2 /* ViewController */,
+			);
+			path = "收藏主頁";
 			sourceTree = "<group>";
 		};
 		9FEE946B2C648AB100F4D4D6 /* PersonalSettingsIconTableViewCell */ = {
