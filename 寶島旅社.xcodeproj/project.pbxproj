@@ -653,8 +653,9 @@
 			isa = PBXGroup;
 			children = (
 				9FD39A592C4CE2E30069B67F /* CollectionsModel.swift */,
-				9FD39A572C4CDDDF0069B67F /* CollectionsViewModel.swift */,
-				9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */,
+				9FB829C02F04B260000094D2 /* View */,
+				9FB829BF2F04B253000094D2 /* ViewModel */,
+				9FB829BE2F04B242000094D2 /* ViewController */,
 			);
 			name = Favorite;
 			path = "寶島旅社/Favorite";
@@ -663,10 +664,33 @@
 		9FA8F0E42A639939009ACADD /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				89A0A4D92ACBA8CC00F5F91E /* CollectionsTableViewCell.swift */,
 				9FEE946B2C648AB100F4D4D6 /* PersonalSettingsIconTableViewCell */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		9FB829BE2F04B242000094D2 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9FB829BF2F04B253000094D2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9FD39A572C4CDDDF0069B67F /* CollectionsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9FB829C02F04B260000094D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				89A0A4D92ACBA8CC00F5F91E /* CollectionsTableViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		9FEE946B2C648AB100F4D4D6 /* PersonalSettingsIconTableViewCell */ = {
