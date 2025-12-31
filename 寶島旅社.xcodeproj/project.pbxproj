@@ -88,7 +88,6 @@
 		9FAE42482CC4C9FA003E7C7B /* QuickSearchWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9FAE42332CC4C9F7003E7C7B /* QuickSearchWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9FC059822B7DB7FB00B481B8 /* ToastLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC059812B7DB7FB00B481B8 /* ToastLabel.swift */; };
 		9FD39A582C4CDDDF0069B67F /* CollectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD39A572C4CDDDF0069B67F /* CollectionsViewModel.swift */; };
-		9FD39A5A2C4CE2E30069B67F /* CollectionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD39A592C4CE2E30069B67F /* CollectionsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,7 +195,6 @@
 		9FAE42362CC4C9F7003E7C7B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		9FC059812B7DB7FB00B481B8 /* ToastLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastLabel.swift; sourceTree = "<group>"; };
 		9FD39A572C4CDDDF0069B67F /* CollectionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewModel.swift; sourceTree = "<group>"; };
-		9FD39A592C4CE2E30069B67F /* CollectionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -652,7 +650,6 @@
 		9F87E3FD2A754BC8007E77EA /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
-				9FD39A592C4CE2E30069B67F /* CollectionsModel.swift */,
 				9FB829C02F04B260000094D2 /* View */,
 				9FB829BF2F04B253000094D2 /* ViewModel */,
 				9FB829BE2F04B242000094D2 /* ViewController */,
@@ -887,7 +884,6 @@
 				892AAC9F28F9092000614DA1 /* UIImage+GIF.swift in Sources */,
 				892AACA828F90FF900614DA1 /* UIApplication+Extension.swift in Sources */,
 				896DF71828F7E3080031A88A /* ResponseHandler.swift in Sources */,
-				9FD39A5A2C4CE2E30069B67F /* CollectionsModel.swift in Sources */,
 				89BE855D2EF910DB00E4A8E7 /* UINavigationController+Extension.swift in Sources */,
 				899093912EFA7E0F006002D9 /* HotelLocationViewModel.swift in Sources */,
 			);

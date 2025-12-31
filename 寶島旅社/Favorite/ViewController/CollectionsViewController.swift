@@ -7,12 +7,9 @@
 //
 
 import UIKit
-import MapKit
 
 class CollectionsViewController: UIViewController {
     private let viewModel: CollectionsViewModel
-    
-    private let manager = CLLocationManager()
     
     // constraint Spacing
     private let spacing: CGFloat = 20
@@ -39,8 +36,6 @@ class CollectionsViewController: UIViewController {
             .foregroundColor: UIColor.white,
             .font: UIFont.systemFont(ofSize: 17)
         ]
-        let attributedPlaceholder = NSAttributedString(string: "Search", attributes: attributes)
-        textField.attributedPlaceholder = attributedPlaceholder
         
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -67,20 +62,8 @@ class CollectionsViewController: UIViewController {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         
-        let normalTextAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.white,
-            .font: UIFont.systemFont(ofSize: 17),
-            .paragraphStyle: paragraphStyle
-        ]
-        
-        let selectedTextAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.orangeRed,
-            .font: UIFont.systemFont(ofSize: 17),
-            .paragraphStyle: paragraphStyle
-        ]
-        
-        segmentedControl.setTitleTextAttributes(normalTextAttributes, for: .normal)
-        segmentedControl.setTitleTextAttributes(selectedTextAttributes, for: .selected)
+        segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.orangeRed,
+                                                 .font: UIFont.systemFont(ofSize: 17)], for: .normal)
         
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
@@ -92,13 +75,6 @@ class CollectionsViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
-    }()
-    
-    private let mapView: MKMapView = {
-        let mapView = MKMapView()
-        mapView.isHidden = true
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        return mapView
     }()
     
     required init?(coder: NSCoder) {
@@ -117,8 +93,9 @@ class CollectionsViewController: UIViewController {
         self.setupViews()
         self.setupConstraint()
         self.setupTableView()
-        self.setupMapView()
-        self.setupBindings()
+        self.setupSearchView()
+        
+        self.viewModel.delegate = self
         
         self.segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
     }
@@ -144,8 +121,7 @@ extension CollectionsViewController {
         let viewsToAdd: [UIView] = [
             self.searchView,
             self.segmentedControl,
-            self.tableView,
-            self.mapView,
+            self.tableView
         ]
         viewsToAdd.forEach { view.addSubview($0) }
         
@@ -194,12 +170,6 @@ extension CollectionsViewController {
             self.tableView.leftAnchor.constraint(equalTo: leftSafeArea),
             self.tableView.rightAnchor.constraint(equalTo: rightSafeArea),
             self.tableView.bottomAnchor.constraint(equalTo: bottomSafeArea),
-            
-            self.mapView.topAnchor.constraint(equalTo:  self.segmentedControl.bottomAnchor, 
-                                              constant:  self.innerLayerSpacing),
-            self.mapView.leftAnchor.constraint(equalTo: leftSafeArea),
-            self.mapView.rightAnchor.constraint(equalTo: rightSafeArea),
-            self.mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
     
@@ -214,25 +184,12 @@ extension CollectionsViewController {
         }
     }
     
-    /// 設定 MapView
-    private func setupMapView() {
-        self.manager.delegate = self
-        self.mapView.delegate = self
-        self.mapView.showsUserLocation = true
-    }
-    
-    private func setupBindings() {
-        self.viewModel.onHotelsLoaded = { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
+    private func setupSearchView() {
+        self.searchTextFiled.delegate = self
+        self.searchTextFiled.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         
-        self.viewModel.onError = { [weak self] error in
-            DispatchQueue.main.async {
-                self?.showAlert(title: "Error", message: error.localizedDescription)
-            }
-        }
+        // 監聽搜尋按鈕點擊
+        self.searchiconBtn.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
     }
 }
 
@@ -240,58 +197,48 @@ extension CollectionsViewController {
 extension CollectionsViewController {
     
     @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-        let selectedOption = SegmentedControlOption(rawValue: sender.selectedSegmentIndex) ?? .list
-        switch selectedOption {
-        case .list:
+        switch sender.selectedSegmentIndex {
+        case 0:
             tableView.isHidden = false
-            mapView.isHidden = true
             tabBarController?.tabBar.isHidden = false
-        case .map:
-            self.getUserLocationAndShowHotels()
-            mapView.isHidden = false
-            tableView.isHidden = true
-            tabBarController?.tabBar.isHidden = true
+        case 1:
+            // TODO: 開啟一頁新的
+            break
+        default:
+            break
         }
+    }
+    
+    @objc private func handleSectionToggle(_ sender: UIButton) {
+        let section = sender.tag
+        self.viewModel.toggleSection(section)
+        
+        // 使用 reloadSections 帶有動畫效果，體驗更好
+        self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+    }
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        self.viewModel.search(keyword: textField.text ?? "")
+    }
+    
+    @objc private func searchButtonTapped() {
+        guard let text = self.searchTextFiled.text, !text.trimmingCharacters(in: .whitespaces).isEmpty else {
+            self.view.showToast(text: "查詢條件未輸入哦")
+            return
+        }
+        
+        let count = self.viewModel.search(keyword: text)
+        if count == 0 {
+            self.view.showToast(text: "找不到相關的旅店哦")
+        }
+        
+        self.searchTextFiled.resignFirstResponder()
     }
 }
 
 //MARK: - Private
 extension CollectionsViewController {
-    /// 取得使用者位置資訊
-    private func getUserLocationAndShowHotels() {
-        switch manager.authorizationStatus {
-        case .notDetermined:
-            self.manager.requestWhenInUseAuthorization()
-        case .denied, .restricted:
-            self.showLocationPermissionAlert()
-            self.showHotelsOnMap()
-        case .authorizedWhenInUse, .authorizedAlways:
-            self.manager.requestLocation() // 只請求一次位置
-            self.showHotelsOnMap()
-        @unknown default:
-            break
-        }
-    }
-    
-    /// 顯示旅店於地圖上的位置
-    private func showHotelsOnMap() {
-        self.mapView.removeAnnotations(self.mapView.annotations)
-        self.viewModel.getHotelAnnotations().forEach { self.mapView.addAnnotation($0) }
-        
-        if let firstHotel = self.viewModel.getHotelAnnotations().first {
-            let region = MKCoordinateRegion(center: firstHotel.coordinate,
-                                            latitudinalMeters: 1200, longitudinalMeters: 1200)
-            self.mapView.setRegion(region, animated: true)
-        }
-    }
-    
-    /// 顯示地圖權限未開啟彈窗
-    private func showLocationPermissionAlert() {
-        let message = "如欲使用此功能，請開啟定位權限\n\n請至\n設定 > 隱私權與安全性 >\n定位服務 > 永許旅社取得您得位置。"
-        showAlertClosure(title: "定位權限已關閉", message: message, okBtn: "前往開啟") {
-            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-        }
-    }
+ 
 }
 
 //MARK: - TableView
@@ -299,6 +246,40 @@ extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate 
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return  self.viewModel.numberOfSections()
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let containerView = UIView()
+        containerView.backgroundColor = .systemGray6
+        
+        let button = UIButton(type: .custom)
+        let cityName = self.viewModel.titleForSection(section)
+        let isCollapsed = self.viewModel.isSectionCollapsed(section)
+        
+        // 設定標題與箭頭狀態
+        let arrow = isCollapsed ? "▶" : "▼"
+        button.setTitle("\(arrow)  \(cityName)", for: .normal)
+        button.setTitleColor(.sageGreen, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        button.contentHorizontalAlignment = .left
+        button.tag = section
+        button.addTarget(self, action: #selector(handleSectionToggle), for: .touchUpInside)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(button)
+        
+        NSLayoutConstraint.activate([
+            button.topAnchor.constraint(equalTo: containerView.topAnchor),
+            button.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            button.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: self.spacing),
+            button.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+        ])
+        
+        return containerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -332,47 +313,24 @@ extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate 
     }
 }
 
-// MARK: - MKMapViewDelegate, CLLocationManagerDelegate
-extension CollectionsViewController: MKMapViewDelegate, CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else {
-            return
-        }
-        let region = MKCoordinateRegion(center: location.coordinate, 
-                                        latitudinalMeters: 1200, longitudinalMeters: 1200)
-        self.mapView.setRegion(region, animated: true)
-        self.showHotelsOnMap()
+//MARK: - CollectionsViewModelDelegate
+
+extension CollectionsViewController: CollectionsViewModelDelegate {
+    
+    func reloadData() {
+        self.tableView.reloadData()
     }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Location manager failed with error: \(error.localizedDescription)")
-        self.showHotelsOnMap()
+    
+    func viewModelDidFail() {
+        self.showAlert(title: "錯誤訊息", message: "資料取得異常")
     }
+}
 
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard !annotation.isKind(of: MKUserLocation.self) else { return nil }
-
-        let identifier = "HotelAnnotation"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
-
-        if annotationView == nil {
-            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView?.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        } else {
-            annotationView?.annotation = annotation
-        }
-
-        return annotationView
-    }
-
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        guard let annotation = view.annotation as? HotelAnnotation else { return }
-        let hotel = annotation.hotel
-        let viewModel = HotelDetailsViewModel(hotel: hotel)
-        let vc = HotelDetailsViewController(viewModel: viewModel)
-        
-        vc.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(vc, animated: true)
+//MARK: - UITextFieldDelegate
+extension CollectionsViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // 收起鍵盤
+        return true
     }
 }
