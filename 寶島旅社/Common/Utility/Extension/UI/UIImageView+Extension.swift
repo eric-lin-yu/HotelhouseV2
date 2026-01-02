@@ -12,28 +12,32 @@ extension UIImageView {
 
     /// async/await 載入圖片
     @discardableResult
-    func loadImage(from urlString: String) async -> UIImage? {
+    func loadImage(from urlString: String, placeholder: UIImage? = UIImage(named: "iconError")) async -> UIImage? {
         // 檢查快取
         if let cachedImage = UIImageView.imageCache.object(forKey: urlString as NSString) {
-            self.image = cachedImage
+            await MainActor.run { self.image = cachedImage }
             return cachedImage
+        }
+
+        // 在主執行緒換上佔位圖，避免畫面留白
+        await MainActor.run {
+            self.image = placeholder
+            self.backgroundColor = .systemGray6
         }
 
         guard let url = URL(string: urlString) else { return nil }
 
         do {
-            // 下載數據
             let (data, _) = try await URLSession.shared.data(from: url)
             
-            // 在背景解碼
+            // 在背景進行耗時的解碼
             guard let image = UIImage(data: data) else { return nil }
             
-            // 存入快取
             UIImageView.imageCache.setObject(image, forKey: urlString as NSString)
             
-            // 更新 UI (MainActor 會確保在主執行緒執行)
             await MainActor.run {
                 self.image = image
+                self.backgroundColor = .clear
             }
             return image
         } catch {
