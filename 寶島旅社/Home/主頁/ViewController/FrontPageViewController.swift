@@ -216,7 +216,7 @@ extension FrontPageViewController: HotelSearchViewDelegate {
     
     func hotelSearchViewDidTapSearch(_ view: HotelSearchView, keyword: String) {
         // 執行搜尋並取得是否有結果
-        let hasResults = viewModel.search(keyword: keyword)
+        let hasResults = self.viewModel.search(keyword: keyword)
         
         if hasResults {
             // 有資料
@@ -230,7 +230,7 @@ extension FrontPageViewController: HotelSearchViewDelegate {
     
     func hotelSearchViewDidTapCancel(_ view: HotelSearchView) {
         // 如果目前畫面上本來就有資料（之前搜尋過），才允許回到 TableView
-        if viewModel.numberOfRows > 0 {
+        if self.viewModel.numberOfRows > 0 {
             self.frontPageViewStatus = .resultTableView
         } else {
             // 如果連一次搜尋都還沒成功過，不允許取消顯示空狀態
