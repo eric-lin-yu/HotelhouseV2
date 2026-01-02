@@ -232,8 +232,9 @@ extension CollectionsViewController {
         
         let useCells = [CollectionsTableViewCell.self]
         useCells.forEach {
-            self.tableView.register($0.self, forCellReuseIdentifier: $0.storyboardIdentifier)
+            self.tableView.register(UINib(nibName: $0.storyboardIdentifier, bundle: Bundle.messageCoreBundle), forCellReuseIdentifier: $0.storyboardIdentifier)
         }
+        
     }
     
     /// 設定 searchView
@@ -296,25 +297,12 @@ extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate 
             return UITableViewCell()
         }
         
-        if let hotel =  self.viewModel.hotel(at: indexPath) {
+        if let hotel = self.viewModel.hotel(at: indexPath) {
             cell.configure(with: hotel)
+            cell.delegate = self
         }
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         
-        if let hotel =  self.viewModel.hotel(at: indexPath) {
-            
-            let viewModel = HotelDetailsViewModel(hotel: hotel)
-            let vc = HotelDetailsViewController(viewModel: viewModel)
-            
-            vc.hidesBottomBarWhenPushed = true
-            
-            self.navigationController?.pushViewController(vc, animated: true)
-            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
-        }
+        return cell
     }
 }
 
@@ -337,5 +325,35 @@ extension CollectionsViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() // 收起鍵盤
         return true
+    }
+}
+
+
+// MARK: - CollectionsTableViewCellDelegate
+extension CollectionsViewController: CollectionsTableViewCellDelegate {
+    
+    func didTapEditNote(hotel: Hotel) {
+        //TODO: 待實作筆記頁
+        self.view.showToast(text: "還沒實作")
+    }
+    
+    func didTapMoreInfo(hotel: Hotel) {
+        let viewModel = HotelDetailsViewModel(hotel: hotel)
+        let vc = HotelDetailsViewController(viewModel: viewModel)
+        
+        vc.hidesBottomBarWhenPushed = true
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
+    }
+    
+    func didTapDelete(hotel: Hotel) {
+        self.showAlertClosure(title: "確認刪除", message: "確定要將 \(hotel.name) 從收藏中移除嗎？", okBtn: "刪除") {
+            // RealmManager 刪除邏輯
+            RealmManager.shard?.deleteHotelFromRealm(hotel)
+            
+            // 重新載入資料
+            self.viewModel.loadHotels()
+        }
     }
 }
