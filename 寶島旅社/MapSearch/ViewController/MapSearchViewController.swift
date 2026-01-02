@@ -168,8 +168,8 @@ extension MapSearchViewController: MKMapViewDelegate {
         // 停止之前的計時器
         self.searchTimer?.invalidate()
         
-        // 延遲 0.5 秒才執行，避免滑動過程中的連續觸發
-        self.searchTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+        // 延遲 0.1 秒才執行，避免滑動過程中的連續觸發
+        self.searchTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { [weak self] _ in
             guard let self = self else { return }
             self.updateMapOverlayAndAnnotations(center: mapView.centerCoordinate)
         }
