@@ -38,7 +38,6 @@ class FrontPageTableViewCell: UITableViewCell {
     
     @IBOutlet weak var phoneBtn: UIButton!
     @IBOutlet weak var webBtn: UIButton!
-    @IBOutlet weak var emailBtn: UIButton!
     @IBOutlet weak var collectionsBtn: UIButton!
     
     @IBOutlet weak var govView: UIView! {
@@ -81,10 +80,6 @@ class FrontPageTableViewCell: UITableViewCell {
             self.hotelimageView.image = image ?? UIImage(named: "iconError")
         }
         
-        // 檢查 Realm 狀態並設定按鈕選中狀態
-        let isFavorite = RealmManager.shard?.isHotelFavorited(id: hotel.id) ?? false
-        self.collectionsBtn.isSelected = isFavorite
-        
         // 星級
         self.gradeLabel.isHidden = hotel.hotelClass == .unknown
         self.gradeLabel.text = hotel.hotelClass.starDescription
@@ -97,6 +92,13 @@ class FrontPageTableViewCell: UITableViewCell {
         
         // 地址
         self.addLabel.text = hotel.fullAddress
+        
+        // 檢查 Realm 狀態並設定按鈕選中狀態
+        let isFavorite = RealmManager.shard?.isHotelFavorited(id: hotel.id) ?? false
+        self.collectionsBtn.isSelected = isFavorite
+        
+        // 官網
+        self.webBtn.isHidden = hotel.website == ""
     }
 }
 
