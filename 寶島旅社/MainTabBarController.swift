@@ -50,54 +50,50 @@ class MainTabBarController: UITabBarController {
             UITabBar.appearance().backgroundColor = UIColor.sageGreen
         }
         
-        setUpChildViewControllers()
-        
+        self.setUpChildViewControllers()
     }
     
-    // get.TabBar
-    func setUpChildViewControllers() {
+    // 初始化 TabBar
+    private func setUpChildViewControllers() {
         // 首頁
         let firstViewController = FrontPageViewController.makeToHome()
-        addChildViewController(childController: firstViewController,
-                               image: "briefcase.fill",
-                               tag: .frontPage)
+        self.addChildViewController(childController: firstViewController,
+                                    image: "briefcase.fill",
+                                    tag: .frontPage)
         
         // 地圖搜尋
         let mapViewModel = MapSearchViewModel()
         let mapViewController = MapSearchViewController(viewModel: mapViewModel)
-        addChildViewController(childController: mapViewController,
-                               image: "map.fill",
-                               tag: .mapSearch)
+        self.addChildViewController(childController: mapViewController,
+                                    image: "map.fill",
+                                    tag: .mapSearch)
         
         // 3. 收藏頁
         let vm = CollectionsViewModel()
         let secondViewController = CollectionsViewController(viewModel: vm)
-        addChildViewController(childController: secondViewController,
-                               image: "list.clipboard",
-                               tag: .collections)
+        self.addChildViewController(childController: secondViewController,
+                                    image: "list.clipboard",
+                                    tag: .collections)
         
         // 4. 關於頁
         let thirdViewController = AboutViewController.make()
-        addChildViewController(childController: thirdViewController,
-                               image: "gearshape.2.fill",
-                               tag: .About)
+        self.addChildViewController(childController: thirdViewController,
+                                    image: "gearshape.2.fill",
+                                    tag: .About)
     }
     
-    // get.Navigation
-    func addChildViewController(childController: UIViewController,
-                                image: String,
-                                tag: AppTag) {
+    // 初始化 Navigation
+    private func addChildViewController(childController: UIViewController,
+                                        image: String,
+                                        tag: AppTag) {
         
         childController.tabBarItem.image = UIImage.init(systemName: image)
         childController.tabBarItem.tag = tag.rawValue
     
-        //let navigationController = MainNavigationViewController.init(rootViewController: childController) //使用Code製作NavigationViewController用法
-        
         let navigationController = UINavigationController(rootViewController: childController)
         
         self.addChild(navigationController)
     }
-
 }
 
 

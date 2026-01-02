@@ -98,6 +98,10 @@ class FrontPageTableViewCell: UITableViewCell {
         // 地址
         self.addLabel.text = hotel.fullAddress
     }
+}
+
+//MARK: - Action
+extension FrontPageTableViewCell {
     
     @IBAction func phoneTapped() {
         guard let hotel else { return }
@@ -118,4 +122,3 @@ class FrontPageTableViewCell: UITableViewCell {
         collectionsBtn.isSelected = isFavorite
     }
 }
-

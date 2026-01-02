@@ -18,7 +18,6 @@ protocol HotelSearchViewDelegate: AnyObject {
 
 class HotelSearchView: UIView {
     
-    // Outlets
     @IBOutlet private weak var backgroundView: UIView!
     @IBOutlet private weak var searchTextField: UITextField! {
         didSet {
@@ -36,41 +35,14 @@ class HotelSearchView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        loadFromNib()
-        commonInit()
+        self.loadFromNib()
+        
+        self.setupUI()
+        self.setupGesture()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        loadFromNib()
-        commonInit()
-    }
-    
-    private func loadFromNib() {
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: "HotelSearchView", bundle: bundle)
-        
-        guard let contentView = nib.instantiate(withOwner: self, options: nil).first as? UIView else { return }
-        
-        contentView.frame = bounds
-        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        addSubview(contentView)
-    }
-    
-    private func commonInit() {
-        setupUI()
-        setupGesture()
-    }
-   
-    private func setupUI() {
-        searchTextField.delegate = self
-        backgroundView.addBlurBackground(style: .dark, alpha: 0.9)
-        self.kanaheiImageView.loadGif(name: GifImageNames.shared.searchViewImageName)
-    }
-    
-    private func setupGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
-        backgroundView.addGestureRecognizer(tap)
+        fatalError("init(coder:) has not been implemented")
     }
     
     /// 顯示搜尋頁面
@@ -93,7 +65,40 @@ class HotelSearchView: UIView {
         self.isHidden = true
     }
     
-    // MARK: - Actions
+    func clear() {
+        self.searchTextField.text = ""
+    }
+}
+
+// MARK: - Private
+extension HotelSearchView {
+    
+    private func loadFromNib() {
+        let bundle = Bundle(for: type(of: self))
+        let nib = UINib(nibName: "HotelSearchView", bundle: bundle)
+        
+        guard let contentView = nib.instantiate(withOwner: self, options: nil).first as? UIView else { return }
+        
+        contentView.frame = bounds
+        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addSubview(contentView)
+    }
+    
+    private func setupUI() {
+        self.searchTextField.delegate = self
+        self.backgroundView.addBlurBackground(style: .dark, alpha: 0.9)
+        self.kanaheiImageView.loadGif(name: GifImageNames.shared.searchViewImageName)
+    }
+    
+    private func setupGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
+        self.backgroundView.addGestureRecognizer(tap)
+    }
+}
+
+// MARK: - Actions
+extension HotelSearchView {
+    /// 點擊搜尋按鈕
     @IBAction private func searchTapped() {
         let keyword = searchTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
@@ -105,22 +110,20 @@ class HotelSearchView: UIView {
         self.delegate?.hotelSearchViewDidTapSearch(self, keyword: keyword)
     }
 
+    /// 點擊背景空白處
     @objc private func backgroundTapped() {
         if self.isClosable {
             self.hide()
         }
     }
 
+    /// 點擊取消按鈕
     @IBAction private func cancelTapped() {
         // 只有在允許取消時才執行
-        if isClosable {
+        if self.isClosable {
             self.clear()
             self.delegate?.hotelSearchViewDidTapCancel(self)
         }
-    }
-    
-    func clear() {
-        self.searchTextField.text = ""
     }
 }
 

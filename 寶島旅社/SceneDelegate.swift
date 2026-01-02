@@ -19,12 +19,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         Self.shared = self
-        //將tabBar加入至Main.WindowView
+        // 將tabBar加入至Main.WindowView
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             let timeline = MainTabBarController()
-//            let navigation = UINavigationController(rootViewController: timeline)
-//            window.rootViewController = navigation
             window.rootViewController = timeline
             self.window = window
             window.makeKeyAndVisible()

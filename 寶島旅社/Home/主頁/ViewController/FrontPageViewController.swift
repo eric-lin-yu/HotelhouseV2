@@ -52,7 +52,7 @@ class FrontPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.delegate = self
+        self.viewModel.delegate = self
         
         self.setupSearchView()
         self.setupTableViewCell()
@@ -132,12 +132,17 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows
+        return self.viewModel.numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FrontPageTableViewCell.cellIdenifier, for: indexPath) as! FrontPageTableViewCell
         
-        return frontPageTableViewCell(on: tableView, at: indexPath)
+        let hotel = viewModel.hotel(at: indexPath.row)
+        cell.configure(with: hotel)
+        cell.delegate = self
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -150,17 +155,6 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
         
         self.navigationController?.pushViewController(vc, animated: true)
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
-    }
-
-    // MARK: Cell
-    private func frontPageTableViewCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FrontPageTableViewCell.cellIdenifier, for: indexPath) as! FrontPageTableViewCell
-        
-        let hotel = viewModel.hotel(at: indexPath.row)
-        cell.configure(with: hotel)
-        cell.delegate = self
-        
-        return cell
     }
 }
 
@@ -239,7 +233,7 @@ extension FrontPageViewController: HotelSearchViewDelegate {
         if viewModel.numberOfRows > 0 {
             self.frontPageViewStatus = .resultTableView
         } else {
-            // 如果連一次搜尋都還沒成功過，通常不允許取消，或者顯示空狀態
+            // 如果連一次搜尋都還沒成功過，不允許取消顯示空狀態
             self.view.showToast(text: "請先輸入關鍵字搜尋")
         }
     }

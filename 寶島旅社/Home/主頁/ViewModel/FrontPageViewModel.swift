@@ -50,7 +50,7 @@ class FrontPageViewModel {
             .replacingOccurrences(of: "台", with: "臺")
         
         if normalizedKeyword.isEmpty {
-            self.filteredHotels = [] // 或者根據需求決定是否清空
+            self.filteredHotels = []
             return false
         }
         

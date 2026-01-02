@@ -47,30 +47,39 @@ class RealmManager {
     
     
     /// 檢查旅店是否已被收藏
+    /// - Parameter id: Hotel id
+    /// - Returns: 是否已收藏成功的 Bool
     func isHotelFavorited(id: String) -> Bool {
         let realm = self.sharedRealmObjecgt
         return realm.object(ofType: RLM_CollectionsHotels.self, forPrimaryKey: id) != nil
     }
     
     /// 從 Realm 刪除收藏的旅店
+    /// - Parameter hotel: Hotel Model
     func deleteHotelFromRealm(_ hotel: Hotel) {
         let realm = self.sharedRealmObjecgt
         
-        if let hotelToDelete = realm.objects(RLM_CollectionsHotels.self).filter("hotelID == %@", hotel.id).first {
-            do {
-                try realm.write {
-                    realm.delete(hotelToDelete)
-                    ResponseHandler.presentAlertHandler(message: "旅店刪除成功")
-                }
-            } catch {
-                ResponseHandler.errorHandler(errorString: "刪除失敗")
+        guard let hotelToDelete = realm
+            .objects(RLM_CollectionsHotels.self)
+            .filter("hotelID == %@", hotel.id)
+            .first
+        else {
+            self.showToast("找不到該筆旅店資料")
+            return
+        }
+        
+        do {
+            try realm.write {
+                realm.delete(hotelToDelete)
             }
-        } else {
-            ResponseHandler.presentAlertHandler(message: "找不到該筆旅店資料")
+            self.showToast("旅店刪除成功")
+        } catch {
+            self.showToast("刪除失敗")
         }
     }
     
     /// 點擊按鈕切換收藏狀態
+    /// - Parameter hotel: Hotel Model
     @discardableResult
     func toggleHotelFavorite(_ hotel: Hotel) -> Bool {
         let realm = self.sharedRealmObjecgt
@@ -87,10 +96,7 @@ class RealmManager {
             message = "收藏成功"
         }
 
-        // Top View 來顯示 Toast
-        if let topView = UIApplication.shared.topWindow {
-            topView.showToast(text: message)
-        }
+        self.showToast(message)
 
         return isFavorite
     }
@@ -214,5 +220,9 @@ extension RealmManager {
             }
         }
         return expandedKeyData
+    }
+    
+    private func showToast(_ message: String) {
+        UIApplication.shared.topWindow?.showToast(text: message)
     }
 }

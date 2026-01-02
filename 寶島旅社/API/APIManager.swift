@@ -37,7 +37,15 @@ class APIManager {
         self.session = session
     }
 
-    /// Generic GET
+    
+    /// Generic GET Request
+    ///
+    /// - Parameters:
+    ///   - endpoint: API endpoint URL（完整路徑字串）
+    ///   - responseType: 預期回傳資料的型別，用於 Decode
+    ///   - completion: 回傳結果，
+    ///     - `.success(T)`：成功解析回傳資料
+    ///     - `.failure(Error)`：請求失敗或解析失敗
     func sendGet<T: Decodable>(endpoint: String,
                                responseType: T.Type,
                                completion: @escaping (Result<T, Error>) -> Void) {
@@ -50,22 +58,22 @@ class APIManager {
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        printRequest(endpoint: endpoint, method: "GET", body: nil)
+        self.printRequest(endpoint: endpoint, method: "GET", body: nil)
 
 
-        session.dataTask(with: request) { data, response, error in
+        self.session.dataTask(with: request) { data, response, error in
             if let error = error {
                 DispatchQueue.main.async { completion(.failure(error)) }
                 return
             }
-
+            
             guard let data = data else {
                 DispatchQueue.main.async { completion(.failure(APIError.emptyData)) }
                 return
             }
             
             self.printResponse(endpoint: endpoint, method: "GET", responseData: data)
-
+            
             do {
                 let decoded = try JSONDecoder().decode(T.self, from: data)
                 DispatchQueue.main.async { completion(.success(decoded)) }
@@ -75,7 +83,15 @@ class APIManager {
         }.resume()
     }
 
-    /// Generic POST
+    /// Generic POST Request
+    ///
+    /// - Parameters:
+    ///   - endpoint: API endpoint URL（完整路徑字串）
+    ///   - body: 上行請求資料，需符合 `Encodable`
+    ///   - responseType: 預期回傳資料的型別，用於 Decode
+    ///   - completion: 回傳結果，
+    ///     - `.success(T)`：成功解析回傳資料
+    ///     - `.failure(Error)`：請求失敗或解析失敗
     func sendPost<Body: Encodable, T: Decodable>(endpoint: String,
                                                  body: Body,
                                                  responseType: T.Type,
@@ -102,19 +118,19 @@ class APIManager {
         
         self.printRequest(endpoint: endpoint, method: "POST", body: requestBodyData)
 
-        session.dataTask(with: request) { data, response, error in
+        self.session.dataTask(with: request) { data, response, error in
             if let error = error {
                 DispatchQueue.main.async { completion(.failure(error)) }
                 return
             }
-
+            
             guard let data = data else {
                 DispatchQueue.main.async { completion(.failure(APIError.emptyData)) }
                 return
             }
             
             self.printResponse(endpoint: endpoint, method: "POST", responseData: data)
-
+            
             do {
                 let decoded = try JSONDecoder().decode(T.self, from: data)
                 DispatchQueue.main.async { completion(.success(decoded)) }
@@ -127,6 +143,10 @@ class APIManager {
 
 extension APIManager {
     /// 列印 API Request 資訊
+    /// - Parameters:
+    ///   - endpoint: API 路徑
+    ///   - method: HTTP Method
+    ///   - body: Request 資料
     private func printRequest(endpoint: String, method: String, body: Data?) {
         print("\n\n✅ ==================== API Request ====================")
         print("➡️ [\(method)] Endpoint: \(endpoint)")
