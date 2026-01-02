@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -109,21 +109,21 @@
                         <rect key="frame" x="20" y="353" width="374" height="50"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="XG1-6M-i1s" userLabel="ButtonView">
-                                <rect key="frame" x="10" y="10" width="252.5" height="30"/>
+                                <rect key="frame" x="10" y="10" width="224.5" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g1k-Wt-6bA" userLabel="love">
-                                        <rect key="frame" x="0.0" y="0.0" width="53.5" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="25.5" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                         <color key="tintColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="bookmark" catalog="system"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="folder.fill.badge.plus" catalog="system"/>
+                                        <state key="normal" image="folder.badge.plus" catalog="system"/>
+                                        <state key="selected" image="folder.badge.plus.fill" catalog="system"/>
                                         <connections>
                                             <action selector="favoriteTapped" destination="qDl-My-mSa" eventType="touchUpInside" id="xA2-hB-wKQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Py4-Qt-huj" userLabel="phone">
-                                        <rect key="frame" x="68.5" y="0.0" width="49" height="30"/>
+                                        <rect key="frame" x="40.5" y="0.0" width="49" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="tintColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -136,7 +136,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hjz-A5-q5g" userLabel="web">
-                                        <rect key="frame" x="132.5" y="0.0" width="50" height="30"/>
+                                        <rect key="frame" x="104.5" y="0.0" width="50" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="tintColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -149,7 +149,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0f-8g-So3" userLabel="email">
-                                        <rect key="frame" x="197.5" y="0.0" width="55" height="30"/>
+                                        <rect key="frame" x="169.5" y="0.0" width="55" height="30"/>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
                                         <color key="tintColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -331,11 +331,11 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="bookmark" catalog="system" width="110" height="128"/>
         <image name="building.2" catalog="system" width="120" height="128"/>
         <image name="dollarsign.circle" catalog="system" width="128" height="123"/>
         <image name="envelope.fill" catalog="system" width="128" height="85"/>
-        <image name="folder.fill.badge.plus" catalog="system" width="128" height="93"/>
+        <image name="folder.badge.plus" catalog="system" width="128" height="93"/>
+        <image name="folder.badge.plus.fill" catalog="system" width="128" height="93"/>
         <image name="mappin.and.ellipse" catalog="system" width="110" height="128"/>
         <image name="network" catalog="system" width="128" height="123"/>
         <image name="phone.fill" catalog="system" width="128" height="114"/>

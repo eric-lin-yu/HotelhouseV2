@@ -10,7 +10,7 @@ import UIKit
 
 protocol HotelDetailsTableViewCellDelegate: AnyObject {
     /// 點擊收藏按鈕
-    func addHotelDataModelToRealm()
+    func didTapFavoriteToggle()
     /// 點擊 web
     func webLabelTapped()
 }
@@ -20,10 +20,11 @@ class HotelDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var webLabel: UILabel!
-    @IBOutlet weak var collectionsView: UIView!
-    @IBOutlet weak var collectionsImageView: UIImageView!
+    @IBOutlet weak var collectionsButton: UIButton!
     
     weak var delegate: HotelDetailsTableViewCellDelegate?
+    
+    private var hotelId: String = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,27 +37,25 @@ class HotelDetailsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
- 
+    
     func configure(hotel: Hotel, delegate: HotelDetailsTableViewCellDelegate) {
         self.delegate = delegate
+        self.hotelId = hotel.id
         
-        // 旅館類別
         self.hotelCalssLabel.text = "：\(hotel.hotelClass.description)"
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(addHotelDataModelToRealm))
-        collectionsView.isUserInteractionEnabled = true
-        collectionsView.addGestureRecognizer(tap)
-    
         self.priceLabel.text = "：\(hotel.priceDisplayText)"
         
+        // 檢查 Realm 狀態並設定按鈕選中狀態
+        let isFavorite = RealmManager.shard?.isHotelFavorited(id: hotel.id) ?? false
+        self.collectionsButton.isSelected = isFavorite
+        
+        // 設定網頁 Label
         if !hotel.website.isEmpty {
-            webLabel.text = "：開啟網站"
-            let tap = UITapGestureRecognizer(target: self, action: #selector(openWebView))
-            webLabel.isUserInteractionEnabled = true
-            webLabel.addGestureRecognizer(tap)
+            self.webLabel.text = "開啟網站"
+            self.webLabel.isUserInteractionEnabled = true
         } else {
-            webLabel.text = "：旅店未提供"
-            webLabel.textColor = .black
+            self.webLabel.text = "旅店未提供"
+            self.webLabel.textColor = .black
         }
     }
     
@@ -64,7 +63,11 @@ class HotelDetailsTableViewCell: UITableViewCell {
         delegate?.webLabelTapped()
     }
     
-    @objc private func addHotelDataModelToRealm() {
-        delegate?.addHotelDataModelToRealm()
+    @IBAction func collectionsButtonTapped(_ sender: UIButton) {
+        self.delegate?.didTapFavoriteToggle()
+        
+        // 根據 Realm 寫入結果更新狀態
+        let isFavorite = RealmManager.shard?.isHotelFavorited(id: hotelId) ?? false
+        sender.isSelected = isFavorite
     }
 }

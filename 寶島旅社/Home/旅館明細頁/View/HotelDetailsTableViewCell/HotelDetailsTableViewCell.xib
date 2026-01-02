@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0fx-dM-eiw">
-                        <rect key="frame" x="15" y="0.0" width="428" height="30.5"/>
+                        <rect key="frame" x="15" y="0.0" width="226" height="35"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="building.2" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ylj-4E-B73">
                                 <rect key="frame" x="8" y="4" width="20" height="26.5"/>
@@ -30,7 +30,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 旅館類別：國際觀光旅館" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LS8-8o-ETg">
-                                <rect key="frame" x="28" y="5" width="392" height="20.5"/>
+                                <rect key="frame" x="28" y="5" width="190" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -48,7 +48,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DSv-5A-lJz">
-                        <rect key="frame" x="15" y="75.5" width="523" height="35"/>
+                        <rect key="frame" x="15" y="80" width="523" height="35"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 金額：1400 ~ 2800" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xA4-zW-Mox">
                                 <rect key="frame" x="28" y="5" width="153.5" height="25"/>
@@ -88,14 +88,14 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3YI-ry-vW1" userLabel="bottomLinwView">
-                        <rect key="frame" x="15" y="115.5" width="523" height="2"/>
+                        <rect key="frame" x="15" y="120" width="523" height="2"/>
                         <color key="backgroundColor" red="0.71372549019999998" green="0.78823529410000004" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="2" id="gV5-83-de9"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z2F-o9-sdU" userLabel="WebView">
-                        <rect key="frame" x="15" y="35.5" width="523" height="35"/>
+                        <rect key="frame" x="15" y="40" width="523" height="35"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="network" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="e7y-xR-6z0">
                                 <rect key="frame" x="8" y="5.5" width="20" height="24"/>
@@ -105,8 +105,14 @@
                                     <constraint firstAttribute="width" constant="20" id="l0b-SD-3lc"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="：" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XS0-a5-Bhv">
+                                <rect key="frame" x="28" y="7.5" width="9" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3AQ-qX-gHi">
-                                <rect key="frame" x="28" y="7.5" width="41.5" height="20"/>
+                                <rect key="frame" x="39" y="7.5" width="41.5" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemBlueColor"/>
                                 <nil key="highlightedColor"/>
@@ -114,41 +120,32 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="e7y-xR-6z0" firstAttribute="centerY" secondItem="z2F-o9-sdU" secondAttribute="centerY" id="2r1-8d-2l6"/>
                             <constraint firstItem="e7y-xR-6z0" firstAttribute="leading" secondItem="z2F-o9-sdU" secondAttribute="leading" constant="8" id="55Q-tv-Ay9"/>
-                            <constraint firstItem="3AQ-qX-gHi" firstAttribute="leading" secondItem="e7y-xR-6z0" secondAttribute="trailing" id="8fl-Un-dbR"/>
+                            <constraint firstItem="e7y-xR-6z0" firstAttribute="centerY" secondItem="z2F-o9-sdU" secondAttribute="centerY" id="7pm-5L-5JG"/>
                             <constraint firstAttribute="bottom" secondItem="e7y-xR-6z0" secondAttribute="bottom" constant="5" id="bnQ-YI-ndF"/>
-                            <constraint firstItem="3AQ-qX-gHi" firstAttribute="centerY" secondItem="e7y-xR-6z0" secondAttribute="centerY" id="mxO-eB-vDv"/>
+                            <constraint firstItem="XS0-a5-Bhv" firstAttribute="centerY" secondItem="z2F-o9-sdU" secondAttribute="centerY" id="clU-gC-Z5J"/>
+                            <constraint firstItem="XS0-a5-Bhv" firstAttribute="leading" secondItem="e7y-xR-6z0" secondAttribute="trailing" id="kLX-ba-sR9"/>
+                            <constraint firstItem="3AQ-qX-gHi" firstAttribute="centerY" secondItem="z2F-o9-sdU" secondAttribute="centerY" id="nj9-fC-G6Q"/>
                             <constraint firstItem="e7y-xR-6z0" firstAttribute="top" secondItem="z2F-o9-sdU" secondAttribute="top" constant="5" id="toG-vK-2DC"/>
+                            <constraint firstItem="3AQ-qX-gHi" firstAttribute="leading" secondItem="XS0-a5-Bhv" secondAttribute="trailing" constant="2" id="xNA-t8-AJC"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K0h-HI-LPD">
-                        <rect key="frame" x="458" y="0.0" width="80" height="30.5"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder.fill.badge.plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fen-XF-a23">
-                                <rect key="frame" x="11.5" y="2.5" width="22.5" height="24"/>
-                                <color key="tintColor" red="0.96862745100000003" green="0.26274509800000001" blue="0.066666666669999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="Bh3-RI-wdB"/>
-                                    <constraint firstAttribute="width" constant="20" id="gUv-2g-J66"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 收藏" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUh-WR-oCo">
-                                <rect key="frame" x="36.5" y="5" width="38.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="qUh-WR-oCo" firstAttribute="top" secondItem="K0h-HI-LPD" secondAttribute="top" constant="5" id="5T0-WH-Wan"/>
-                            <constraint firstAttribute="trailing" secondItem="qUh-WR-oCo" secondAttribute="trailing" constant="5" id="Cyz-OX-WVM"/>
-                            <constraint firstItem="qUh-WR-oCo" firstAttribute="leading" secondItem="fen-XF-a23" secondAttribute="trailing" constant="5" id="e2W-YF-Wrr"/>
-                            <constraint firstItem="qUh-WR-oCo" firstAttribute="centerY" secondItem="fen-XF-a23" secondAttribute="centerY" id="pUL-Iv-huv"/>
-                            <constraint firstAttribute="bottom" secondItem="qUh-WR-oCo" secondAttribute="bottom" constant="5" id="tOk-aJ-Bdu"/>
-                            <constraint firstAttribute="width" constant="80" id="z1t-8B-Off"/>
-                        </constraints>
-                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K0h-HI-LPD" userLabel="collectionsButton">
+                        <rect key="frame" x="256" y="0.0" width="282" height="35"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="tintColor" red="0.96862745100000003" green="0.26274509800000001" blue="0.066666666669999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title=" 收藏" image="folder.badge.plus" catalog="system">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <state key="selected" title=" 已收藏" image="folder.fill.badge.plus" catalog="system">
+                            <color key="titleColor" red="0.96862745100000003" green="0.26274509800000001" blue="0.066666666669999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="collectionsButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="btn-action-id"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="K0h-HI-LPD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="1d7-Mf-Cwt"/>
@@ -171,8 +168,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="collectionsImageView" destination="fen-XF-a23" id="P1f-mQ-Xh8"/>
-                <outlet property="collectionsView" destination="K0h-HI-LPD" id="XIH-Ol-twg"/>
+                <outlet property="collectionsButton" destination="K0h-HI-LPD" id="Soa-8c-49Q"/>
                 <outlet property="hotelCalssLabel" destination="LS8-8o-ETg" id="Ng5-Rr-IJc"/>
                 <outlet property="hotelClassView" destination="0fx-dM-eiw" id="GQM-TN-qm6"/>
                 <outlet property="priceLabel" destination="xA4-zW-Mox" id="Wgf-Tg-yPP"/>
@@ -185,13 +181,14 @@
     <resources>
         <image name="building.2" catalog="system" width="120" height="128"/>
         <image name="dollarsign.circle" catalog="system" width="128" height="123"/>
+        <image name="folder.badge.plus" catalog="system" width="128" height="93"/>
         <image name="folder.fill.badge.plus" catalog="system" width="128" height="93"/>
         <image name="network" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.53333333333333333" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

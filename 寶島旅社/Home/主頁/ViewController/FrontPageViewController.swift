@@ -212,7 +212,7 @@ extension FrontPageViewController: FrontPageTableViewCellDelegate {
     }
 
     func cellDidTapFavorite(_ hotel: Hotel) {
-        RealmManager.shard?.addHotelToRealm(hotel)
+        RealmManager.shard?.toggleHotelFavorite(hotel)
     }
 }
 

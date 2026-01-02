@@ -147,8 +147,8 @@ extension HotelDetailsViewController: UITableViewDataSource, UITableViewDelegate
 extension HotelDetailsViewController: HotelDetailsTableViewCellDelegate {
     
     /// 點擊收藏按鈕
-    func addHotelDataModelToRealm() {
-        RealmManager.shard?.addHotelToRealm(viewModel.hotelModel)
+    func didTapFavoriteToggle() {
+        RealmManager.shard?.toggleHotelFavorite(viewModel.hotelModel)
     }
     
     /// 點擊 web

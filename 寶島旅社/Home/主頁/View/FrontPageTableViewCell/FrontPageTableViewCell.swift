@@ -85,6 +85,10 @@ class FrontPageTableViewCell: UITableViewCell {
             }
         }
         
+        // 檢查 Realm 狀態並設定按鈕選中狀態
+        let isFavorite = RealmManager.shard?.isHotelFavorited(id: hotel.id) ?? false
+        self.collectionsBtn.isSelected = isFavorite
+        
         // 星級
         self.gradeLabel.isHidden = hotel.hotelClass == .unknown
         self.gradeLabel.text = hotel.hotelClass.starDescription
@@ -112,6 +116,10 @@ class FrontPageTableViewCell: UITableViewCell {
     @IBAction func favoriteTapped() {
         guard let hotel else { return }
         self.delegate?.cellDidTapFavorite(hotel)
+        
+        // 根據 Realm 寫入結果更新狀態
+        let isFavorite = RealmManager.shard?.isHotelFavorited(id: hotel.id) ?? false
+        collectionsBtn.isSelected = isFavorite
     }
 }
 
