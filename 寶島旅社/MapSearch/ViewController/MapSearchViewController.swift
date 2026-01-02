@@ -29,6 +29,8 @@ class MapSearchViewController: UIViewController {
     private var circleOverlay: MKCircle?
     
     private var viewModel: MapSearchViewModel
+    
+    private var searchTimer: Timer?
 
     init(viewModel: MapSearchViewModel) {
         self.viewModel = viewModel
@@ -150,10 +152,6 @@ extension MapSearchViewController {
             self.mapSegmentedControl.setTitle("標準", forSegmentAt: 0)
             self.mapView.mapType = .standard
         case 1:
-            // 衛星
-            self.mapSegmentedControl.setTitle("衛星", forSegmentAt: 1)
-            self.mapView.mapType = .satellite
-        case 2:
             // 混合
             self.mapSegmentedControl.setTitle("混合", forSegmentAt: 2)
             self.mapView.mapType = .hybrid
@@ -167,31 +165,87 @@ extension MapSearchViewController {
 extension MapSearchViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        self.updateMapOverlayAndAnnotations(center: mapView.centerCoordinate)
+        // 停止之前的計時器
+        self.searchTimer?.invalidate()
+        
+        // 延遲 0.5 秒才執行，避免滑動過程中的連續觸發
+        self.searchTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateMapOverlayAndAnnotations(center: mapView.centerCoordinate)
+        }
     }
 
     // annotation Cellout view
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        // 檢查是否為使用者定位的標記，保持預設樣式
-        if annotation is MKUserLocation {
-            return nil
-        }
+        if annotation is MKUserLocation { return nil }
         
-        let identifier = "CustomAnnotationView"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        let identifier = "HotelAnnotationView"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
         
         if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = true
             
-            let button = UIButton(type: .detailDisclosure)
-            button.tintColor = UIColor.orange
-            annotationView?.rightCalloutAccessoryView = button
+            let iconView = UIImageView(frame: CGRect(x: 0, y: 0, width: 45, height: 45))
+            iconView.contentMode = .scaleAspectFill
+            iconView.layer.cornerRadius = 6
+            iconView.clipsToBounds = true
+            iconView.backgroundColor = .systemGray6
             
+            annotationView?.leftCalloutAccessoryView = iconView
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         } else {
             annotationView?.annotation = annotation
+            if let iconView = annotationView?.leftCalloutAccessoryView as? UIImageView {
+                // 重置為 nil 等待 didSelect 觸發加載
+                iconView.image = nil
+                iconView.backgroundColor = .systemGray6
+            }
         }
+        
+        // 根據收藏狀態切換 UI
+        if let hotelAnno = annotation as? HotelAnnotation {
+            if hotelAnno.isFavorited {
+                // 已收藏
+                annotationView?.markerTintColor = .orangeRed
+                annotationView?.glyphImage = UIImage(systemName: "heart.fill")
+                annotationView?.displayPriority = .required
+            } else {
+                // 未收藏
+                annotationView?.markerTintColor = .sageGreen
+                annotationView?.glyphImage = UIImage(systemName: "mappin.and.ellipse")
+                annotationView?.displayPriority = .defaultLow
+            }
+        }
+        
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let hotelAnno = view.annotation as? HotelAnnotation,
+              let iconView = view.leftCalloutAccessoryView as? UIImageView else { return }
+        
+        // 有圖則不處理
+        if iconView.image != nil && iconView.image != UIImage(named: "iconError") { return }
+        
+        // 開啟一個非同步任務
+        Task {
+            // 執行載入並獲取結果
+            let loadedImage = await iconView.loadImage(from: hotelAnno.imageUrl)
+            
+            // 驗證標記是否仍為同一個
+            if view.annotation === hotelAnno {
+                iconView.image = loadedImage ?? UIImage(named: "iconError")
+            }
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if let iconView = view.leftCalloutAccessoryView as? UIImageView {
+            // 使用者收起氣泡後，清空圖片以節省內存
+            iconView.image = nil
+            iconView.backgroundColor = .systemGray6
+        }
     }
     
     // touch Callout 面板

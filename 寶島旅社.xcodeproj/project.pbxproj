@@ -94,6 +94,7 @@
 		9FC059822B7DB7FB00B481B8 /* ToastLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC059812B7DB7FB00B481B8 /* ToastLabel.swift */; };
 		9FD39A582C4CDDDF0069B67F /* CollectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD39A572C4CDDDF0069B67F /* CollectionsViewModel.swift */; };
 		9FF232CE2F076FD600A4A4CB /* CollectionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FF232CD2F076FD600A4A4CB /* CollectionsTableViewCell.xib */; };
+		9FF232D12F07828D00A4A4CB /* HotelAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF232D02F07828C00A4A4CB /* HotelAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -207,6 +208,7 @@
 		9FC059812B7DB7FB00B481B8 /* ToastLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastLabel.swift; sourceTree = "<group>"; };
 		9FD39A572C4CDDDF0069B67F /* CollectionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewModel.swift; sourceTree = "<group>"; };
 		9FF232CD2F076FD600A4A4CB /* CollectionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionsTableViewCell.xib; sourceTree = "<group>"; };
+		9FF232D02F07828C00A4A4CB /* HotelAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -391,6 +393,7 @@
 		89B5469B2925D5BC0020C522 /* MapSearch */ = {
 			isa = PBXGroup;
 			children = (
+				9FF232CF2F07828400A4A4CB /* Model */,
 				89BE85552EF8EBC100E4A8E7 /* ViewModel */,
 				89BE85542EF8EBB600E4A8E7 /* ViewController */,
 			);
@@ -757,6 +760,14 @@
 			path = PersonalSettingsIconTableViewCell;
 			sourceTree = "<group>";
 		};
+		9FF232CF2F07828400A4A4CB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9FF232D02F07828C00A4A4CB /* HotelAnnotation.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -925,6 +936,7 @@
 				896DF71C28F7E5CE0031A88A /* ColorSets.swift in Sources */,
 				9FA8F0F02A639939009ACADD /* PersonalSettingsIconTableViewCell.swift in Sources */,
 				89DF925929232C9D00B049BA /* FrontPageTableViewCell.swift in Sources */,
+				9FF232D12F07828D00A4A4CB /* HotelAnnotation.swift in Sources */,
 				89BE85572EF8EBCD00E4A8E7 /* MapSearchViewModel.swift in Sources */,
 				891E4F942AB1615D00C48624 /* UIImageView+Extension.swift in Sources */,
 				89BF61FD28F65DDB00418305 /* AppDelegate.swift in Sources */,

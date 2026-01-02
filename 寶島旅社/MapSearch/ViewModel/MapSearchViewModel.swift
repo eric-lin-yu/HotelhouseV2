@@ -30,18 +30,22 @@ class MapSearchViewModel {
     func getAnnotations(for centerCoordinate: CLLocationCoordinate2D) -> [MKPointAnnotation] {
         let centerLocation = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
         
-        // 過濾資料
         self.filteredHotels = self.allHotels.filter { hotel in
             let hotelLocation = CLLocation(latitude: hotel.py, longitude: hotel.px)
             return centerLocation.distance(from: hotelLocation) <= self.regionRadius
         }
         
-        // 轉換為地圖標記
         return self.filteredHotels.map { hotel in
-            let annotation = MKPointAnnotation()
+            let annotation = HotelAnnotation()
             annotation.coordinate = CLLocationCoordinate2D(latitude: hotel.py, longitude: hotel.px)
             annotation.title = hotel.name
             annotation.subtitle = hotel.hotelClass.description
+            annotation.hotelID = hotel.id
+            annotation.imageUrl = hotel.images.first?.url ?? ""
+            
+            // 檢查收藏狀態
+            annotation.isFavorited = RealmManager.shard?.isHotelFavorited(id: hotel.id) ?? false
+            
             return annotation
         }
     }
