@@ -93,6 +93,7 @@
 		9FB829CF2F04FE42000094D2 /* HotelMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB829CC2F04FE42000094D2 /* HotelMapCollectionViewCell.swift */; };
 		9FC059822B7DB7FB00B481B8 /* ToastLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC059812B7DB7FB00B481B8 /* ToastLabel.swift */; };
 		9FD39A582C4CDDDF0069B67F /* CollectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD39A572C4CDDDF0069B67F /* CollectionsViewModel.swift */; };
+		9FF232CE2F076FD600A4A4CB /* CollectionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FF232CD2F076FD600A4A4CB /* CollectionsTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +206,7 @@
 		9FB829CD2F04FE42000094D2 /* HotelMapCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelMapCollectionViewCell.xib; sourceTree = "<group>"; };
 		9FC059812B7DB7FB00B481B8 /* ToastLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastLabel.swift; sourceTree = "<group>"; };
 		9FD39A572C4CDDDF0069B67F /* CollectionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewModel.swift; sourceTree = "<group>"; };
+		9FF232CD2F076FD600A4A4CB /* CollectionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionsTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -695,6 +697,7 @@
 			isa = PBXGroup;
 			children = (
 				89A0A4D92ACBA8CC00F5F91E /* CollectionsTableViewCell.swift */,
+				9FF232CD2F076FD600A4A4CB /* CollectionsTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -861,6 +864,7 @@
 				892BD286290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.xib in Resources */,
 				89DF925A29232C9D00B049BA /* FrontPageTableViewCell.xib in Resources */,
 				892AAC8D28F8FD1000614DA1 /* FrontPageStoryboard.storyboard in Resources */,
+				9FF232CE2F076FD600A4A4CB /* CollectionsTableViewCell.xib in Resources */,
 				89BF620928F65DDC00418305 /* LaunchScreen.storyboard in Resources */,
 				892AAC9228F9057700614DA1 /* AboutStoryboard.storyboard in Resources */,
 				9FB829CA2F04F0EF000094D2 /* CollectionsMapViewController.xib in Resources */,
