@@ -153,7 +153,7 @@ extension MapSearchViewController {
             self.mapView.mapType = .standard
         case 1:
             // 混合
-            self.mapSegmentedControl.setTitle("混合", forSegmentAt: 2)
+            self.mapSegmentedControl.setTitle("混合", forSegmentAt: 1)
             self.mapView.mapType = .hybrid
         default:
             break
