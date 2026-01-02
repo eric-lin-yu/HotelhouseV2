@@ -8,23 +8,38 @@
 import UIKit
 
 extension UIImageView {
-    func loadUrlImage(urlString: String, completion: @escaping (Result<UIImage?, Error>) -> Void) {
-        guard let url = URL(string: urlString) else {
-            completion(.failure(NSError(domain: "InvalidURL", code: 0, userInfo: nil)))
-            return
+    private static let imageCache = NSCache<NSString, UIImage>()
+
+    /// async/await 載入圖片
+    @discardableResult
+    func loadImage(from urlString: String) async -> UIImage? {
+        // 檢查快取
+        if let cachedImage = UIImageView.imageCache.object(forKey: urlString as NSString) {
+            self.image = cachedImage
+            return cachedImage
         }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    completion(.failure(error))
-                } else if let data = data, let image = UIImage(data: data) {
-                    completion(.success(image))
-                } else {
-                    completion(.success(nil))
-                }
+
+        guard let url = URL(string: urlString) else { return nil }
+
+        do {
+            // 下載數據
+            let (data, _) = try await URLSession.shared.data(from: url)
+            
+            // 在背景解碼
+            guard let image = UIImage(data: data) else { return nil }
+            
+            // 存入快取
+            UIImageView.imageCache.setObject(image, forKey: urlString as NSString)
+            
+            // 更新 UI (MainActor 會確保在主執行緒執行)
+            await MainActor.run {
+                self.image = image
             }
-        }.resume()
+            return image
+        } catch {
+            print("圖片載入失敗: \(error)")
+            return nil
+        }
     }
     
     /// 載入圖片並帶有淡入動畫

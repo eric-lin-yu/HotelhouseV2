@@ -56,17 +56,11 @@ class CollectionsTableViewCell: UITableViewCell {
         self.hotel = hotel
         self.hotelTitleLabel.text = hotel.name
         
-        self.hotelImageView.loadUrlImage(urlString: hotel.images.first?.url ?? "") { result in
-            switch result {
-            case .success(let image):
-                if let image = image {
-                    self.hotelImageView.image = image
-                } else {
-                    self.hotelImageView.image = UIImage(named: "iconError")
-                }
-            case .failure(_):
-                self.hotelImageView.image = UIImage(named: "iconError")
-            }
+        let imageUrl = hotel.images.first?.url ?? ""
+        
+        Task {
+            let image = await hotelImageView.loadImage(from: imageUrl)
+            self.hotelImageView.image = image ?? UIImage(named: "iconError")
         }
         
         // 星级

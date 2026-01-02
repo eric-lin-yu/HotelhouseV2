@@ -140,15 +140,15 @@ class HotelImageCollectionViewCell: UICollectionViewCell {
         }
         
         // 載入圖片
-        self.hotelImageView.loadUrlImage(urlString: model.url) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let image):
-                    let targetImage = image ?? UIImage(named: errorImage)
-                    self?.hotelImageView.setImageWithFade(targetImage)
-                case .failure:
-                    self?.hotelImageView.loadGif(name: errorImage)
-                }
+        let urlString = model.url
+
+        Task {
+            let image = await hotelImageView.loadImage(from: urlString)
+            
+            if let targetImage = image {
+                self.hotelImageView.setImageWithFade(targetImage)
+            } else {
+                self.hotelImageView.loadGif(name: errorImage)
             }
         }
         

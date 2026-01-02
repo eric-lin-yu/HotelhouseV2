@@ -75,14 +75,10 @@ class FrontPageTableViewCell: UITableViewCell {
         
         // 圖片處理 (使用 Hotel 裡的 images array)
         let imageUrl = hotel.images.first?.url ?? ""
-        self.hotelimageView.loadUrlImage(urlString: imageUrl) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let image):
-                self.hotelimageView.image = image ?? UIImage(named: "iconError")
-            case .failure:
-                self.hotelimageView.image = UIImage(named: "iconError")
-            }
+
+        Task {
+            let image = await hotelimageView.loadImage(from: imageUrl)
+            self.hotelimageView.image = image ?? UIImage(named: "iconError")
         }
         
         // 檢查 Realm 狀態並設定按鈕選中狀態

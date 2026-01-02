@@ -56,13 +56,10 @@ class HotelMapCollectionViewCell: UICollectionViewCell {
         
         // 圖片載入
         let imageUrl = hotel.images.first?.url ?? ""
-        self.hotelImageView.loadUrlImage(urlString: imageUrl) { [weak self] result in
-            guard let self = self else { return }
-            if case .success(let image) = result {
-                self.hotelImageView.image = image ?? UIImage(named: "iconError")
-            } else {
-                self.hotelImageView.image = UIImage(named: "iconError")
-            }
+
+        Task {
+            let image = await hotelImageView.loadImage(from: imageUrl)
+            self.hotelImageView.image = image ?? UIImage(named: "iconError")
         }
     }
 }
