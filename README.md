@@ -55,7 +55,7 @@
 ---
 
 ## 🚧 開發進度與 TODO
-- [x] **底層重構**: 移除 Alamofire/SwiftyJSON，全面改用原生 `URLSession` 與 `Codable`。
+- [x] **套件移除**: 移除 Alamofire/SwiftyJSON，全面改用原生 `URLSession` 與 `Codable`。
 - [x] **異步優化**: 導入 `async/await` 重構圖片載入與 API 請求邏輯。
 - [x] **架構解耦**: 完成首頁、介紹頁、地圖頁之 MVVM 重構。
 - [x] **快取機制**: 封裝 `UIImageView` 擴充，整合 `NSCache` 與背景圖片解碼。
