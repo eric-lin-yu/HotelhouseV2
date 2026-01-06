@@ -19,6 +19,15 @@ extension UIView {
         self.backgroundColor = backgroundColor
     }
     
+    /// 移除 View 邊框
+    func removeRoundBorder() {
+        self.layer.borderWidth = 0
+        self.layer.borderColor = nil
+        self.layer.cornerRadius = 0
+        self.layer.masksToBounds = false
+        self.backgroundColor = .clear
+    }
+    
     public class func loadViewFromNib<T: UIView>(viewType: T.Type) -> T {
         return Bundle.main.loadNibNamed(String(describing: viewType), owner: nil, options: nil)?.first as! T
     }

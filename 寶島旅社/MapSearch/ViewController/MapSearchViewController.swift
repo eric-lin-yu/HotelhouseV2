@@ -12,12 +12,8 @@ import MapKit
 class MapSearchViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var mapSegmentedControl: UISegmentedControl! {
-        didSet {
-            self.mapSegmentedControl.addRoundBorder(borderColor: .sageGreen,
-                                                    backgroundColor: .sageGreen)
-        }
-    }
+    @IBOutlet weak var mapSegmentedControl: UISegmentedControl!
+    
     @IBOutlet weak var userLocationImageView: UIImageView!
     @IBOutlet weak var userLocationBaseView: UIView! {
         didSet {
@@ -150,10 +146,13 @@ extension MapSearchViewController {
         case 0:
             // 標準
             self.mapSegmentedControl.setTitle("標準", forSegmentAt: 0)
+            self.mapSegmentedControl.removeRoundBorder()
             self.mapView.mapType = .standard
         case 1:
             // 混合
             self.mapSegmentedControl.setTitle("混合", forSegmentAt: 1)
+            self.mapSegmentedControl.addRoundBorder(borderColor: .sageGreen,
+                                                    backgroundColor: .sageGreen)
             self.mapView.mapType = .hybrid
         default:
             break

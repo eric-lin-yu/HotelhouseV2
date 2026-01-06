@@ -56,7 +56,6 @@ class CollectionsViewController: UIViewController {
         segmentedControl.insertSegment(withTitle: "地圖", at: 1, animated: false)
         
         segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.backgroundColor = .sageGreen
         
         // 置中
         let paragraphStyle = NSMutableParagraphStyle()

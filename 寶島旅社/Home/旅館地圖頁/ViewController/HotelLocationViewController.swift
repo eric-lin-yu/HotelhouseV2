@@ -12,12 +12,7 @@ import MapKit
 class HotelLocationViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var mapActionSegmentedControl: UISegmentedControl! {
-        didSet {
-            self.mapActionSegmentedControl.addRoundBorder(borderColor: .sageGreen,
-                                                          backgroundColor: .sageGreen)
-        }
-    }
+    @IBOutlet weak var mapActionSegmentedControl: UISegmentedControl!
     
     private var viewModel: HotelLocationViewModel
     
