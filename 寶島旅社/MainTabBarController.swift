@@ -76,7 +76,8 @@ class MainTabBarController: UITabBarController {
                                     tag: .collections)
         
         // 4. 關於頁
-        let thirdViewController = AboutViewController.make()
+        let viewModel = AboutViewModel()
+        let thirdViewController = AboutViewController(viewModel: viewModel)
         self.addChildViewController(childController: thirdViewController,
                                     image: "gearshape.2.fill",
                                     tag: .About)

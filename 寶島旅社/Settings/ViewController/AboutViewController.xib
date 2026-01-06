@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutViewController" customModule="寶島旅社" customModuleProvider="target">
+            <connections>
+                <outlet property="kanaheiImageView" destination="Ga6-yz-Ok3" id="Mm1-ht-EdM"/>
+                <outlet property="tableView" destination="sRV-wj-jEp" id="VZc-50-LGi"/>
+                <outlet property="view" destination="UtO-yL-EyD" id="f8n-aC-jNE"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="UtO-yL-EyD">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sRV-wj-jEp">
+                    <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <view key="tableFooterView" contentMode="scaleToFill" id="Ure-uk-LVn">
+                        <rect key="frame" x="0.0" y="35" width="393" height="355"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="鼓掌兔兔.gif" translatesAutoresizingMaskIntoConstraints="NO" id="Ga6-yz-Ok3">
+                                <rect key="frame" x="87" y="145" width="219" height="202"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="設定泡泡View" translatesAutoresizingMaskIntoConstraints="NO" id="sf1-em-fdG">
+                                <rect key="frame" x="57" y="8" width="212" height="145"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="145" id="3lt-cY-F7J"/>
+                                    <constraint firstAttribute="width" constant="212" id="5Rl-ud-7dD"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sf1-em-fdG" firstAttribute="top" secondItem="Ure-uk-LVn" secondAttribute="top" constant="8" id="4fp-py-mkR"/>
+                            <constraint firstItem="Ga6-yz-Ok3" firstAttribute="leading" secondItem="Ure-uk-LVn" secondAttribute="leading" constant="87" id="C1h-f4-8vP"/>
+                            <constraint firstAttribute="bottom" secondItem="Ga6-yz-Ok3" secondAttribute="bottom" constant="8" id="ELv-kU-RmK"/>
+                            <constraint firstItem="sf1-em-fdG" firstAttribute="leading" secondItem="Ure-uk-LVn" secondAttribute="leading" constant="57" id="MfF-gv-ZZS"/>
+                            <constraint firstAttribute="trailing" secondItem="Ga6-yz-Ok3" secondAttribute="trailing" constant="87" id="Wkk-tK-qye"/>
+                            <constraint firstItem="Ga6-yz-Ok3" firstAttribute="top" secondItem="Ure-uk-LVn" secondAttribute="top" constant="145" id="wfZ-Tn-1t4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="dlJ-eb-VSU"/>
+                        <outlet property="delegate" destination="-1" id="VJ3-zs-2d8"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="o01-59-Pex"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="sRV-wj-jEp" firstAttribute="top" secondItem="o01-59-Pex" secondAttribute="top" id="5hg-4D-kum"/>
+                <constraint firstItem="sRV-wj-jEp" firstAttribute="trailing" secondItem="o01-59-Pex" secondAttribute="trailing" id="MNK-i8-1kh"/>
+                <constraint firstItem="o01-59-Pex" firstAttribute="bottom" secondItem="sRV-wj-jEp" secondAttribute="bottom" id="Znx-AC-X9N"/>
+                <constraint firstItem="sRV-wj-jEp" firstAttribute="leading" secondItem="o01-59-Pex" secondAttribute="leading" id="bMC-Dl-E1W"/>
+            </constraints>
+            <point key="canvasLocation" x="138" y="153"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="設定泡泡View" width="315" height="315"/>
+        <image name="鼓掌兔兔.gif" width="370" height="290"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
