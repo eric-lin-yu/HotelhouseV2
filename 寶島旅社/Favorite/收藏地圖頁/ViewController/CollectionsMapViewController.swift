@@ -177,4 +177,25 @@ extension CollectionsMapViewController: UICollectionViewDataSource, UICollection
             self.mapView.selectAnnotation(annotation, animated: true)
         }
     }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        guard let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        
+        // 計算每一格卡片佔用的寬度 (卡片寬 + 間距)
+        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
+        
+        // 計算目前的偏移量
+        var offset = targetContentOffset.pointee
+        
+        // 根據滑動速度與位置，計算應該停在第幾個 index
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+        let roundedIndex = round(index)
+        
+        // 校正回目標偏移量，使其剛好置中
+        offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left,
+                         y: scrollView.contentInset.top)
+        
+        targetContentOffset.pointee = offset
+    }
 }
