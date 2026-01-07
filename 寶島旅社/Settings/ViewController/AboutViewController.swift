@@ -114,12 +114,8 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
             // 下載 Cell
             let cell = tableView.dequeueReusableCell(withIdentifier: PersonalSettingsIconTableViewCell.storyboardIdentifier, for: indexPath) as! PersonalSettingsIconTableViewCell
             
-            // 判斷狀態
-            let hasData = HotelDataManager.shared.totalCount > 0
-            let systemName = hasData ? "arrow.clockwise.icloud" : "icloud.and.arrow.down"
-            let iconColor: UIColor = hasData ? .systemBlue : .systemGray
-            
-            cell.configure(systemName: systemName, title: rowModel.type.title, tintColor: iconColor)
+            cell.configure(systemName: rowModel.iconName ?? "",
+                           title: rowModel.type.title)
             return cell
             
         default:

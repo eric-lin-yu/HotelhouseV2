@@ -13,6 +13,7 @@ struct AboutViewRowModel {
     let type: AboutViewRowType
     let subtitle: String
     let isClickable: Bool
+    var iconName: String? = nil
 }
 
 protocol AboutViewModelDelegate: AnyObject {
@@ -66,20 +67,29 @@ class AboutViewModel {
         
         // 設定區塊
         var downloadSubtitle: String
+        var iconName: String
         
         switch syncState {
         case .checking:
             downloadSubtitle = "檢查更新中..."
+            iconName = "arrow.trianglehead.2.clockwise.rotate.90.icloud.fill"
         case .upToDate:
             downloadSubtitle = "已是最新版本"
+            iconName = "checkmark.icloud.fill"
         case .needUpdate:
-            downloadSubtitle = HotelDataManager.shared.totalCount > 0 ? "有新的版本可更新" : "立即下載離線資料"
+            let hasData = HotelDataManager.shared.totalCount > 0
+            downloadSubtitle = hasData ? "有新的版本可更新" : "立即下載離線資料"
+            iconName = hasData ? "arrow.clockwise.icloud.fill" : "icloud.and.arrow.down.fill"
         case .error:
             downloadSubtitle = "暫時無法檢查更新"
+            iconName = "exclamationmark.icloud.fill"
         }
         
         let setupRows = [
-            AboutViewRowModel(type: .downloadData, subtitle: downloadSubtitle, isClickable: true)
+            AboutViewRowModel(type: .downloadData,
+                              subtitle: downloadSubtitle,
+                              isClickable: true,
+                              iconName: iconName)
         ]
         
         self.contents.append((.setup, setupRows))
