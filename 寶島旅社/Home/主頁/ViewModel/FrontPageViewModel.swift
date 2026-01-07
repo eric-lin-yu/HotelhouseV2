@@ -33,11 +33,6 @@ class FrontPageViewModel {
         if !HotelDataManager.shared.allHotels.isEmpty {
             self.allHotels = HotelDataManager.shared.allHotels
             self.delegate?.reloadData()
-            
-            // 今天是否更新過資料
-            if !HotelDataManager.shared.isUpdatedToday {
-                self.checkForUpdates()
-            }
         } else {
             // 無資料強制下載
             self.fetchHotels()
@@ -76,43 +71,15 @@ class FrontPageViewModel {
             LoadingPageView.shard.dismiss()
             switch result {
             case .success(let response):
-                let hotels = response.xmlHead.infos.info
+                
                 let updateTime = response.xmlHead.updatetime
-                
-                self.allHotels = hotels
-                
-                // 儲存資料與時間
-                HotelDataManager.shared.markAsUpdatedNow()
-                HotelDataManager.shared.saveHotelsToDisk(hotels, updateTime: updateTime)
+                self.allHotels = response.xmlHead.infos.info
+                // 同步儲存到本地
+                HotelDataManager.shared.saveHotelsToDisk(self.allHotels,
+                                                         updateTime: updateTime)
+                self.delegate?.reloadData()
             case .failure(let error):
                 self.delegate?.viewModelDidFail(error)
-            }
-        }
-    }
-    
-    /// 呼叫 API 檢查伺服器資料是否有更新
-    private func checkForUpdates() {
-        APIManager.shared.sendGet(endpoint: APIInfo.hotelList,
-                                  responseType: HotelListResponse.self) { [weak self] result in
-            guard let self = self else { return }
-            
-            HotelDataManager.shared.markAsUpdatedNow()
-            
-            switch result {
-            case .success(let response):
-                let serverUpdateTime = response.xmlHead.updatetime
-                let localUpdateTime = HotelDataManager.shared.lastUpdateDate
-                
-                // 比對時間戳記
-                if serverUpdateTime != localUpdateTime {
-                    print("💡 偵測到伺服器有新資料：\(serverUpdateTime)")
-                    let hotels = response.xmlHead.infos.info
-                    self.allHotels = hotels
-                    HotelDataManager.shared.saveHotelsToDisk(hotels, updateTime: serverUpdateTime)
-                    self.delegate?.reloadData()
-                }
-            case .failure:
-                break
             }
         }
     }
