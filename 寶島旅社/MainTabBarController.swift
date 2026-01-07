@@ -56,7 +56,8 @@ class MainTabBarController: UITabBarController {
     // 初始化 TabBar
     private func setUpChildViewControllers() {
         // 首頁
-        let firstViewController = FrontPageViewController.makeToHome()
+        let frontPageViewModel = FrontPageViewModel()
+        let firstViewController = FrontPageViewController(viewModel: frontPageViewModel)
         self.addChildViewController(childController: firstViewController,
                                     image: "briefcase.fill",
                                     tag: .frontPage)

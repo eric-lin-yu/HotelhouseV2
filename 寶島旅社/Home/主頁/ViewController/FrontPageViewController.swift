@@ -10,20 +10,7 @@ import MessageUI
 import SkeletonView
 
 class FrontPageViewController: UIViewController {
-    enum FrontPageViewStatus {
-        case searchView
-        case resultTableView
-    }
-    
-    static func makeToHome() -> FrontPageViewController {
-        let storyboard = UIStoryboard(name: "FrontPageStoryboard", bundle: nil)
-        let vc: FrontPageViewController = storyboard.instantiateViewController(withIdentifier: "FrontPageIentity") as! FrontPageViewController
-        return vc
-    }
-    
-    //MARK: IBOutlet
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var topButtonView: UIView!
     
     ///showSearchBtnView
     @IBOutlet weak var showSearchBtnView: UIView! {
@@ -39,14 +26,21 @@ class FrontPageViewController: UIViewController {
         return view
     }()
     
-    lazy var viewModel: FrontPageViewModel = {
-        return FrontPageViewModel()
-    }()
+    private var viewModel: FrontPageViewModel
 
     private var frontPageViewStatus: FrontPageViewStatus = .searchView {
         didSet {
             self.updateSearchViewState()
         }
+    }
+    
+    init(viewModel: FrontPageViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: FrontPageViewController.className, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -85,10 +79,10 @@ extension FrontPageViewController {
         self.searchView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            searchView.topAnchor.constraint(equalTo: view.topAnchor),
-            searchView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            self.searchView.topAnchor.constraint(equalTo: view.topAnchor),
+            self.searchView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            self.searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            self.searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         self.updateSearchViewState()
@@ -97,7 +91,7 @@ extension FrontPageViewController {
     /// 設定TableView Cell
     private func setupTableViewCell() {
         // 註冊cell
-        tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: FrontPageTableViewCell.cellIdenifier)
+        self.tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: FrontPageTableViewCell.cellIdenifier)
     }
     
     /// 更新 UI 狀態
