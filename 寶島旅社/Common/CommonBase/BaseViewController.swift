@@ -83,8 +83,8 @@ extension UIViewController {
             }
         }
         let cancelBtn = UIAlertAction(title: "取消", style: .destructive, handler: nil)
-        alerts.addAction(okBtn)
         alerts.addAction(cancelBtn)
+        alerts.addAction(okBtn)
         
         self.present(alerts, animated: true, completion: nil)
     }
