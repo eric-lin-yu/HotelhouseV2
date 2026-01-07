@@ -12,8 +12,10 @@ enum AboutViewSectionType: CaseIterable {
     
     var title: String {
         switch self {
-        case .about: return "關於"
-        case .setup: return "設定"
+        case .about: 
+            return "關於"
+        case .setup: 
+            return "設定"
         }
     }
 }
@@ -23,15 +25,20 @@ enum AboutViewRowType {
     case apiSource
     case updateDate
     case hotelCount
-    case underDesign
+    case downloadData
     
     var title: String {
         switch self {
-        case .appVersion: return "APP版本"
-        case .apiSource:  return "資料來源"
-        case .updateDate: return "資料更新日期"
-        case .hotelCount: return "目前旅店總筆數"
-        case .underDesign: return "動工中"
+        case .appVersion: 
+            return "APP版本"
+        case .apiSource:  
+            return "資料來源"
+        case .updateDate: 
+            return "資料庫版本"
+        case .hotelCount:
+            return "目前資料庫總筆數"
+        case .downloadData:
+            return "下載離線資料"
         }
     }
 }

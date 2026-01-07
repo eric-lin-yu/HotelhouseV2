@@ -36,7 +36,8 @@ class PersonalSettingsIconTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .none
-
+        backgroundColor = .whitesmokeGray
+        
         // addsubView
         addSubview(titleImageView)
         addSubview(titleNameLabel)
@@ -69,10 +70,13 @@ class PersonalSettingsIconTableViewCell: UITableViewCell {
         ])
     }
 
-    func configure(image: String, title: String) {
+    func configure(systemName: String, title: String, tintColor: UIColor = .darkGray) {
+        if #available(iOS 13.0, *) {
+            let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+            titleImageView.image = UIImage(systemName: systemName, withConfiguration: config)
+        }
         
-        titleImageView.image = UIImage(named: image)
+        titleImageView.tintColor = tintColor
         titleNameLabel.text = title
-
     }
 }

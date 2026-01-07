@@ -25,8 +25,10 @@ class PersonalSettingsLanguageTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         selectionStyle = .none
         backgroundColor = .whitesmokeGray
+        
         // addsubView
         contentView.addSubview(titleLabel)
         contentView.addSubview(subtitleLabel)

@@ -77,6 +77,7 @@
 		89F71EA72D2CBDA500A28E5C /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F71EA62D2CBD9100A28E5C /* NSObjectExtension.swift */; };
 		9F2DE74E2F0E1E8300F5B184 /* FrontPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F2DE74D2F0E1E8300F5B184 /* FrontPageViewController.xib */; };
 		9F2DE7502F0E1FED00F5B184 /* FrontPageViewStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2DE74F2F0E1FEA00F5B184 /* FrontPageViewStatus.swift */; };
+		9F2DE7522F0E3D4C00F5B184 /* DataSyncState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2DE7512F0E3D4A00F5B184 /* DataSyncState.swift */; };
 		9F87E3FB2A754B42007E77EA /* RLM_CollectionsHotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */; };
 		9F87E4002A754BC8007E77EA /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */; };
 		9FA8F0ED2A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */; };
@@ -193,6 +194,7 @@
 		89F71EA62D2CBD9100A28E5C /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		9F2DE74D2F0E1E8300F5B184 /* FrontPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FrontPageViewController.xib; sourceTree = "<group>"; };
 		9F2DE74F2F0E1FEA00F5B184 /* FrontPageViewStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontPageViewStatus.swift; sourceTree = "<group>"; };
+		9F2DE7512F0E3D4A00F5B184 /* DataSyncState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSyncState.swift; sourceTree = "<group>"; };
 		9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLM_CollectionsHotels.swift; sourceTree = "<group>"; };
 		9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
 		9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalSettingsLanguageTableViewCell.swift; sourceTree = "<group>"; };
@@ -777,6 +779,7 @@
 		9FDAF5F12F0CE336007AC43B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9F2DE7512F0E3D4A00F5B184 /* DataSyncState.swift */,
 				9FDAF5F42F0CE3AD007AC43B /* AboutViewSectionType.swift */,
 			);
 			path = Model;
@@ -957,6 +960,7 @@
 				89B546982925D59F0020C522 /* MapSearchViewController.swift in Sources */,
 				89F71EA72D2CBDA500A28E5C /* NSObjectExtension.swift in Sources */,
 				9F87E4002A754BC8007E77EA /* CollectionsViewController.swift in Sources */,
+				9F2DE7522F0E3D4C00F5B184 /* DataSyncState.swift in Sources */,
 				896DF71C28F7E5CE0031A88A /* ColorSets.swift in Sources */,
 				9FA8F0F02A639939009ACADD /* PersonalSettingsIconTableViewCell.swift in Sources */,
 				89DF925929232C9D00B049BA /* FrontPageTableViewCell.swift in Sources */,

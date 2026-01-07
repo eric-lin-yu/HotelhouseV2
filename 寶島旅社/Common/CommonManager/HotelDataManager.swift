@@ -17,7 +17,8 @@ class HotelDataManager {
     static let shared = HotelDataManager()
     
     var allHotels: [Hotel] = []
-    var lastUpdateDate: String = "尚未更新"
+    /// 最後更新時間
+    var lastUpdateDate: String = ""
     
     var totalCount: Int {
         return allHotels.count
@@ -53,6 +54,7 @@ class HotelDataManager {
         let url = self.getDocumentsDirectory().appendingPathComponent(self.fileName)
         guard let data = try? Data(contentsOf: url),
               let cache = try? JSONDecoder().decode(HotelCache.self, from: data) else {
+            self.lastUpdateDate = "尚未下載"
             return
         }
         
