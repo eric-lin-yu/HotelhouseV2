@@ -122,6 +122,9 @@
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="folder.badge.plus" catalog="system"/>
                                         <state key="selected" image="folder.badge.plus.fill" catalog="system"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="favoriteTapped" destination="qDl-My-mSa" eventType="touchUpInside" id="xA2-hB-wKQ"/>
                                         </connections>
@@ -139,6 +142,9 @@
                                         <buttonConfiguration key="configuration" style="plain" image="phone.fill" catalog="system">
                                             <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
                                         </buttonConfiguration>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="phoneTapped" destination="qDl-My-mSa" eventType="touchUpInside" id="EXe-Mk-ecM"/>
                                         </connections>
@@ -156,6 +162,9 @@
                                         <buttonConfiguration key="configuration" style="plain" image="network" catalog="system">
                                             <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
                                         </buttonConfiguration>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="webTapped" destination="qDl-My-mSa" eventType="touchUpInside" id="RPb-9s-hVi"/>
                                         </connections>

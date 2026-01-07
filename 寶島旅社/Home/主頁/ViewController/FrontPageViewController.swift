@@ -49,7 +49,7 @@ class FrontPageViewController: UIViewController {
         self.viewModel.delegate = self
         
         self.setupSearchView()
-        self.setupTableViewCell()
+        self.setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,10 +88,12 @@ extension FrontPageViewController {
         self.updateSearchViewState()
     }
     
-    /// 設定TableView Cell
-    private func setupTableViewCell() {
+    /// 設定 TableView
+    private func setupTableView() {
         // 註冊cell
         self.tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: FrontPageTableViewCell.cellIdenifier)
+        
+        self.tableView.isSkeletonable = true
     }
     
     /// 更新 UI 狀態
@@ -104,6 +106,26 @@ extension FrontPageViewController {
             
         case .resultTableView:
             self.searchView.hide(force: true)
+            self.startLoadingSkeleton()
+        }
+    }
+    
+    /// 執行 Skeleton 動畫邏輯
+    private func startLoadingSkeleton() {
+        // 顯示動畫
+        self.tableView.showAnimatedGradientSkeleton()
+        
+        // 2 秒後關閉
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            guard let self = self else { return }
+            
+            self.tableView.stopSkeletonAnimation()
+            self.view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+            
+            // 滾動回頂部，確保使用者從第一筆看起
+            if self.viewModel.numberOfRows > 0 {
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
         }
     }
     
