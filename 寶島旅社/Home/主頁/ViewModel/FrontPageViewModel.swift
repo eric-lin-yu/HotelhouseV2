@@ -30,17 +30,20 @@ class FrontPageViewModel {
     }
     
     func fetchDataIfNeeded() {
-        // 優先載入本地資料，確保首頁不空白
+        // 版本檢查
+        if !HotelDataManager.shared.isUpdatedToday {
+            HotelDataManager.shared.checkVersion { [weak self] result in
+                if case .needUpdate(let serverTime) = result {
+                    self?.delegate?.presentUpdateSuggestion(serverTime: serverTime)
+                }
+            }
+        }
+        
+        // 載入本地資料流程
         if !HotelDataManager.shared.allHotels.isEmpty {
             self.allHotels = HotelDataManager.shared.allHotels
             self.delegate?.reloadData()
-            
-            // 檢查機制：如果今天還沒檢查過版本
-            if !HotelDataManager.shared.isUpdatedToday {
-                self.checkUpdateSilently()
-            }
         } else {
-            // 完全沒資料時，強制下載
             self.fetchHotels()
         }
     }
@@ -86,25 +89,6 @@ class FrontPageViewModel {
                 self.delegate?.reloadData()
             case .failure(let error):
                 self.delegate?.viewModelDidFail(error)
-            }
-        }
-    }
-    
-    private func checkUpdateSilently() {
-        APIManager.shared.sendGet(endpoint: APIInfo.hotelList, responseType: HotelListResponse.self) { [weak self] result in
-            guard let self = self else { return }
-            
-            // 標記今日已檢查過，避免每次回首頁都彈窗
-            HotelDataManager.shared.markAsUpdatedNow()
-            
-            if case .success(let response) = result {
-                let serverTime = response.xmlHead.updatetime
-                let localTime = HotelDataManager.shared.lastUpdateDate
-                
-                // 比對時間，如果不一致，提示使用者
-                if serverTime != localTime {
-                    self.delegate?.presentUpdateSuggestion(serverTime: serverTime)
-                }
             }
         }
     }

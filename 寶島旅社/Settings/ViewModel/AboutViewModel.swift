@@ -95,16 +95,16 @@ class AboutViewModel {
         self.contents.append((.setup, setupRows))
     }
         
+    /// 離線資料庫版本檢查
     func checkServerVersion() {
-        APIManager.shared.sendGet(endpoint: APIInfo.hotelList, responseType: HotelListResponse.self) { [weak self] result in
+        HotelDataManager.shared.checkVersion { [weak self] result in
             guard let self = self else { return }
+            
             switch result {
-            case .success(let response):
-                let serverTime = response.xmlHead.updatetime
-                let localTime = HotelDataManager.shared.lastUpdateDate
-                
-                // 比對：只要 server 時間不等於本地存的時間，就是 needUpdate
-                self.syncState = (serverTime == localTime) ? .upToDate : .needUpdate
+            case .upToDate:
+                self.syncState = .upToDate
+            case .needUpdate:
+                self.syncState = .needUpdate
             case .failure:
                 self.syncState = .error
             }

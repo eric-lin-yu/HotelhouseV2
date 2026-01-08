@@ -7,6 +7,16 @@
 //
 import UIKit
 
+/// 版本比對結果
+enum VersionCheckResult {
+    /// 已是最新
+    case upToDate
+    /// 需要更新，並帶回伺服器時間
+    case needUpdate(serverTime: String)
+    /// 網路請求失敗
+    case failure(Error)
+}
+
 class HotelDataManager {
     
     struct HotelCache: Codable {
@@ -45,6 +55,28 @@ class HotelDataManager {
                 print("旅店資料與更新日期已成功存檔")
             } catch {
                 print("存檔失敗: \(error)")
+            }
+        }
+    }
+    
+    /// 離線資料庫版本檢查
+    func checkVersion(completion: @escaping (VersionCheckResult) -> Void) {
+        APIManager.shared.sendGet(endpoint: APIInfo.hotelList, responseType: HotelListResponse.self) { result in
+            switch result {
+            case .success(let response):
+                let serverTime = response.xmlHead.updatetime
+                let localTime = self.lastUpdateDate
+                
+                // API 成功回傳，標記今日已檢查
+                self.markAsUpdatedNow()
+                
+                if serverTime == localTime {
+                    completion(.upToDate)
+                } else {
+                    completion(.needUpdate(serverTime: serverTime))
+                }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
