@@ -191,6 +191,14 @@ extension FrontPageViewController: FrontPageViewModelDelegate {
             #endif
         }
     }
+    
+    func presentUpdateSuggestion(serverTime: String) {
+        let message = "偵測到政府平臺有新的旅宿資料（\(serverTime)）\n是否前往「關於」頁面更新離線資料庫？"
+        self.showAlertClosure(title: "更新提醒", message: message,
+                              okBtn: "前往更新") {
+            self.tabBarController?.selectedIndex = 3
+        }
+    }
 }
 
 //MARK: - FrontPageTableViewCellDelegate
